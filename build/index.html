@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Foundation for Apps</title>
+        <script data-main="./assets/js/lib/main.js" src="./assets/js/lib/require.js"></script>
+        <link href="./assets/css/app.css" rel="stylesheet" type="text/css">
+        <script src="./assets/js/foundation.js"></script>
+        <script src="./assets/js/templates.js"></script>
+        <script src="./assets/js/routes.js"></script>
+        <script src="./assets/js/app.js"></script>
+    </head>
+    <body>
+        <div class="grid-frame vertical">
+            <div class="grid-content shrink" style="padding: 0;">
+                <ul class="primary condense menu-bar">
+                    <li><a><strong>YaTWi</strong></a></li>
+                </ul>
+            </div>
+            
+            <div class="grid-content medium-3 fullheight" style="padding: 0px; max-width:400px;">
+                <zf-accordion multi-open="false">
+                <ul class="dark menu-bar vertical">
+                    <zf-accordion-item class="menu-bar-acc" title="Server">
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Edit</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Logs</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Files</a>
+                            </li>
+                        </ul>
+                    </zf-accordion-item>
+                    
+                    <li><a href="#">Channel</a></li>
+                    
+                    <zf-accordion-item class="menu-bar-acc" title="Clients">
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Complains</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Bans</a>
+                            </li>
+                        </ul>
+                    </zf-accordion-item>
+                    
+                    <zf-accordion-item class="menu-bar-acc" title="Permissions">
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Servergroups</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Channelgroups</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Tokens</a>
+                            </li>
+                        </ul>
+                    </zf-accordion-item>
+                    
+                    <zf-accordion-item class="menu-bar-acc" title="Backup & Restore">
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Backup Server</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Restore Backup</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Backup Channels</a>
+                            </li>
+                        </ul>
+                        <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
+                            <li>
+                                <a href="#">&nbsp;&nbsp;&nbsp; Restore Channels</a>
+                            </li>
+                        </ul>
+                    </zf-accordion-item>
+                </ul>
+                </zf-accordion>
+            </div>
+        
+            <div ui-view class="grid-content">
+            </div>
+        </div>
+  </body>
+</html>
