@@ -5951,7 +5951,17 @@ blockquote p {
   background-color: red; }
 
 .menu-bar-acc:hover {
-  background-color: #323232; }
+  background-color: #323232;
+  padding: 0.1rem;
+  background: #232323;
+  color: #000;
+  line-height: 1;
+  cursor: pointer; }
+  .menu-bar-acc:hover:hover {
+    background: #232323; }
+  .is-active > .menu-bar-acc:hover {
+    background: #232323;
+    color: #000; }
 
 .fullheight {
   min-height: 100%;

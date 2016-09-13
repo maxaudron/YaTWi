@@ -4,7 +4,6 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Foundation for Apps</title>
-        <script data-main="./assets/js/lib/main.js" src="./assets/js/lib/require.js"></script>
         <link href="./assets/css/app.css" rel="stylesheet" type="text/css">
         <script src="./assets/js/foundation.js"></script>
         <script src="./assets/js/templates.js"></script>
@@ -20,17 +19,17 @@
             </div>
             
             <div class="grid-content medium-3 fullheight" style="padding: 0px; max-width:400px;">
-                <zf-accordion multi-open="false">
+                <zf-accordion>
                 <ul class="dark menu-bar vertical">
                     <zf-accordion-item class="menu-bar-acc" title="Server">
                         <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                             <li>
-                                <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
+                                <a href="/home">&nbsp;&nbsp;&nbsp; Overview</a>
                             </li>
                         </ul>
                         <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                             <li>
-                                <a href="#">&nbsp;&nbsp;&nbsp; Edit</a>
+                                <a href="/login">&nbsp;&nbsp;&nbsp; Edit</a>
                             </li>
                         </ul>
                         <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
@@ -117,5 +116,7 @@
             <div ui-view class="grid-content">
             </div>
         </div>
+        
+        <script src="./assets/js/lib/jquery.min.js"></script>
   </body>
 </html>
