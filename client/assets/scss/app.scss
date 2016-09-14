@@ -39,10 +39,10 @@
 }
 
 .menu-bar-acc:hover {
-    background-color: smartscale(#232323, 7%);
+    //background-color: smartscale(#232323, 7%);
     @include accordion-title(
         $background: #232323, // Default background
-        $background-hover: #232323, // Background on hover
+        $background-hover: smartscale(#232323, 7%), // Background on hover
         $background-active: #232323, // Background when active
         $color: #000, // Default color
         $color-active: #000, // Color when active
@@ -53,4 +53,19 @@
 .fullheight {
     min-height: 100%;
     background-color: #232323;
+}
+
+.uiview {
+    position: relative;
+    height: 100%;
+}
+
+.center {
+    margin: auto;
+}
+
+.right {
+    right: 0px;
+    float: right;
+    margin-top: 6px;
 }

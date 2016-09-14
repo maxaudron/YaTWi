@@ -84,6 +84,12 @@ gulp.task('copy:js', function() {
   ;
 });
 
+gulp.task('copy:php', function() {
+  return gulp.src('./client/assets/php/lib/**/*.php')
+    .pipe(gulp.dest('./build/assets/js/lib'))
+  ;
+});
+
 // Compiles the Foundation for Apps directive partials into a single JavaScript file
 gulp.task('copy:foundation', function(cb) {
   gulp.src('bower_components/foundation-apps/js/angular/components/**/*.html')
@@ -195,7 +201,7 @@ function server(done) {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function(cb) {
-  sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify', 'copy:js'], 'copy:templates', cb);
+  sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify', 'copy:js', 'copy:php'], 'copy:templates', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change

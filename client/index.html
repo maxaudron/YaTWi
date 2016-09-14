@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="application">
+<html lang="en" ng-app="mymodule">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,29 +12,32 @@
     </head>
     <body>
         <div class="grid-frame vertical">
+         
             <div class="grid-content shrink" style="padding: 0;">
                 <ul class="primary condense menu-bar">
                     <li><a><strong>YaTWi</strong></a></li>
                 </ul>
             </div>
+   
             
+            <div class="grid-block">
             <div class="grid-content medium-3 fullheight" style="padding: 0px; max-width:400px;">
                 <zf-accordion>
                 <ul class="dark menu-bar vertical">
                     <zf-accordion-item class="menu-bar-acc" title="Server">
                         <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                             <li>
-                                <a href="/home">&nbsp;&nbsp;&nbsp; Overview</a>
+                                <a ui-sref="home">&nbsp;&nbsp;&nbsp; Overview</a>
                             </li>
                         </ul>
                         <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                             <li>
-                                <a href="/login">&nbsp;&nbsp;&nbsp; Edit</a>
+                                <a ui-sref="test">&nbsp;&nbsp;&nbsp; Edit</a>
                             </li>
                         </ul>
                         <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                             <li>
-                                <a href="#">&nbsp;&nbsp;&nbsp; Logs</a>
+                                <a ui-sref="login">&nbsp;&nbsp;&nbsp; Logs</a>
                             </li>
                         </ul>
                         <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
@@ -114,6 +117,7 @@
             </div>
         
             <div ui-view class="grid-content">
+            </div>
             </div>
         </div>
         

@@ -1,1 +1,1 @@
-var foundationRoutes = [{"name":"test","url":"/test","path":"templates/test.html"},{"name":"login","url":"/login","path":"login.html"},{"name":"home","url":"/","path":"templates/home.html"}]; 
+var foundationRoutes = [{"name":"test","url":"/test","permissions":{"only":"isAuthorized","redirectTo":"login"},"path":"templates/test.html"},{"name":"login","url":"/login","permissions":{"expect":"isAuthorized"},"path":"templates/login.html"},{"name":"home","url":"/","permissions":{"only":"isAuthorized","redirectTo":"login"},"path":"templates/home.html"}]; 

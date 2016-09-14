@@ -5951,14 +5951,13 @@ blockquote p {
   background-color: red; }
 
 .menu-bar-acc:hover {
-  background-color: #323232;
   padding: 0.1rem;
   background: #232323;
   color: #000;
   line-height: 1;
   cursor: pointer; }
   .menu-bar-acc:hover:hover {
-    background: #232323; }
+    background: #323232; }
   .is-active > .menu-bar-acc:hover {
     background: #232323;
     color: #000; }
@@ -5966,3 +5965,15 @@ blockquote p {
 .fullheight {
   min-height: 100%;
   background-color: #232323; }
+
+.uiview {
+  position: relative;
+  height: 100%; }
+
+.center {
+  margin: auto; }
+
+.right {
+  right: 0px;
+  float: right;
+  margin-top: 6px; }
