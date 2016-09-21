@@ -8,33 +8,58 @@
 
     //foundation
     'foundation',
-    'foundation.dynamicRouting',
-    'foundation.dynamicRouting.animations'
+    //'foundation.dynamicRouting',
+    //'foundation.dynamicRouting.animations'
   ])
-    .config(config)
+    .config(
+      function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+        .state('home', {
+              url: '/',
+              templateUrl: 'templates/home.html',
+              data: {
+                permissions: {
+                    only: 'isAuthorized',
+                    redirectTo: 'login'
+                }
+              }
+          })
+          .state('login', {
+              url: '/login',
+              templateUrl: 'templates/login.html',
+              data: {
+                permissions: {
+                    only: 'anonymous',
+                    redirectTo: 'home'
+                }
+              }
+          })
+          .state('test2', {
+              url: '/test2',
+              templateUrl: 'templates/home.html',
+              data: {
+                permissions: {
+                    only: 'isAuthorized',
+                    redirectTo: 'login'
+                }
+              }
+          })
+          .state('test', {
+              url: '/test',
+              templateUrl: 'templates/test.html',
+              data: {
+                permissions: {
+                    only: 'isAuthorized',
+                    redirectTo: 'login'
+                }
+              }
+          })
+    })
     .run(run)
-    
-    /*.run( function($rootScope, $location) {
-    $rootScope.$on('$locationChangeStart', function(event, nextLoc, currentLoc) {
-        if(document.cookie.indexOf('SessionId') >= 0) {
-            
-        }
-        else {
-            $location.path('/login');
-        }
-    });
-    })*/
-  
-    .run(function (PermPermissionStore) {
-        PermPermissionStore
-            .definePermission('isAuthorized', function () {
-            return true;
-        });
-    });
   ;
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
-
+    
   function config($urlProvider, $locationProvider) {
     $urlProvider.otherwise('/');
 
@@ -106,7 +131,6 @@ function login (form) {
     else {
         var sessiontimeout = '1';
     }
-    alert("You typed: " + username + password);
     $.post( "../assets/php/lib/crypt/encrypt.php" , {username: username, password: password});
     request.onreadystatechange = function() {
         if (request.readyState==4 && request.status==200){
@@ -114,7 +138,9 @@ function login (form) {
             writeCookie('SessionId', passhash, sessiontimeout);
         }
     }
-    Authorization.go('home');
+    PermPermissionStore.definePermission('isAuthorized');
+    alert("You typed: " + username + password);
+    $location.path("/home");
 }
 
 function logout() {
@@ -126,6 +152,12 @@ function logout() {
 function login_check () {
     if (document.cookie.indexOf('SessionId') >= 0) {
         PermPermissionStore.clearStore();
+    }
+    else {
+        PermPermissionStore
+            .definePermission('isAuthorized', function () {
+            return true;
+        });
     }
 }
 
