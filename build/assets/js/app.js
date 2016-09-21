@@ -3,22 +3,8 @@
 
   angular.module('application', [
     'ui.router',
-    'ngAnimate',
-
-    //foundation
-    'foundation',
-    'foundation.dynamicRouting',
-    'foundation.dynamicRouting.animations'
-  ])
-    .config(config)
-    .run(run)
-  ;
-    
-    angular.module('mymodule', [
-    'ui.router',
-    'ngAnimate',
-    'permission', 
     'permission.ui',
+    'ngAnimate',
 
     //foundation
     'foundation',
@@ -28,7 +14,7 @@
     .config(config)
     .run(run)
     
-    .run( function($rootScope, $location) {
+    /*.run( function($rootScope, $location) {
     $rootScope.$on('$locationChangeStart', function(event, nextLoc, currentLoc) {
         if(document.cookie.indexOf('SessionId') >= 0) {
             
@@ -37,10 +23,10 @@
             $location.path('/login');
         }
     });
-    })
+    })*/
   
-    .run(function (PermissionStore) {
-        PermissionStore
+    .run(function (PermPermissionStore) {
+        PermPermissionStore
             .definePermission('isAuthorized', function () {
             return true;
         });
