@@ -3,6 +3,7 @@
 
   angular.module('application', [
     'ui.router',
+    'permission',
     'permission.ui',
     'ngAnimate',
 
@@ -56,15 +57,40 @@
           })
     })
     .run(run)
+    .run(function (PermPermissionStore) {
+    PermPermissionStore
+      .definePermission('anonymous', function () {
+        var auth = login_check();
+        if (auth == true) {
+          return false;
+        }
+        else if (auth == false) {
+          return true;
+        }
+      })
+    })
+
+    .run(function (PermPermissionStore) {
+    PermPermissionStore
+      .definePermission('isAuthorized', function () {
+        var auth = login_check();
+        if (auth == true) {
+          return true;
+        }
+        else if (auth == false) {
+          return false;
+        }
+      })
+    })
   ;
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
-    
+
   function config($urlProvider, $locationProvider) {
     $urlProvider.otherwise('/');
 
     $locationProvider.html5Mode({
-      enabled:true,
+      enabled: false,
       requireBase: false
     });
 
@@ -74,7 +100,7 @@
   function run() {
     FastClick.attach(document.body);
   }
-    
+
 })();
 
 
@@ -118,7 +144,7 @@ function readCookie(name) {
 
 // Delete Cookie
 function eraseCookie(name) {
-    createCookie(name,"",-1);
+    writeCookie(name,"",-1);
 }
 
 function login (form) {
@@ -131,14 +157,14 @@ function login (form) {
     else {
         var sessiontimeout = '1';
     }
-    $.post( "../assets/php/lib/crypt/encrypt.php" , {username: username, password: password});
+    /*$.post( "../assets/php/lib/crypt/encrypt.php" , {username: username, password: password});
     request.onreadystatechange = function() {
         if (request.readyState==4 && request.status==200){
             var passhash = request.responseText;
             writeCookie('SessionId', passhash, sessiontimeout);
         }
-    }
-    PermPermissionStore.definePermission('isAuthorized');
+    }*/
+    writeCookie('SessionId', 'test', '1');
     alert("You typed: " + username + password);
     $location.path("/home");
 }
@@ -146,24 +172,20 @@ function login (form) {
 function logout() {
     eraseCookie('SessionId');
     $location.path("/login");
-    PermPermissionStore.clearStore();
 }
 
 function login_check () {
     if (document.cookie.indexOf('SessionId') >= 0) {
-        PermPermissionStore.clearStore();
+        return true;
     }
     else {
-        PermPermissionStore
-            .definePermission('isAuthorized', function () {
-            return true;
-        });
+        return false;
     }
 }
 
 
 
-/* 
+/*
 var sId = readCookie('sessionId') // Cokie write
 var sId = 's234543245';
 writeCookie('sessionId', sId, 3); // Cokie Read
