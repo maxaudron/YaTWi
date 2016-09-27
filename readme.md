@@ -1,6 +1,6 @@
 # Foundation for Apps Template
 
-[![devDependency Status](https://david-dm.org/zurb/foundation-apps-template/dev-status.svg)](https://david-dm.org/zurb/foundation-apps-template#info=devDependencies)
+[![devDependency Status](https://david-dm.org/maxaudron/yatwi.svg)](https://david-dm.org/maxaudron/yatwi#info=devDependencies)
 
 This is the default template project for Foundation for Apps, powered by Gulp, Angular, and libsass. It provides you with a basic template to get started with Foundation for Apps and Angular.
 
