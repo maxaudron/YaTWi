@@ -45179,6 +45179,93 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
+/**
+ * A helper module for AngularUI Router, which allows you to define your states as an object tree.
+ * @author Mark Lagendijk <mark@lagendijk.info>
+ * @license MIT
+ */
+angular.module('ui.router.stateHelper', [ 'ui.router' ])
+    .provider('stateHelper', ['$stateProvider', function($stateProvider){
+        var self = this;
+
+        /**
+         * Recursively sets the states using $stateProvider.state.
+         * Child states are defined via a `children` property.
+         *
+         * 1. Recursively calls itself for all descendant states, by traversing the `children` properties.
+         * 2. Converts all the state names to dot notation, of the form `grandfather.father.state`.
+         * 3. Sets `parent` property of the descendant states.
+         *
+         * @param {Object} state - A regular ui.router state object.
+         * @param {Array} [state.children] - An optional array of child states.
+         * @deprecated {Boolean} keepOriginalNames - An optional flag that prevents conversion 
+         *     of names to dot notation if true. (use options.keepOriginalNames instead)
+         * @param {Object} [options] - An optional options object.
+         * @param {Boolean} [options.keepOriginalNames=false] An optional flag that 
+         *     prevents conversion of names to dot notation if true.
+         * @param {Boolean} [options.siblingTraversal=false] An optional flag that 
+         *     adds `nextSibling` and `previousSibling` properties when enabled
+         */
+        this.state = function(state){
+            var args = Array.prototype.slice.apply(arguments);
+            var options = {
+                keepOriginalNames: false,
+                siblingTraversal: false
+            };  
+
+            if (typeof args[1] === 'boolean') {
+                options.keepOriginalNames = args[1];
+            } 
+            else if (typeof args[1] === 'object') {
+                angular.extend(options, args[1]);
+            }
+
+            if (!options.keepOriginalNames) {
+                fixStateName(state);
+            }
+
+            $stateProvider.state(state);
+
+            if(state.children && state.children.length){
+                state.children.forEach(function(childState){
+                    childState.parent = state;
+                    self.state(childState, options);
+                });
+
+                if (options.siblingTraversal) {
+                    addSiblings(state);
+                }
+            }
+
+            return self;
+        };
+
+        this.setNestedState = this.state;
+
+        self.$get = angular.noop;
+
+        /**
+         * Converts the name of a state to dot notation, of the form `grandfather.father.state`.
+         * @param state
+         */
+        function fixStateName(state){
+            if(state.parent){
+                state.name = (angular.isObject(state.parent) ? state.parent.name : state.parent) + '.' + state.name;
+            }
+        }
+
+        function addSiblings(state) {
+            state.children.forEach(function (childState, idx, array) {
+                if (array[idx + 1]) {
+                    childState.nextSibling = array[idx + 1].name;
+                }
+                if (array[idx - 1]) {
+                    childState.previousSibling = array[idx - 1].name;
+                }
+            });
+        }
+    }]);
+
 /*!
  * iconic.js v0.4.0 - The Iconic JavaScript library
  * Copyright (c) 2014 Waybury - http://useiconic.com
@@ -46589,6 +46676,223 @@ angular.module('markdown', [])
 
 })();
 
+(function() {
+  'use strict';
+
+  angular.module('foundation.common', ['foundation.core'])
+    .directive('zfClose', zfClose)
+    .directive('zfOpen', zfOpen)
+    .directive('zfToggle', zfToggle)
+    .directive('zfEscClose', zfEscClose)
+    .directive('zfSwipeClose', zfSwipeClose)
+    .directive('zfHardToggle', zfHardToggle)
+    .directive('zfCloseAll', zfCloseAll)
+  ;
+
+  zfClose.$inject = ['FoundationApi'];
+
+  function zfClose(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      var targetId = '';
+      if (attrs.zfClose) {
+        targetId = attrs.zfClose;
+      } else {
+        var parentElement= false;
+        var tempElement = element.parent();
+        //find parent modal
+        while(parentElement === false) {
+          if(tempElement[0].nodeName == 'BODY') {
+            parentElement = '';
+          }
+
+          if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
+            parentElement = tempElement;
+          }
+
+          tempElement = tempElement.parent();
+        }
+        targetId = parentElement.attr('id');
+      }
+      element.on('click', function(e) {
+        foundationApi.publish(targetId, 'close');
+        e.preventDefault();
+      });
+    }
+  }
+
+  zfOpen.$inject = ['FoundationApi'];
+
+  function zfOpen(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.zfOpen, 'open');
+        e.preventDefault();
+      });
+    }
+  }
+
+  zfToggle.$inject = ['FoundationApi'];
+
+  function zfToggle(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    }
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.zfToggle, 'toggle');
+        e.preventDefault();
+      });
+    }
+  }
+
+  zfEscClose.$inject = ['FoundationApi'];
+
+  function zfEscClose(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('keyup', function(e) {
+        if (e.keyCode === 27) {
+          foundationApi.closeActiveElements();
+        }
+        e.preventDefault();
+      });
+    }
+  }
+
+  zfSwipeClose.$inject = ['FoundationApi'];
+
+  function zfSwipeClose(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+    return directive;
+
+    function link($scope, element, attrs) {
+      var swipeDirection;
+      var hammerElem;
+      if (typeof(Hammer)!=='undefined') {
+        hammerElem = new Hammer(element[0]);
+        // set the options for swipe (to make them a bit more forgiving in detection)
+        hammerElem.get('swipe').set({
+          direction: Hammer.DIRECTION_ALL,
+          threshold: 5, // this is how far the swipe has to travel
+          velocity: 0.5 // and this is how fast the swipe must travel
+        });
+      }
+      // detect what direction the directive is pointing
+      switch (attrs.zfSwipeClose) {
+        case 'right':
+          swipeDirection = 'swiperight';
+          break;
+        case 'left':
+          swipeDirection = 'swipeleft';
+          break;
+        case 'up':
+          swipeDirection = 'swipeup';
+          break;
+        case 'down':
+          swipeDirection = 'swipedown';
+          break;
+        default:
+          swipeDirection = 'swipe';
+      }
+      if(typeof(hammerElem) !== 'undefined'){
+        hammerElem.on(swipeDirection, function() {
+          foundationApi.publish(attrs.id, 'close');
+        });
+      }
+    }
+  }
+
+  zfHardToggle.$inject = ['FoundationApi'];
+
+  function zfHardToggle(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.closeActiveElements({exclude: attrs.zfHardToggle});
+        foundationApi.publish(attrs.zfHardToggle, 'toggle');
+        e.preventDefault();
+      });
+    }
+  }
+
+  zfCloseAll.$inject = ['FoundationApi'];
+
+  function zfCloseAll(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        var tar = e.target;
+        var avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
+          return e in tar.attributes;
+        });
+
+        if(avoid.length > 0){ return; }
+
+        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+
+        if(activeElements.length && !activeElements[0].hasAttribute('zf-ignore-all-close')){
+          if(getParentsUntil(tar, 'zf-closable') === false){
+            e.preventDefault();
+            foundationApi.publish(activeElements[0].id, 'close');
+          }
+        }
+        return;
+      });
+    }
+    /** special thanks to Chris Ferdinandi for this solution.
+     * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
+     */
+    function getParentsUntil(elem, parent) {
+      for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
+        if(elem.hasAttribute(parent)){
+          if(elem.classList.contains('is-active')){ return elem; }
+          break;
+        }
+      }
+      return false;
+    }
+  }
+})();
+
 (function () {
   'use strict';
 
@@ -46848,223 +47152,6 @@ angular.module('markdown', [])
     }
   }
 
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('foundation.common', ['foundation.core'])
-    .directive('zfClose', zfClose)
-    .directive('zfOpen', zfOpen)
-    .directive('zfToggle', zfToggle)
-    .directive('zfEscClose', zfEscClose)
-    .directive('zfSwipeClose', zfSwipeClose)
-    .directive('zfHardToggle', zfHardToggle)
-    .directive('zfCloseAll', zfCloseAll)
-  ;
-
-  zfClose.$inject = ['FoundationApi'];
-
-  function zfClose(foundationApi) {
-    var directive = {
-      restrict: 'A',
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs) {
-      var targetId = '';
-      if (attrs.zfClose) {
-        targetId = attrs.zfClose;
-      } else {
-        var parentElement= false;
-        var tempElement = element.parent();
-        //find parent modal
-        while(parentElement === false) {
-          if(tempElement[0].nodeName == 'BODY') {
-            parentElement = '';
-          }
-
-          if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
-            parentElement = tempElement;
-          }
-
-          tempElement = tempElement.parent();
-        }
-        targetId = parentElement.attr('id');
-      }
-      element.on('click', function(e) {
-        foundationApi.publish(targetId, 'close');
-        e.preventDefault();
-      });
-    }
-  }
-
-  zfOpen.$inject = ['FoundationApi'];
-
-  function zfOpen(foundationApi) {
-    var directive = {
-      restrict: 'A',
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs) {
-      element.on('click', function(e) {
-        foundationApi.publish(attrs.zfOpen, 'open');
-        e.preventDefault();
-      });
-    }
-  }
-
-  zfToggle.$inject = ['FoundationApi'];
-
-  function zfToggle(foundationApi) {
-    var directive = {
-      restrict: 'A',
-      link: link
-    }
-
-    return directive;
-
-    function link(scope, element, attrs) {
-      element.on('click', function(e) {
-        foundationApi.publish(attrs.zfToggle, 'toggle');
-        e.preventDefault();
-      });
-    }
-  }
-
-  zfEscClose.$inject = ['FoundationApi'];
-
-  function zfEscClose(foundationApi) {
-    var directive = {
-      restrict: 'A',
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs) {
-      element.on('keyup', function(e) {
-        if (e.keyCode === 27) {
-          foundationApi.closeActiveElements();
-        }
-        e.preventDefault();
-      });
-    }
-  }
-
-  zfSwipeClose.$inject = ['FoundationApi'];
-
-  function zfSwipeClose(foundationApi) {
-    var directive = {
-      restrict: 'A',
-      link: link
-    };
-    return directive;
-
-    function link($scope, element, attrs) {
-      var swipeDirection;
-      var hammerElem;
-      if (typeof(Hammer)!=='undefined') {
-        hammerElem = new Hammer(element[0]);
-        // set the options for swipe (to make them a bit more forgiving in detection)
-        hammerElem.get('swipe').set({
-          direction: Hammer.DIRECTION_ALL,
-          threshold: 5, // this is how far the swipe has to travel
-          velocity: 0.5 // and this is how fast the swipe must travel
-        });
-      }
-      // detect what direction the directive is pointing
-      switch (attrs.zfSwipeClose) {
-        case 'right':
-          swipeDirection = 'swiperight';
-          break;
-        case 'left':
-          swipeDirection = 'swipeleft';
-          break;
-        case 'up':
-          swipeDirection = 'swipeup';
-          break;
-        case 'down':
-          swipeDirection = 'swipedown';
-          break;
-        default:
-          swipeDirection = 'swipe';
-      }
-      if(typeof(hammerElem) !== 'undefined'){
-        hammerElem.on(swipeDirection, function() {
-          foundationApi.publish(attrs.id, 'close');
-        });
-      }
-    }
-  }
-
-  zfHardToggle.$inject = ['FoundationApi'];
-
-  function zfHardToggle(foundationApi) {
-    var directive = {
-      restrict: 'A',
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs) {
-      element.on('click', function(e) {
-        foundationApi.closeActiveElements({exclude: attrs.zfHardToggle});
-        foundationApi.publish(attrs.zfHardToggle, 'toggle');
-        e.preventDefault();
-      });
-    }
-  }
-
-  zfCloseAll.$inject = ['FoundationApi'];
-
-  function zfCloseAll(foundationApi) {
-    var directive = {
-      restrict: 'A',
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs) {
-      element.on('click', function(e) {
-        var tar = e.target;
-        var avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
-          return e in tar.attributes;
-        });
-
-        if(avoid.length > 0){ return; }
-
-        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
-
-        if(activeElements.length && !activeElements[0].hasAttribute('zf-ignore-all-close')){
-          if(getParentsUntil(tar, 'zf-closable') === false){
-            e.preventDefault();
-            foundationApi.publish(activeElements[0].id, 'close');
-          }
-        }
-        return;
-      });
-    }
-    /** special thanks to Chris Ferdinandi for this solution.
-     * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
-     */
-    function getParentsUntil(elem, parent) {
-      for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
-        if(elem.hasAttribute(parent)){
-          if(elem.classList.contains('is-active')){ return elem; }
-          break;
-        }
-      }
-      return false;
-    }
-  }
 })();
 
 (function() {

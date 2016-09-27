@@ -2,94 +2,103 @@
   'use strict';
 
   angular.module('application', [
-    'ui.router',
-    'permission',
-    'permission.ui',
-    'ngAnimate',
+      'ui.router',
+      'ui.router.stateHelper',
+      'permission',
+      'permission.ui',
+      'ngAnimate',
 
-    //foundation
-    'foundation',
-    //'foundation.dynamicRouting',
-    //'foundation.dynamicRouting.animations'
-  ])
+      //foundation
+      'foundation',
+      //'foundation.dynamicRouting',
+      //'foundation.dynamicRouting.animations'
+    ])
     .config(
       function($stateProvider, $urlRouterProvider) {
         $stateProvider
-        .state('home', {
-              url: '/',
-              templateUrl: 'templates/home.html',
-              data: {
-                permissions: {
-                    only: 'isAuthorized',
-                    redirectTo: 'login'
-                }
+          .state('parent', {
+            templateUrl: 'templates/parent.html',
+            abstract: true
+          })
+          .state('root', {
+            url: '',
+            templateUrl: 'templates/login.html',
+          })
+          .state('home', {
+            url: '/',
+            templateUrl: 'templates/home.html',
+            parent: 'parent',
+            data: {
+              permissions: {
+                only: 'isAuthorized',
+                redirectTo: 'login'
               }
+            }
           })
           .state('login', {
-              url: '/login',
-              templateUrl: 'templates/login.html',
-              data: {
-                permissions: {
-                    only: 'anonymous',
-                    redirectTo: 'home'
-                }
+            url: '/login',
+            templateUrl: 'templates/login.html',
+            data: {
+              permissions: {
+                only: 'anonymous',
+                redirectTo: 'home'
               }
+            }
           })
           .state('test2', {
-              url: '/test2',
-              templateUrl: 'templates/home.html',
-              data: {
-                permissions: {
-                    only: 'isAuthorized',
-                    redirectTo: 'login'
-                }
+            url: '/test2',
+            templateUrl: 'templates/home.html',
+            parent: 'parent',
+            data: {
+              permissions: {
+                only: 'isAuthorized',
+                redirectTo: 'login'
               }
+            }
           })
           .state('test', {
-              url: '/test',
-              templateUrl: 'templates/test.html',
-              data: {
-                permissions: {
-                    only: 'isAuthorized',
-                    redirectTo: 'login'
-                }
+            url: '/test',
+            templateUrl: 'templates/test.html',
+            parent: 'parent',
+            data: {
+              permissions: {
+                only: 'isAuthorized',
+                redirectTo: 'login'
               }
+            }
           })
-    })
-    .run(run)
-    .run(function (PermPermissionStore) {
-    PermPermissionStore
-      .definePermission('anonymous', function () {
-        var auth = login_check();
-        if (auth == true) {
-          return false;
-        }
-        else if (auth == false) {
-          return true;
-        }
       })
+    .run(run)
+    .run(function(PermPermissionStore) {
+      PermPermissionStore
+        .definePermission('anonymous', function() {
+          var auth = login_check();
+          if (auth == true) {
+            return false;
+          } else if (auth == false) {
+            return true;
+          }
+        })
     })
 
-    .run(function (PermPermissionStore) {
+  .run(function(PermPermissionStore) {
     PermPermissionStore
-      .definePermission('isAuthorized', function () {
+      .definePermission('isAuthorized', function() {
         var auth = login_check();
         if (auth == true) {
           return true;
-        }
-        else if (auth == false) {
+        } else if (auth == false) {
           return false;
         }
       })
-    })
-  ;
+  });
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
 
   function config($urlProvider, $locationProvider) {
     $urlProvider.otherwise('/');
 
-    $locationProvider.html5Mode({
+    locationProvider.html5Mode({
       enabled: false,
       requireBase: false
     });
@@ -113,74 +122,71 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Write session cookie
-function writeCookie(name,value,days) {
-    var date, expires;
-    if (days) {
-        date = new Date();
-        date.setTime(date.getTime()+(days*24*60*60*1000));
-        expires = "; expires=" + date.toGMTString();
-            }else{
-        expires = "";
-    }
-    document.cookie = name + "=" + value + expires + "; path=/";
+function writeCookie(name, value, days) {
+  var date, expires;
+  if (days) {
+    date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toGMTString();
+  } else {
+    expires = "";
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
 }
 
 
 // Read Session cookie
 function readCookie(name) {
-    var i, c, ca, nameEQ = name + "=";
-    ca = document.cookie.split(';');
-    for(i=0;i < ca.length;i++) {
-        c = ca[i];
-        while (c.charAt(0)==' ') {
-            c = c.substring(1,c.length);
-        }
-        if (c.indexOf(nameEQ) == 0) {
-            return c.substring(nameEQ.length,c.length);
-        }
+  var i, c, ca, nameEQ = name + "=";
+  ca = document.cookie.split(';');
+  for (i = 0; i < ca.length; i++) {
+    c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1, c.length);
     }
-    return '';
+    if (c.indexOf(nameEQ) == 0) {
+      return c.substring(nameEQ.length, c.length);
+    }
+  }
+  return '';
 }
 
 // Delete Cookie
 function eraseCookie(name) {
-    writeCookie(name,"",-1);
+  writeCookie(name, "", -1);
 }
 
-function login (form) {
-    var username = document.loginform.username.value;
-    var password = document.loginform.password.value;
-    var sessiontimeout = document.loginform.session_timeout.checked;
-    if (sessiontimeout == true){
-        var sessiontimeout = '30';
-    }
-    else {
-        var sessiontimeout = '1';
-    }
-    /*$.post( "../assets/php/lib/crypt/encrypt.php" , {username: username, password: password});
-    request.onreadystatechange = function() {
-        if (request.readyState==4 && request.status==200){
-            var passhash = request.responseText;
-            writeCookie('SessionId', passhash, sessiontimeout);
-        }
-    }*/
-    writeCookie('SessionId', 'test', '1');
-    alert("You typed: " + username + password);
-    $location.path("/home");
+function login(form) {
+  var username = document.loginform.username.value;
+  var password = document.loginform.password.value;
+  var sessiontimeout = document.loginform.session_timeout.checked;
+  if (sessiontimeout == true) {
+    var sessiontimeout = '30';
+  } else {
+    var sessiontimeout = '1';
+  }
+  /*$.post( "/assets/php/lib/crypt/encrypt.php" , {username: username, password: password});
+  request.onreadystatechange = function() {
+      if (request.readyState==4 && request.status==200){
+          var passhash = request.responseText;
+          writeCookie('SessionId', passhash, sessiontimeout);
+      }
+  }*/
+  writeCookie('SessionId', '?' + username + '?$?' + password + '?', sessiontimeout);
+  location.assign('/#/home');
 }
 
 function logout() {
-    eraseCookie('SessionId');
-    $location.path("/login");
+  eraseCookie('SessionId');
+  location.assign('/#/login');
 }
 
-function login_check () {
-    if (document.cookie.indexOf('SessionId') >= 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
+function login_check() {
+  if (document.cookie.indexOf('SessionId') >= 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 

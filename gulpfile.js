@@ -42,6 +42,7 @@ var paths = {
     'bower_components/angular-permission/dist/angular-permission.js',
     'bower_components/angular-permission/dist/angular-permission-ui.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/angular-ui-router.stateHelper/statehelper.js',
     'bower_components/foundation-apps/js/vendor/**/*.js',
     'bower_components/foundation-apps/js/angular/**/*.js',
     '!bower_components/foundation-apps/js/angular/app.js'
@@ -164,36 +165,39 @@ gulp.task('uglify:app', function() {
 gulp.task('phpserver', function() {
     connectphp.server({
 		base: 'build',
-		port: 8010, 
+		port: 8010,
 		bin: 'exec/php-5.6.23',
 		keepalive: true
 	});
 });*/
 
 // Starts a test server, which you can view at http://localhost:8080
-gulp.task('server', ['build'], function() {
+gulp.task('phpserver', function() {
     connectphp.server({
-		base: 'build',
-		port: 8010, 
+		base: './build',
+		port: 8010,
 		bin: 'exec/php-5.6.23',
 		keepalive: true
 	});
+});
+
+gulp.task('server', ['build', 'phpserver'], function() {
   browserSync.init({
       server: {
             baseDir: "./build",
-            port: 8080, 
+            port: 8080,
             proxy: "127.0.0.1:8010", //Proxy to PHP server
             open: true,
-	        notify: false
+          notify: false
       }
   });
-});
+})
 
 /*
 function server(done) {
   browser.init({
     //server: PATHS.dist,
-	port: PORT, 
+	port: PORT,
 	proxy: "127.0.0.1:8010", //Proxy to PHP server
 	open: true,
 	notify: false
@@ -210,6 +214,9 @@ gulp.task('build', function(cb) {
 gulp.task('default', ['server'], function () {
   // Watch Sass
   gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
+
+  // Watch PHP
+  gulp.watch(['./client/assets/php/lib/**/*', './php/lib/**/*'], ['copy:php']);
 
   // Watch JavaScript
   gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify:app']);
