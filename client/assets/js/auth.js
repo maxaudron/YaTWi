@@ -39,6 +39,14 @@ function eraseCookie(name) {
   writeCookie(name, "", -1);
 }
 
+var retrive_user = (function() {
+  var userdata = readCookie('SessionId');
+  var userdata = userdata.split('/~/');
+  var username = function(){return userdata[0]};
+  var password = function(){return userdata[1]};
+  return {username:username, password:password};
+}());
+
 function login(form) {
   var username = document.loginform.username.value;
   var password = document.loginform.password.value;
@@ -58,7 +66,7 @@ function login(form) {
     success: function(data) {
       if (data == 'Login success') {
         console.log(data);
-        writeCookie('SessionId', '?' + username + '?$?' + password + '?', sessiontimeout);
+        writeCookie('SessionId', username + '/~/' + password, sessiontimeout);
         location.assign('/#/');
       } else if (data == 'Connection failed') {
         console.log(data);

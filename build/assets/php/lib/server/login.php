@@ -10,7 +10,7 @@
   $ts = new ts3admin($ts3_ip, $ts3_queryport);
   if ($ts->getElement('success', $ts->connect())) {        // Try to connect
     $login_par = $ts->login($username, $password);
-    if ($login_par['success'] == true) {     // Try to login
+    if ($login_par['success'] == true) {                   // Try to login
       print 'Login success';
     }
     elseif ($login_par['success'] == false) {
