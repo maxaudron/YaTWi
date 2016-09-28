@@ -20,7 +20,7 @@
         $position: left, // Can be top, right, bottom, or left
         $size: 20px // Can be px, em, or rem
     );
-    
+
     @include accordion-title(
         $background: #232323, // Default background
         $background-hover: #232323, // Background on hover
@@ -51,7 +51,9 @@
 }
 
 .fullheight {
-    min-height: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    height: 100vh;
     background-color: #232323;
 }
 
@@ -68,4 +70,25 @@
     right: 0px;
     float: right;
     margin-top: 6px;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 50px;
+  min-width: 400px;
+  height: 60px;
+  padding: 0px;
+  overflow: hidden;
+  background-color: #232323;
+  margin-top: -100px;
+}
+
+.height_10 {
+  height: 60px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.is-hidden {
+  display: none;
 }

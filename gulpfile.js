@@ -23,6 +23,7 @@ var isProduction = !!(argv.production);
 var paths = {
   assets: [
     './client/**/*.*',
+    './client/assets/php/**/*.*',
     '!./client/templates/**/*.*',
     '!./client/assets/{scss,js}/**/*.*'
   ],
@@ -49,7 +50,8 @@ var paths = {
   ],
   // These files are for your app's JavaScript
   appJS: [
-    'client/assets/js/app.js'
+    'client/assets/js/app.js',
+    'client/assets/js/*.js',
   ]
 }
 
@@ -89,7 +91,7 @@ gulp.task('copy:js', function() {
 
 gulp.task('copy:php', function() {
   return gulp.src('./client/assets/php/lib/**/*.php')
-    .pipe(gulp.dest('./build/assets/js/lib'))
+    .pipe(gulp.dest('./build/assets/js/lib/', {overwrite: true}))
   ;
 });
 
@@ -207,7 +209,7 @@ function server(done) {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function(cb) {
-  sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify', 'copy:js', 'copy:php'], 'copy:templates', cb);
+  sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify', 'copy:js'], 'copy:templates', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
@@ -216,13 +218,13 @@ gulp.task('default', ['server'], function () {
   gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
 
   // Watch PHP
-  gulp.watch(['./client/assets/php/lib/**/*', './php/lib/**/*'], ['copy:php']);
+//  gulp.watch(['./client/assets/php/lib/**/*', './php/lib/**/*'], ['copy:php']);
 
   // Watch JavaScript
   gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify:app']);
 
   // Watch static files
-  gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js,php}/**/*.*'], ['copy']);
+  gulp.watch(['./client/**/*.*','./client/assets/php/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
 
   // Watch app templates
   gulp.watch(['./client/templates/**/*.html'], ['copy:templates']);

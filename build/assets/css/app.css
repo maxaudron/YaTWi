@@ -5963,7 +5963,9 @@ blockquote p {
     color: #000; }
 
 .fullheight {
-  min-height: 100%;
+  min-height: 100vh;
+  max-height: 100vh;
+  height: 100vh;
   background-color: #232323; }
 
 .uiview {
@@ -5977,3 +5979,21 @@ blockquote p {
   right: 0px;
   float: right;
   margin-top: 6px; }
+
+.bottom {
+  position: absolute;
+  bottom: 50px;
+  min-width: 400px;
+  height: 60px;
+  padding: 0px;
+  overflow: hidden;
+  background-color: #232323;
+  margin-top: -100px; }
+
+.height_10 {
+  height: 60px;
+  padding: 0px;
+  margin: 0px; }
+
+.is-hidden {
+  display: none; }

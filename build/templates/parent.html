@@ -1,8 +1,8 @@
-<div class="grid-block" style="height: 100%;">
+<div class="grid-block">
   <div class="grid-content medium-3 fullheight" style="padding: 0px; max-width:400px;">
     <zf-accordion>
-      <ul class="dark menu-bar vertical">
-        <zf-accordion-item class="menu-bar-acc" title="Server">
+      <ul class="dark menu-bar vertical" style="height:">
+        <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Server">
           <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
             <li>
               <a ui-sref="home" href="">&nbsp;&nbsp;&nbsp; Overview</a>
@@ -26,7 +26,7 @@
         </zf-accordion-item>
         <li><a href="#">Channel</a></li>
 
-        <zf-accordion-item class="menu-bar-acc" title="Clients">
+        <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Clients">
           <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
             <li>
               <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
@@ -44,7 +44,7 @@
           </ul>
         </zf-accordion-item>
 
-        <zf-accordion-item class="menu-bar-acc" title="Permissions">
+        <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Permissions">
           <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
             <li>
               <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
@@ -67,7 +67,7 @@
           </ul>
         </zf-accordion-item>
 
-        <zf-accordion-item class="menu-bar-acc" title="Backup & Restore">
+        <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Backup & Restore">
           <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
             <li>
               <a href="#">&nbsp;&nbsp;&nbsp; Backup Server</a>
@@ -89,10 +89,13 @@
             </li>
           </ul>
         </zf-accordion-item>
-        <li><a href="#" onclick="logout()">Logout</a></li>
       </ul>
     </zf-accordion>
+    <ul class="dark menu-bar horizontal bottom">
+      <li class="grid-content small-6 height_10"><a href="#" onclick="logout()">Logout</a></li>
+      <li class="grid-content small-6 height_10"><a href="#">Dummy</a></li>
+    </ul>
   </div>
 
-  <div ui-view class="grid-content">
+  <div ui-view class="grid-content" style="overflow: auto;">
   </div>
