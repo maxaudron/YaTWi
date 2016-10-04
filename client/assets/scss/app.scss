@@ -15,7 +15,7 @@ p {
     );
     // Add styles for the menu bar items and text
     @include menu-bar-style(
-        $background: #232323, // Background color of items
+        $background: $dark-color, // Background color of items
         $autocolor: true // When true, all the above colors will be derived from $background
     );
     // Add support for icons
@@ -25,9 +25,9 @@ p {
     );
 
     @include accordion-title(
-        $background: #232323, // Default background
-        $background-hover: #232323, // Background on hover
-        $background-active: #232323, // Background when active
+        $background: $dark-color, // Default background
+        $background-hover: $dark-color, // Background on hover
+        $background-active: $dark-color, // Background when active
         $color: #000, // Default color
         $color-active: #000, // Color when active
         $padding: 0.1rem
@@ -42,11 +42,11 @@ p {
 }
 
 .menu-bar-acc:hover {
-    //background-color: smartscale(#232323, 7%);
+    //background-color: smartscale($dark-color, 7%);
     @include accordion-title(
-        $background: #232323, // Default background
-        $background-hover: smartscale(#232323, 7%), // Background on hover
-        $background-active: #232323, // Background when active
+        $background: $dark-color, // Default background
+        $background-hover: smartscale($dark-color, 7%), // Background on hover
+        $background-active: $dark-color, // Background when active
         $color: #000, // Default color
         $color-active: #000, // Color when active
         $padding: 0.1rem
@@ -57,7 +57,7 @@ p {
     min-height: 100vh;
     max-height: 100vh;
     height: 100vh;
-    background-color: #232323;
+    background-color: $dark-color;
 }
 
 .uiview {
@@ -82,7 +82,7 @@ p {
   height: 60px;
   padding: 0px;
   overflow: hidden;
-  background-color: #232323;
+  background-color: $dark-color;
   margin-top: -100px;
 }
 
@@ -94,4 +94,9 @@ p {
 
 .is-hidden {
   display: none;
+}
+
+.highlight_text {
+  color: $primary-color;
+  font-weight: 500;
 }

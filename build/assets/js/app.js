@@ -33,6 +33,10 @@
                 only: 'isAuthorized',
                 redirectTo: 'login'
               }
+            },
+            onEnter: function(){
+              console.log('Home');
+              get_server_info();
             }
           })
           .state('login', {
@@ -119,7 +123,7 @@
 /////////////////////////////////////////////////////////////////
 
 // Write session cookie
-function writeCookie(name, value, days) {
+function writeCookie (name, value, days) {
   var date, expires;
   if (days) {
     date = new Date();
@@ -221,7 +225,7 @@ writeCookie('sessionId', sId, 3); // Cokie Read
 ////  under MIT license                                      ////
 /////////////////////////////////////////////////////////////////
 
-function get_server_info() {
+function get_server_info () {
   $.ajax({
     url: '/assets/php/lib/server/get_sever_info.php',
     type: 'post',
@@ -229,10 +233,20 @@ function get_server_info() {
       'username': retrive_user.username(),
       'password': retrive_user.password()
     },
-    success: function(data) {
-      var serverInfo = JSON.parse(data);
-      var serverInfo = serverInfo.data;
-      console.log(serverInfo.virtualserver_name);
+    success: function (data) {
+      var serverInfo = JSON.parse(data)
+      var serverInfo = serverInfo.data
+      $('#ts_name').html(serverInfo.virtualserver_name)
+      $('#ts_motd').html(serverInfo.virtualserver_welcomemessage)
+      $('#ts_clients_online').html(serverInfo.virtualserver_clientsonline)
+      $('#ts_clients_max').html(serverInfo.virtualserver_maxclients)
+      $('#ts_port').html(serverInfo.virtualserver_port)
+      $('#ts_version').html(serverInfo.virtualserver_version)
+      $('#ts_platform').html(serverInfo.virtualserver_platform)
+      $('#ts_runtime').html(serverInfo.virtualserver_uptime)
+      $('#ts_data_transfered_up').html(serverInfo.connection_bytes_sent_total)
+      $('#ts_data_transfered_down').html(serverInfo.connection_bytes_received_total)
+      $('#ts_banner').attr('src', serverInfo.virtualserver_hostbanner_gfx_url)
     }
   })
 }

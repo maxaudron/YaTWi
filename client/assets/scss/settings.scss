@@ -90,8 +90,8 @@
 // $font-weight-bold: bold;
 
 // We use these to control various global styles
-// $body-background: #fff;
-// $body-font-color: #222;
+ $body-background: #333333;
+ $body-font-color: #ffffff;
 // $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
@@ -99,12 +99,12 @@
 
 // Application Colors
  $primary-color: rgb(255, 153, 51);
- $secondary-color: #f1f1f1;
+ $secondary-color: #333333;
  $alert-color: #F04124;
  $info-color: rgba(255, 153, 51, 0.2);
  $success-color: #43AC6A;
  $warning-color: #F08A24;
- $dark-color: #232323;
+ $dark-color: #262626;
  $gray: #dfdfdf;
  $gray-dark: darken($gray, 8);
  $gray-light: lighten($gray, 8);
@@ -321,7 +321,7 @@
 // 11. Card
 // - - - - - - - - - - - - - - -
 
-// $card-background: #fff;
+ $card-background: #262626;
 // $card-color: isitlight($card-background);
 // $card-border: 1px solid smartscale($card-background, 7%);
 // $card-radius: $global-radius;
@@ -329,7 +329,7 @@
 // $card-padding: $global-padding;
  $card-margin: 1.5rem;
 
-// $card-divider-background: smartscale($card-background, 7%);
+ $card-divider-background: $primary-color;
 
 // 12. Extras
 // - - - - - - - - - - - - - - -

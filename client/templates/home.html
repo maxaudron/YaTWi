@@ -1,4 +1,4 @@
-<div class="grid-block">
+<div class="grid-block" style="margin-top: 2.5rem;">
   <div class="grid-content small-12 medium-8">
     <div class="grid-block">
       <div class="small-12 grid-content">
@@ -9,24 +9,23 @@
           <div class="card-section">
             <div class="grid-block">
               <div class="grid-content small-12">
-                <img src="http://placehold.it/1024x300" style="width: 100%; height: auto;" />
+                <img id="ts_banner" src="http://placehold.it/1024x300" style="width: 100%; height: auto;" />
               </div>
             </div>
             <div class="grid-block" style="margin-top: 1.5rem; margin-left: 0.5rem;">
               <div class="grid-content small-6">
-                <p>Name: <span id="ts_name"><i>Loading...</i></span></p>
-                <p>MotD: <span id="ts_motd"><i>Loading...</i></span></p>
-                <p>Clients: <span id="ts_client_number"><i>Loading...</i></span></p>
-                <p>Port: <span id="ts_port"><i>Loading...</i></span></p>
+                <p><span class="highlight_text">Name: </span><span id="ts_name">Loading...</span></p>
+                <p><span class="highlight_text">Clients: </span><span id="ts_clients_online">Loading...</span>/<span id="ts_clients_max"></span></p>
+                <p><span class="highlight_text">Port: </span><span id="ts_port">Loading...</span></p>
+                <p><span class="highlight_text">MotD: </span><span id="ts_motd">Loading...</span></p>
               </div>
               <div class="grid-content small-6">
-                <p>Version: <span id="ts_version"><i>Loading...</i></span></p>
-                <p>Platform: <span id="ts_platform"><i>Loading...</i></span></p>
-                <p>Runtime: <span id="ts_runtime"><i>Loading...</i></span></p>
-                <p>Transfered Data: <span id="ts_data_transfered"><i>Loading...</i></span></p>
+                <p><span class="highlight_text">Version: </span><span id="ts_version">Loading...</span></p>
+                <p><span class="highlight_text">Platform: </span><span id="ts_platform">Loading...</span></p>
+                <p><span class="highlight_text">Runtime: </span><span id="ts_runtime">Loading...</span></p>
+                <p><span class="highlight_text">Transfered Data: </span><span id="ts_data_transfered_up">Loading...</span>b/<span id="ts_data_transfered_down">Loading...</span>b</p>
               </div>
             </div>
-            <button class="button" onclick="get_server_info()">Get Server Info</button>
           </div>
         </div>
       </div>

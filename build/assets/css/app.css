@@ -380,8 +380,8 @@ html {
   box-sizing: inherit; }
 
 body {
-  background: #fff;
-  color: #222;
+  background: #333333;
+  color: #ffffff;
   padding: 0;
   margin: 0;
   font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
@@ -463,18 +463,18 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
     stroke: #F04124; }
 
 .iconic-color-dark * {
-  fill: #232323;
-  stroke: #232323; }
+  fill: #262626;
+  stroke: #262626; }
   .iconic-color-dark *.iconic-property-accent {
-    fill: #232323;
-    stroke: #232323; }
+    fill: #262626;
+    stroke: #262626; }
 
 .iconic-color-secondary * {
-  fill: #f1f1f1;
-  stroke: #f1f1f1; }
+  fill: #333333;
+  stroke: #333333; }
   .iconic-color-secondary *.iconic-property-accent {
-    fill: #f1f1f1;
-    stroke: #f1f1f1; }
+    fill: #333333;
+    stroke: #333333; }
 
 /*
   ACTION SHEET
@@ -674,15 +674,15 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
         pointer-events: none;
         color: #999; }
   .action-sheet.dark {
-    background: #232323;
+    background: #262626;
     color: #fff;
     border: 0; }
     .action-sheet.dark::before {
       display: none; }
     .action-sheet.dark::before, .action-sheet.dark::after {
-      border-top-color: #232323; }
+      border-top-color: #262626; }
     .action-sheet.dark.top::before, .action-sheet.dark.top::after {
-      border-bottom-color: #232323; }
+      border-bottom-color: #262626; }
     .action-sheet.dark ul {
       margin: -1rem;
       margin-top: 0;
@@ -700,10 +700,10 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
         padding: 0.8rem;
         line-height: 1;
         color: #fff;
-        border-top: 1px solid #393939; }
+        border-top: 1px solid #3c3c3c; }
         .action-sheet.dark ul a:hover {
           color: #fff;
-          background: #2e2e2e; }
+          background: #313131; }
       .action-sheet.dark ul .alert > a {
         color: #F04124; }
       .action-sheet.dark ul .disabled > a {
@@ -979,17 +979,17 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
     margin-left: 0;
     margin-right: 0; }
   .button.secondary {
-    background: #f1f1f1;
-    color: #000; }
+    background: #333333;
+    color: #fff; }
     .button.secondary:hover, .button.secondary:focus {
-      background: #cdcdcd;
-      color: #000; }
+      background: #2b2b2b;
+      color: #fff; }
     .button.secondary .iconic * {
-      fill: #000;
-      stroke: #000; }
+      fill: #fff;
+      stroke: #fff; }
       .button.secondary .iconic *.iconic-property-accent {
-        fill: #000;
-        stroke: #000; }
+        fill: #fff;
+        stroke: #fff; }
   .button.success {
     background: #43AC6A;
     color: #fff; }
@@ -1039,10 +1039,10 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
         fill: #fff;
         stroke: #fff; }
   .button.dark {
-    background: #232323;
+    background: #262626;
     color: #fff; }
     .button.dark:hover, .button.dark:focus {
-      background: #1e1e1e;
+      background: #202020;
       color: #fff; }
     .button.dark .iconic * {
       fill: #fff;
@@ -1071,25 +1071,25 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
         fill: #ffb366;
         stroke: #ffb366; }
     .button.hollow.secondary {
-      border: 1px solid #f1f1f1;
+      border: 1px solid #333333;
       background: transparent;
-      color: #f1f1f1; }
+      color: #333333; }
       .button.hollow.secondary:hover, .button.hollow.secondary:focus {
-        border-color: whitesmoke;
+        border-color: #666666;
         background: transparent;
-        color: whitesmoke; }
+        color: #666666; }
       .button.hollow.secondary .iconic * {
-        fill: #f1f1f1;
-        stroke: #f1f1f1; }
+        fill: #333333;
+        stroke: #333333; }
         .button.hollow.secondary .iconic *.iconic-property-accent {
-          fill: #f1f1f1;
-          stroke: #f1f1f1; }
+          fill: #333333;
+          stroke: #333333; }
       .button.hollow.secondary:hover .iconic * {
-        fill: whitesmoke;
-        stroke: whitesmoke; }
+        fill: #666666;
+        stroke: #666666; }
         .button.hollow.secondary:hover .iconic *.iconic-property-accent {
-          fill: whitesmoke;
-          stroke: whitesmoke; }
+          fill: #666666;
+          stroke: #666666; }
     .button.hollow.success {
       border: 1px solid #43AC6A;
       background: transparent;
@@ -1171,25 +1171,25 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
           fill: rgba(255, 179, 102, 0.2);
           stroke: rgba(255, 179, 102, 0.2); }
     .button.hollow.dark {
-      border: 1px solid #232323;
+      border: 1px solid #262626;
       background: transparent;
-      color: #232323; }
+      color: #262626; }
       .button.hollow.dark:hover, .button.hollow.dark:focus {
-        border-color: #5a5a5a;
+        border-color: #5c5c5c;
         background: transparent;
-        color: #5a5a5a; }
+        color: #5c5c5c; }
       .button.hollow.dark .iconic * {
-        fill: #232323;
-        stroke: #232323; }
+        fill: #262626;
+        stroke: #262626; }
         .button.hollow.dark .iconic *.iconic-property-accent {
-          fill: #232323;
-          stroke: #232323; }
+          fill: #262626;
+          stroke: #262626; }
       .button.hollow.dark:hover .iconic * {
-        fill: #5a5a5a;
-        stroke: #5a5a5a; }
+        fill: #5c5c5c;
+        stroke: #5c5c5c; }
         .button.hollow.dark:hover .iconic *.iconic-property-accent {
-          fill: #5a5a5a;
-          stroke: #5a5a5a; }
+          fill: #5c5c5c;
+          stroke: #5c5c5c; }
   .button.disabled {
     opacity: 0.5;
     cursor: default;
@@ -1256,20 +1256,20 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
   .button-group > li.is-active > a, .button-group > li.is-active > label, .button-group > li.is-active > button {
     background: #ff8205; }
   .button-group.secondary > li > a, .button-group.secondary > li > label, .button-group.secondary > li > button {
-    background: #f1f1f1;
-    color: #000;
-    border-color: #cdcdcd; }
+    background: #333333;
+    color: #fff;
+    border-color: #2b2b2b; }
     .button-group.secondary > li > a:hover, .button-group.secondary > li > a:focus, .button-group.secondary > li > label:hover, .button-group.secondary > li > label:focus, .button-group.secondary > li > button:hover, .button-group.secondary > li > button:focus {
-      background: #cdcdcd;
-      color: #000; }
+      background: #2b2b2b;
+      color: #fff; }
     .button-group.secondary > li > a .iconic *, .button-group.secondary > li > label .iconic *, .button-group.secondary > li > button .iconic * {
-      fill: #000;
-      stroke: #000; }
+      fill: #fff;
+      stroke: #fff; }
       .button-group.secondary > li > a .iconic *.iconic-property-accent, .button-group.secondary > li > label .iconic *.iconic-property-accent, .button-group.secondary > li > button .iconic *.iconic-property-accent {
-        fill: #000;
-        stroke: #000; }
+        fill: #fff;
+        stroke: #fff; }
   .button-group.secondary > li.is-active > a, .button-group.secondary > li.is-active > label, .button-group.secondary > li.is-active > button {
-    background: #cdcdcd; }
+    background: #2b2b2b; }
   .button-group.success > li > a, .button-group.success > li > label, .button-group.success > li > button {
     background: #43AC6A;
     color: #fff;
@@ -1316,20 +1316,20 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
   .button-group.alert > li.is-active > a, .button-group.alert > li.is-active > label, .button-group.alert > li.is-active > button {
     background: #dc2c0f; }
   .button-group > li.secondary > a, .button-group > li.secondary > label, .button-group > li.secondary > button {
-    background: #f1f1f1;
-    color: #000;
-    border-color: #f1f1f1; }
+    background: #333333;
+    color: #fff;
+    border-color: #333333; }
     .button-group > li.secondary > a:hover, .button-group > li.secondary > a:focus, .button-group > li.secondary > label:hover, .button-group > li.secondary > label:focus, .button-group > li.secondary > button:hover, .button-group > li.secondary > button:focus {
-      background: #cdcdcd;
-      color: #000; }
+      background: #2b2b2b;
+      color: #fff; }
     .button-group > li.secondary > a:hover, .button-group > li.secondary > a:focus, .button-group > li.secondary > label:hover, .button-group > li.secondary > label:focus, .button-group > li.secondary > button:hover, .button-group > li.secondary > button:focus {
-      border-color: #b5b5b5; }
+      border-color: #262626; }
     .button-group > li.secondary > a .iconic *, .button-group > li.secondary > label .iconic *, .button-group > li.secondary > button .iconic * {
-      fill: #000;
-      stroke: #000; }
+      fill: #fff;
+      stroke: #fff; }
       .button-group > li.secondary > a .iconic *.iconic-property-accent, .button-group > li.secondary > label .iconic *.iconic-property-accent, .button-group > li.secondary > button .iconic *.iconic-property-accent {
-        fill: #000;
-        stroke: #000; }
+        fill: #fff;
+        stroke: #fff; }
   .button-group > li.success > a, .button-group > li.success > label, .button-group > li.success > button {
     background: #43AC6A;
     color: #fff;
@@ -1403,32 +1403,32 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
         fill: #fff;
         stroke: #fff; }
     .button-group.segmented.secondary {
-      border-color: #f1f1f1; }
+      border-color: #333333; }
       .button-group.segmented.secondary > li > a, .button-group.segmented.secondary > li > label, .button-group.segmented.secondary > li > button {
-        border-color: #f1f1f1;
-        color: #f1f1f1; }
+        border-color: #333333;
+        color: #333333; }
         .button-group.segmented.secondary > li > a:hover, .button-group.segmented.secondary > li > label:hover, .button-group.segmented.secondary > li > button:hover {
-          background: rgba(241, 241, 241, 0.25);
-          color: #f1f1f1; }
+          background: rgba(51, 51, 51, 0.25);
+          color: #333333; }
         .button-group.segmented.secondary > li > a .iconic *, .button-group.segmented.secondary > li > label .iconic *, .button-group.segmented.secondary > li > button .iconic * {
-          fill: #f1f1f1;
-          stroke: #f1f1f1; }
+          fill: #333333;
+          stroke: #333333; }
           .button-group.segmented.secondary > li > a .iconic *.iconic-property-accent, .button-group.segmented.secondary > li > label .iconic *.iconic-property-accent, .button-group.segmented.secondary > li > button .iconic *.iconic-property-accent {
-            fill: #f1f1f1;
-            stroke: #f1f1f1; }
+            fill: #333333;
+            stroke: #333333; }
       .button-group.segmented.secondary > li.is-active > a, .button-group.segmented.secondary > li.is-active > a:hover,
       .button-group.segmented.secondary > li > input:checked + label,
       .button-group.segmented.secondary > li > input:checked + label:hover {
-        background: #f1f1f1;
-        color: #000; }
+        background: #333333;
+        color: #fff; }
       .button-group.segmented.secondary > li.is-active > a .iconic *,
       .button-group.segmented.secondary > li > input:checked + label .iconic * {
-        fill: #000;
-        stroke: #000; }
+        fill: #fff;
+        stroke: #fff; }
         .button-group.segmented.secondary > li.is-active > a .iconic *.iconic-property-accent,
         .button-group.segmented.secondary > li > input:checked + label .iconic *.iconic-property-accent {
-          fill: #000;
-          stroke: #000; }
+          fill: #fff;
+          stroke: #fff; }
     .button-group.segmented.success {
       border-color: #43AC6A; }
       .button-group.segmented.success > li > a, .button-group.segmented.success > li > label, .button-group.segmented.success > li > button {
@@ -1541,10 +1541,10 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
   lists
 */
 .card {
-  border: 1px solid #ededed;
+  border: 1px solid #353535;
   margin-bottom: 1.5rem;
-  background: #fff;
-  color: #000;
+  background: #262626;
+  color: #fff;
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden; }
@@ -1625,7 +1625,7 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
   .card.dark {
     border: 0;
     margin-bottom: 1.5rem;
-    background: #232323;
+    background: #262626;
     color: #fff;
     border-radius: 4px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -1637,11 +1637,11 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
     .card.dark img {
       width: 100%; }
     .card.dark .card-divider {
-      background: #323232;
+      background: #353535;
       padding: 1rem; }
 
 .card-divider {
-  background: #ededed;
+  background: #ff9933;
   padding: 1rem; }
 
 .card-section {
@@ -1854,8 +1854,8 @@ input[type="range"] {
     color: transparent;
     border: 0;
     overflow: visible;
-    border-top: 0.25rem solid #fff;
-    border-bottom: 0.25rem solid #fff; }
+    border-top: 0.25rem solid #333333;
+    border-bottom: 0.25rem solid #333333; }
   input[type="range"]::-ms-thumb {
     background: #ff9933;
     width: 1.5rem;
@@ -3396,7 +3396,7 @@ meter {
         fill: #fff;
         stroke: #fff; }
   .title-bar.dark {
-    background: #232323;
+    background: #262626;
     color: #fff;
     padding: 1rem;
     border-bottom: 1px solid #ccc; }
@@ -3445,7 +3445,7 @@ meter {
     border-radius: 0;
     color: #fff; }
   .label.dark {
-    background: #232323;
+    background: #262626;
     border-radius: 0;
     color: #fff; }
 
@@ -3468,8 +3468,8 @@ meter {
   background: #ff9933;
   color: #fff; }
   .badge.secondary {
-    background: #f1f1f1;
-    color: #000; }
+    background: #333333;
+    color: #fff; }
   .badge.primary {
     background: #ff9933;
     color: #fff; }
@@ -3483,7 +3483,7 @@ meter {
     background: #F04124;
     color: #fff; }
   .badge.dark {
-    background: #232323;
+    background: #262626;
     color: #fff; }
 
 .inline-list {
@@ -4027,14 +4027,14 @@ meter {
         fill: #fff;
         stroke: #fff; }
   .menu-bar.dark {
-    background: #232323; }
+    background: #262626; }
     .menu-bar.dark > li > a {
       color: #fff; }
       .menu-bar.dark > li > a:hover {
-        background: #323232;
+        background: #353535;
         color: #fff; }
     .menu-bar.dark .is-active > a {
-      background: #323232;
+      background: #353535;
       color: #fff; }
     .menu-bar.dark .iconic * {
       fill: #fff;
@@ -4091,16 +4091,16 @@ meter {
           fill: #fff;
           stroke: #fff; }
   .menu-group.dark {
-    background-color: #232323; }
+    background-color: #262626; }
     .menu-group.dark .menu-bar {
-      background: #232323; }
+      background: #262626; }
       .menu-group.dark .menu-bar > li > a {
         color: #fff; }
         .menu-group.dark .menu-bar > li > a:hover {
-          background: #323232;
+          background: #353535;
           color: #fff; }
       .menu-group.dark .menu-bar .is-active > a {
-        background: #323232;
+        background: #353535;
         color: #fff; }
       .menu-group.dark .menu-bar .iconic * {
         fill: #fff;
@@ -4792,7 +4792,7 @@ meter {
     .notification.alert, .notification.alert h1, .notification.alert h2, .notification.alert h3, .notification.alert h4, .notification.alert h5, .notification.alert h6 {
       color: white; }
   .notification.dark {
-    background: #232323;
+    background: #262626;
     padding: 1rem;
     border-radius: 4px; }
     .notification.dark, .notification.dark h1, .notification.dark h2, .notification.dark h3, .notification.dark h4, .notification.dark h5, .notification.dark h6 {
@@ -4889,7 +4889,7 @@ meter {
     .static-notification.alert, .static-notification.alert h1, .static-notification.alert h2, .static-notification.alert h3, .static-notification.alert h4, .static-notification.alert h5, .static-notification.alert h6 {
       color: white; }
   .static-notification.dark {
-    background: #232323;
+    background: #262626;
     padding: 1rem;
     border-radius: 4px; }
     .static-notification.dark, .static-notification.dark h1, .static-notification.dark h2, .static-notification.dark h3, .static-notification.dark h4, .static-notification.dark h5, .static-notification.dark h6 {
@@ -5112,7 +5112,7 @@ meter {
     background: #ff9933;
     color: #fff; }
   .off-canvas.dark {
-    background: #232323;
+    background: #262626;
     color: #fff; }
 
 /*
@@ -5139,7 +5139,7 @@ meter {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   border: 0; }
   .popup.dark {
-    background: #232323;
+    background: #262626;
     border-radius: 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     border: 0; }
@@ -5428,10 +5428,10 @@ code {
   font-family: Consolas, "Liberation Mono", Courier, monospace;
   font-weight: normal;
   color: #999999;
-  background-color: #fbfbfb;
+  background-color: #c2c2c2;
   border-width: 1px;
   border-style: solid;
-  border-color: #e2e2e2;
+  border-color: #aeaeae;
   padding: 0.125rem 0.3125rem 0.0625rem; }
 
 /* Lists */
@@ -5472,7 +5472,7 @@ abbr,
 acronym {
   text-transform: uppercase;
   font-size: 90%;
-  color: #222;
+  color: #ffffff;
   border-bottom: 1px dotted #ddd;
   cursor: help; }
 
@@ -5901,9 +5901,9 @@ p {
   /*
     Stretch
   */
-  background: #232323;
+  background: #262626;
   padding: 0.1rem;
-  background: #232323;
+  background: #262626;
   color: #000;
   line-height: 1;
   cursor: pointer; }
@@ -5916,10 +5916,10 @@ p {
   .menu-bar-acc > li > a {
     color: #fff; }
     .menu-bar-acc > li > a:hover {
-      background: #323232;
+      background: #353535;
       color: #fff; }
   .menu-bar-acc .is-active > a {
-    background: #323232;
+    background: #353535;
     color: #fff; }
   .menu-bar-acc .iconic * {
     fill: #fff;
@@ -5942,9 +5942,9 @@ p {
     .menu-bar-acc > li > a > img, .menu-bar-acc > li > a > .iconic {
       margin: 0 1rem 0 0; }
   .menu-bar-acc:hover {
-    background: #232323; }
+    background: #262626; }
   .is-active > .menu-bar-acc {
-    background: #232323;
+    background: #262626;
     color: #000; }
 
 .acc-content {
@@ -5955,21 +5955,21 @@ p {
 
 .menu-bar-acc:hover {
   padding: 0.1rem;
-  background: #232323;
+  background: #262626;
   color: #000;
   line-height: 1;
   cursor: pointer; }
   .menu-bar-acc:hover:hover {
-    background: #323232; }
+    background: #353535; }
   .is-active > .menu-bar-acc:hover {
-    background: #232323;
+    background: #262626;
     color: #000; }
 
 .fullheight {
   min-height: 100vh;
   max-height: 100vh;
   height: 100vh;
-  background-color: #232323; }
+  background-color: #262626; }
 
 .uiview {
   position: relative;
@@ -5990,7 +5990,7 @@ p {
   height: 60px;
   padding: 0px;
   overflow: hidden;
-  background-color: #232323;
+  background-color: #262626;
   margin-top: -100px; }
 
 .height_10 {
@@ -6000,3 +6000,7 @@ p {
 
 .is-hidden {
   display: none; }
+
+.highlight_text {
+  color: #ff9933;
+  font-weight: 500; }

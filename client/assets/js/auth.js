@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////
 
 // Write session cookie
-function writeCookie(name, value, days) {
+function writeCookie (name, value, days) {
   var date, expires;
   if (days) {
     date = new Date();

@@ -33,6 +33,10 @@
                 only: 'isAuthorized',
                 redirectTo: 'login'
               }
+            },
+            onEnter: function(){
+              console.log('Home');
+              get_server_info();
             }
           })
           .state('login', {
