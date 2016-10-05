@@ -36,7 +36,21 @@
             },
             onEnter: function(){
               console.log('Home');
-              get_server_info();
+              populate_dashboard();
+            }
+          })
+          .state('settings', {
+            url: '/settings',
+            templateUrl: 'templates/settings.html',
+            parent: 'parent',
+            data: {
+              permissions: {
+                only: 'isAuthorized',
+                redirectTo: 'login'
+              }
+            },
+            onEnter: function(){
+              console.log('settings');
             }
           })
           .state('login', {
