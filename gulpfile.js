@@ -46,6 +46,7 @@ var paths = {
     'bower_components/angular-ui-router.stateHelper/statehelper.js',
     'bower_components/foundation-apps/js/vendor/**/*.js',
     'bower_components/foundation-apps/js/angular/**/*.js',
+    'bower_components/moment/moment.js',
     '!bower_components/foundation-apps/js/angular/app.js'
   ],
   // These files are for your app's JavaScript

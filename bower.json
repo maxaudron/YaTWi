@@ -25,7 +25,8 @@
   "dependencies": {
     "foundation-apps": "~1.2.0",
     "angular-permission": "^4.0.5",
-    "angular-ui-router": "^0.3.1"
+    "angular-ui-router": "^0.3.1",
+    "moment": "^2.15.1"
   },
   "resolutions": {
     "angular": ">=1.4.8",

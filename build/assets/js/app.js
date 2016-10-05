@@ -130,6 +130,54 @@
 
 })();
 
+(function() {
+  /**
+   * Decimal adjustment of a number.
+   *
+   * @param {String}  type  The type of adjustment.
+   * @param {Number}  value The number.
+   * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
+   * @returns {Number} The adjusted value.
+   */
+  function decimalAdjust(type, value, exp) {
+    // If the exp is undefined or zero...
+    if (typeof exp === 'undefined' || +exp === 0) {
+      return Math[type](value);
+    }
+    value = +value;
+    exp = +exp;
+    // If the value is not a number or the exp is not an integer...
+    if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+      return NaN;
+    }
+    // Shift
+    value = value.toString().split('e');
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    // Shift back
+    value = value.toString().split('e');
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+  }
+
+  // Decimal round
+  if (!Math.round10) {
+    Math.round10 = function(value, exp) {
+      return decimalAdjust('round', value, exp);
+    };
+  }
+  // Decimal floor
+  if (!Math.floor10) {
+    Math.floor10 = function(value, exp) {
+      return decimalAdjust('floor', value, exp);
+    };
+  }
+  // Decimal ceil
+  if (!Math.ceil10) {
+    Math.ceil10 = function(value, exp) {
+      return decimalAdjust('ceil', value, exp);
+    };
+  }
+})();
+
 /////////////////////////////////////////////////////////////////
 ////  Authentification functions                             ////
 ////  Developed for YaTWi                                    ////
@@ -239,7 +287,7 @@ writeCookie('sessionId', sId, 3); // Cokie Read
 ////  under MIT license                                      ////
 /////////////////////////////////////////////////////////////////
 
-function get_server_info (callback) {
+function get_server_info(callback) {
   return $.ajax({
     url: '/assets/php/lib/server/get_sever_info.php',
     type: 'post',
@@ -247,7 +295,7 @@ function get_server_info (callback) {
       'username': retrive_user.username(),
       'password': retrive_user.password()
     },
-    success: function (data) {
+    success: function(data) {
       var serverInfo = JSON.parse(data)
       var serverInfo = serverInfo.data
       callback(serverInfo)
@@ -255,8 +303,8 @@ function get_server_info (callback) {
   })
 }
 
-function populate_dashboard () {
-  get_server_info(function (serverInfo) {
+function populate_dashboard() {
+  get_server_info(function(serverInfo) {
     $('#ts_name').html(serverInfo.virtualserver_name)
     $('#ts_motd').html(serverInfo.virtualserver_welcomemessage)
     $('#ts_clients_online').html(serverInfo.virtualserver_clientsonline)
@@ -264,9 +312,12 @@ function populate_dashboard () {
     $('#ts_port').html(serverInfo.virtualserver_port)
     $('#ts_version').html(serverInfo.virtualserver_version)
     $('#ts_platform').html(serverInfo.virtualserver_platform)
-    $('#ts_runtime').html(serverInfo.virtualserver_uptime)
-    $('#ts_data_transfered_up').html(serverInfo.connection_bytes_sent_total)
-    $('#ts_data_transfered_down').html(serverInfo.connection_bytes_received_total)
+    $('#ts_runtime').html(moment("2015-01-01")
+      .startOf('day')
+      .seconds(serverInfo.virtualserver_uptime)
+      .format('HH[hours] mm[mins]'))
+    $('#ts_data_transfered_up').html(Math.round10(serverInfo.connection_bytes_sent_total / 1024000, -2))
+    $('#ts_data_transfered_down').html(Math.round10(serverInfo.connection_bytes_received_total / 1024000, -2))
     $('#ts_banner').attr('src', serverInfo.virtualserver_hostbanner_gfx_url)
   })
 }
