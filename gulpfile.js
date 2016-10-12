@@ -80,7 +80,7 @@ gulp.task('copy:templates', function() {
       path: 'build/assets/js/routes.js',
       root: 'client'
     }))
-    .pipe(gulp.dest('./build/'))
+    .pipe(gulp.dest('./build/', {overwrite: true}))
   ;
 });
 

@@ -12,6 +12,6 @@ if ($ts->getElement('success', $ts->connect())) {
   $ts->login($username, $password);
   $ts->selectServer($ts3_port);
   $out = $ts->serverInfo();
-  print json_encode($out, JSON_PRETTY_PRINT);
+  print json_encode($out);
 }
 ?>

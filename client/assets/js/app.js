@@ -37,6 +37,7 @@
             onEnter: function(){
               console.log('Home');
               populate_dashboard();
+              complain_list();
             }
           })
           .state('settings', {

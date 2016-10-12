@@ -6,7 +6,7 @@
 
 function get_server_info(callback) {
   return $.ajax({
-    url: '/assets/php/lib/server/get_sever_info.php',
+    url: '/assets/php/lib/server/get_server_info.php',
     type: 'post',
     data: {
       'username': retrive_user.username(),

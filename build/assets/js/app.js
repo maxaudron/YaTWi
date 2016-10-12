@@ -37,6 +37,7 @@
             onEnter: function(){
               console.log('Home');
               populate_dashboard();
+              complain_list();
             }
           })
           .state('settings', {
@@ -282,6 +283,43 @@ writeCookie('sessionId', sId, 3); // Cokie Read
 */
 
 /////////////////////////////////////////////////////////////////
+////  Developed for YaTWi                                    ////
+////  under MIT license                                      ////
+/////////////////////////////////////////////////////////////////
+
+function get_complains(callback) {
+  return $.ajax({
+    url: '/assets/php/lib/clients/get_complaints.php',
+    type: 'post',
+    data: {
+      'username': retrive_user.username(),
+      'password': retrive_user.password()
+    },
+    success: function(data) {
+      var out = JSON.parse(data)
+      var out = out
+      callback(out)
+    }
+  })
+}
+
+function complain_list() {
+  get_complains(function(out) {
+    if (out.success === true) {
+      var out = out.data
+      var out3
+      out.forEach(function(item, index, arr) {
+        var out2 = out[index]
+        var out3 = out3 + '<p><span class="highlight_text">User: </span>' + out2.tname + '</br><span class="highlight_text"> Message: </span>' + out2.message + '</br><span class="highlight_text"> By: </span>' + out2.fname + '</p>'
+      })
+      console.log(out3);
+    } else {
+      $('#complains').html('<p>No Complains</p>')
+    }
+  })
+}
+
+/////////////////////////////////////////////////////////////////
 ////  Implementation of Basic Server Features                ////
 ////  Developed for YaTWi                                    ////
 ////  under MIT license                                      ////
@@ -289,7 +327,7 @@ writeCookie('sessionId', sId, 3); // Cokie Read
 
 function get_server_info(callback) {
   return $.ajax({
-    url: '/assets/php/lib/server/get_sever_info.php',
+    url: '/assets/php/lib/server/get_server_info.php',
     type: 'post',
     data: {
       'username': retrive_user.username(),
