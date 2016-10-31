@@ -282,12 +282,12 @@ writeCookie('sessionId', sId, 3); // Cokie Read
 
 */
 
-/////////////////////////////////////////////////////////////////
-////  Developed for YaTWi                                    ////
-////  under MIT license                                      ////
-/////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////// //
+//  Developed for YaTWi                                        //
+//  under MIT license                                          //
+// /////////////////////////////////////////////////////////// //
 
-function get_complains(callback) {
+function get_complains (callback) {
   return $.ajax({
     url: '/assets/php/lib/clients/get_complaints.php',
     type: 'post',
@@ -295,24 +295,25 @@ function get_complains(callback) {
       'username': retrive_user.username(),
       'password': retrive_user.password()
     },
-    success: function(data) {
+    success: function (data) {
       var out = JSON.parse(data)
-      var out = out
+      out = out
       callback(out)
     }
   })
 }
 
-function complain_list() {
-  get_complains(function(out) {
+function complain_list () {
+  get_complains(function (out) {
     if (out.success === true) {
       var out = out.data
-      var out3
-      out.forEach(function(item, index, arr) {
+      var cache = ''
+      out.forEach(function (item, index, arr) {
         var out2 = out[index]
-        var out3 = out3 + '<p><span class="highlight_text">User: </span>' + out2.tname + '</br><span class="highlight_text"> Message: </span>' + out2.message + '</br><span class="highlight_text"> By: </span>' + out2.fname + '</p>'
+        cache = cache + '<p><span class="highlight_text">User: </span>' + out2.tname + '</br><span class="highlight_text"> Message: </span>' + out2.message + '</br><span class="highlight_text"> By: </span>' + out2.fname + '</p></br>'
+        console.log(cache)
       })
-      console.log(out3);
+      $('#complains').html(cache)
     } else {
       $('#complains').html('<p>No Complains</p>')
     }
