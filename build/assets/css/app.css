@@ -6004,3 +6004,42 @@ p {
 .highlight_text {
   color: #ff9933;
   font-weight: 500; }
+
+.complain_card {
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -ms-flex-align: stretch;
+      align-items: stretch;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
+  -ms-flex-order: 0;
+      order: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+  max-width: 100%;
+  background-color: #313131;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+.complain_remove {
+  color: red;
+  text-align: center;
+  margin: auto;
+  font-size: 25pt; }

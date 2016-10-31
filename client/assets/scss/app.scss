@@ -100,3 +100,21 @@ p {
   color: $primary-color;
   font-weight: 500;
 }
+
+.complain_card {
+  @include grid-block;
+  @include grid-size(12);
+  background-color: smartscale($dark-color, 5%);
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.complain_remove {
+  color: red;
+  text-align: center;
+  margin: auto;
+  font-size: 25pt;
+}

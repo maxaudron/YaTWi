@@ -218,8 +218,8 @@ gulp.task('default', ['server'], function () {
   // Watch Sass
   gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
 
-  // Watch PHP
-//  gulp.watch(['./client/assets/php/lib/**/*', './php/lib/**/*'], ['copy:php']);
+   //Watch PHP
+  gulp.watch(['./client/assets/php/lib/**/*', './php/lib/**/*'], ['copy:php']);
 
   // Watch JavaScript
   gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify:app']);
