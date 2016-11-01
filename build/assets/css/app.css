@@ -6043,3 +6043,18 @@ p {
   text-align: center;
   margin: auto;
   font-size: 25pt; }
+
+.channel-card {
+  color: #ff9933;
+  padding: 5px;
+  border-width: 0px;
+  border-color: rgba(255, 255, 255, 0.2);
+  border-style: solid; }
+
+.channel-card:hover {
+  background-color: #313131; }
+
+.client-card {
+  color: white;
+  padding-top: 5px;
+  padding-left: 20px; }

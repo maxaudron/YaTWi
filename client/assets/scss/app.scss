@@ -118,3 +118,22 @@ p {
   margin: auto;
   font-size: 25pt;
 }
+
+.channel-card {
+  //background-color: red;
+  color: $primary-color;
+  padding: 5px;
+  border-width: 0px;
+  border-color: rgba(255, 255, 255, 0.2);
+  border-style: solid;
+}
+
+.channel-card:hover {
+  background-color: smartscale($dark-color, 5%)
+}
+
+.client-card {
+  color: white;
+  padding-top: 5px;
+  padding-left: 20px;
+}

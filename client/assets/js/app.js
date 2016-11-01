@@ -34,10 +34,11 @@
                 redirectTo: 'login'
               }
             },
-            onEnter: function(){
-              console.log('Home');
-              populate_dashboard();
-              complain_list();
+            onEnter: function (){
+              console.log('Home')
+              populate_dashboard()
+              complain_list()
+              get_server_view()
             }
           })
           .state('settings', {

@@ -34,10 +34,11 @@
                 redirectTo: 'login'
               }
             },
-            onEnter: function(){
-              console.log('Home');
-              populate_dashboard();
-              complain_list();
+            onEnter: function (){
+              console.log('Home')
+              populate_dashboard()
+              complain_list()
+              get_server_view()
             }
           })
           .state('settings', {
@@ -295,7 +296,7 @@ function get_complains(callback) {
       'username': retrive_user.username(),
       'password': retrive_user.password()
     },
-    success: function(data) {
+    success: function (data) {
       var out = JSON.parse(data)
       out = out
       callback(out)
@@ -304,11 +305,11 @@ function get_complains(callback) {
 }
 
 function complain_list() {
-  get_complains(function(out) {
+  get_complains(function (out) {
     if (out.success === true) {
       out = out.data
       var cache = ''
-      out.forEach(function(item, index, arr) {
+      out.forEach(function (item, index, arr) {
         var out2 = out[index]
         cache = cache + '<div id="complain_' + out2.tcldbid + out2.fcldbid + '" class="complain_card"><p class="grid-content"><span class="highlight_text">User: </span>' + out2.tname + '</br><span class="highlight_text"> Message: </span>' + out2.message + '</br><span class="highlight_text"> By: </span>' + out2.fname + '</p><a class="complain_remove grid-content shrink" onclick="remove_complain(' + out2.tcldbid + ',' + out2.fcldbid + ')">X</a></div>'
       })
@@ -319,7 +320,7 @@ function complain_list() {
   })
 }
 
-function delete_complain(tcldbid, fcldbid, callback) {
+function delete_complain (tcldbid, fcldbid, callback) {
   return $.ajax({
     url: '/assets/php/lib/clients/remove_complaints.php',
     type: 'post',
@@ -329,20 +330,22 @@ function delete_complain(tcldbid, fcldbid, callback) {
       'tcldbid': tcldbid,
       'fcldbid': fcldbid
     },
-    success: function(data) {
+    success: function (data) {
       var out = JSON.parse(data)
+      out = out
       callback(out)
     }
   })
 }
 
-function remove_complain(tcldbid, fcldbid) {
+function remove_complain (tcldbid, fcldbid) {
   console.log(tcldbid + ' / ' + fcldbid)
-  delete_complain(function(out) {
+  delete_complain(tcldbid, fcldbid, function (out) {
     if (out.success === true) {
-      $('#complain' + tcldbid + fcldbid).remove()
+      $('#complain_' + tcldbid + fcldbid).remove()
+      console.log('Removed ' + tcldbid + fcldbid)
     } else if (out.success === false) {
-      console.log('Something went wrong: ' + call.error)
+      console.log('Something went wrong: ' + out.error)
     }
   })
 }
@@ -385,5 +388,72 @@ function populate_dashboard() {
     $('#ts_data_transfered_up').html(Math.round10(serverInfo.connection_bytes_sent_total / 1024000, -2))
     $('#ts_data_transfered_down').html(Math.round10(serverInfo.connection_bytes_received_total / 1024000, -2))
     $('#ts_banner').attr('src', serverInfo.virtualserver_hostbanner_gfx_url)
+  })
+}
+
+/*
+ *  Server View Module
+ *  Description: Creates a viewable list of all channels and clients in channels in HTML
+ */
+
+function get_clients (callback) {
+  return $.ajax({
+    url: '/assets/php/lib/clients/get_clients.php',
+    type: 'post',
+    data: {
+      'username': retrive_user.username(),
+      'password': retrive_user.password()
+    },
+    success: function (data) {
+      var clients = JSON.parse(data)
+      callback(clients)
+    }
+  })
+}
+
+function get_channels (callback) {
+  return $.ajax({
+    url: '/assets/php/lib/server/get_channel.php',
+    type: 'post',
+    data: {
+      'username': retrive_user.username(),
+      'password': retrive_user.password()
+    },
+    success: function (data) {
+      var channels = JSON.parse(data)
+      channels = channels
+      callback(channels)
+    }
+  })
+}
+
+function get_server_view () {
+  get_channels(function (channels) {
+    if (channels.success === true) {
+      var channels = channels.data
+      var chache = ''
+      channels.forEach(function (item, index, arr) {
+        var channels2 = channels[index]
+        chache = chache + '<div id="channel_' + channels2.cid + '" class="channel-card" title="' + channels2.channel_topic + '">' + channels2.channel_name + '<span id="channel_client_container_' + channels2.cid + '"></span></div>'
+      })
+      $('#server_view').html(chache.replace(/(\[[cr]*spacer[0-9]+\])/g, ''))
+      get_clients(function (clients) {
+        if (clients.success === true) {
+          var clients = clients.data
+          var chache = {}
+          clients.forEach(function (item, index, arr) {
+            var clients2 = clients[index]
+            chache[clients2.cid] = ''
+          })
+          clients.forEach(function (item, index, arr) {
+            var clients2 = clients[index]
+            chache[clients2.cid] = chache[clients2.cid] + '<div id="client_' + clients2.clid + '" class="client-card">' + clients2.client_nickname + '</div>'
+            $('#channel_client_container_' + clients2.cid).html(chache[clients2.cid])
+          })
+        } else {
+          console.log('Something went wrong while retriving the clients:')
+        }
+      })
+    }
   })
 }
