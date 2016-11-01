@@ -1,7 +1,48 @@
+<div class="grid-content shrink" style="padding: 0;">
+  <div class="menu-group primary">
+    <div class="menu-group-left">
+      <ul class="primary condense menu-bar">
+        <li><a ui-sref="login"><strong>YaTWi</strong></a></li>
+      </ul>
+    </div>
+    <div class="menu-group-right">
+      <ul class="primary condense menu-bar">
+        <li>
+          <a style="margin: 0px;" zf-toggle="serverpanel" class="button">Select Server</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 <div class="grid-block">
+  <div zf-panel="" id="serverpanel" position="right" style="margin-right: 1rem;">
+    <div id="server_' + server2.virtualserver_id + '" class="server-card">
+      <div class="grid-block">
+        <div class="grid-content small-12">
+          <p>
+            <span class="highlight_text">Name: </span>' + server2.virtualserver_name + '</br>
+            <span class="highlight_text">Port: </span>' + server2.virtualserver_port + '</br>
+            <span class="highlight_text">Online: </span>' + server2.virtualserver_clientsonline + '/' + server2.virtualserver_maxclients + '</br>
+            <span class="highlight_text">Status: </span>' + server2.virtualserver_status + '
+          </p>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-content expand">
+          <a class="serverbutton-prime" onclick="server_stop(' + server2.virtualserver_id + ')">Stop</a>
+        </div>
+        <div class="grid-content expand">
+          <a class="serverbutton-success" onclick="server_select(' + server2.virtualserver_id + ')">Select</a>
+        </div>
+        <div class="grid-content expand">
+          <a class="serverbutton-alert" onclick="server_delete(' + server2.virtualserver_id + ')">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="grid-content medium-3 fullheight" style="padding: 0px; max-width:400px;">
     <zf-accordion>
-      <ul class="dark menu-bar vertical" style="height:">
+      <ul class="dark menu-bar vertical" style="padding-left: 1rem">
         <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Server">
           <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
             <li>

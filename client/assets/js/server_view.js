@@ -9,7 +9,8 @@ function get_clients (callback) {
     type: 'post',
     data: {
       'username': retrive_user.username(),
-      'password': retrive_user.password()
+      'password': retrive_user.password(),
+      'selected_server': selected_server_uid
     },
     success: function (data) {
       var clients = JSON.parse(data)
@@ -24,7 +25,8 @@ function get_channels (callback) {
     type: 'post',
     data: {
       'username': retrive_user.username(),
-      'password': retrive_user.password()
+      'password': retrive_user.password(),
+      'selected_server': selected_server_uid
     },
     success: function (data) {
       var channels = JSON.parse(data)

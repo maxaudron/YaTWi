@@ -6,6 +6,8 @@
 
   $username = $_POST['username'];
   $password = $_POST['password'];
+  $sidc = $_POST['selected_server'];
+  $selected_server = intval($sidc);
 
   $ts = new ts3admin($ts3_ip, $ts3_queryport);
   if ($ts->getElement('success', $ts->connect())) {        // Try to connect

@@ -8,11 +8,13 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $tcldbid = $_POST['tcldbid'];
 $fcldbid = $_POST['fcldbid'];
+$sidc = $_POST['selected_server'];
+$selected_server = intval($sidc);
 
 $ts = new ts3admin($ts3_ip, $ts3_queryport);
 if ($ts->getElement('success', $ts->connect())) {
   $ts->login($username, $password);
-  $ts->selectServer($ts3_port);
+  $ts->selectServer($selected_server, 'serverId');
   $out = $ts->complainDelete($tcldbid, $fcldbid);
   print json_encode($out);
 }

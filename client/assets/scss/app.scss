@@ -137,3 +137,54 @@ p {
   padding-top: 5px;
   padding-left: 20px;
 }
+
+.server-card {
+  //@include grid-block;
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+  padding: 1rem;
+  //margin-right: 2rem;
+}
+
+.server-card:hover {
+  background-color: smartscale($dark-color, 5%)
+}
+
+.serverbutton-prime {
+  @extend %button;
+  @include button-style(
+    $background: $primary-color, // Background color
+    $background-hover: auto, // Background color on hover. Use "auto" to generate automatically
+    $color: #000, // Text color
+    $style: hollow // Can be solid or hollow
+  );
+  margin: 0px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.serverbutton-success {
+  @extend %button;
+  @include button-style(
+    $background: $success-color, // Background color
+    $background-hover: auto, // Background color on hover. Use "auto" to generate automatically
+    $color: #000, // Text color
+    $style: hollow // Can be solid or hollow
+  );
+  margin: 0px;
+  width: 100%;
+  margin-top: 10px;
+}
+.serverbutton-alert {
+  @extend %button;
+  @include button-style(
+    $background: $alert-color, // Background color
+    $background-hover: auto, // Background color on hover. Use "auto" to generate automatically
+    $color: #000, // Text color
+    $style: hollow // Can be solid or hollow
+  );
+  margin: 0px;
+  width: 100%;
+  margin-top: 10px;
+}

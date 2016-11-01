@@ -18,11 +18,14 @@
         $stateProvider
           .state('parent', {
             templateUrl: 'templates/parent.html',
-            abstract: true
+            abstract: true,
+            onEnter: function (){
+              create_server_list();
+            }
           })
           .state('root', {
             url: '',
-            templateUrl: 'templates/login.html',
+            templateUrl: 'templates/login.html'
           })
           .state('home', {
             url: '/',
@@ -52,12 +55,17 @@
               }
             },
             onEnter: function(){
-              console.log('settings');
+              console.log('settings')
             }
+          })
+          .state('login-parent', {
+            templateUrl: 'templates/login-parent.html',
+            abstract: true
           })
           .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
+            parent: 'login-parent',
             data: {
               permissions: {
                 only: 'anonymous',
@@ -179,3 +187,5 @@
     };
   }
 })();
+
+var selected_server_uid = '1'

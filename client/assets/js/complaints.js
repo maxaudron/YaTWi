@@ -9,7 +9,8 @@ function get_complains(callback) {
     type: 'post',
     data: {
       'username': retrive_user.username(),
-      'password': retrive_user.password()
+      'password': retrive_user.password(),
+      'selected_server': selected_server_uid
     },
     success: function (data) {
       var out = JSON.parse(data)
@@ -43,7 +44,8 @@ function delete_complain (tcldbid, fcldbid, callback) {
       'username': retrive_user.username(),
       'password': retrive_user.password(),
       'tcldbid': tcldbid,
-      'fcldbid': fcldbid
+      'fcldbid': fcldbid,
+      'selected_server': selected_server_uid
     },
     success: function (data) {
       var out = JSON.parse(data)

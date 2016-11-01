@@ -912,7 +912,7 @@ a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
         margin-left: 0.8rem;
         float: none; }
 
-.button, .button-group > li > a, .button-group > li > label, .button-group > li > button {
+.button, .button-group > li > a, .button-group > li > label, .button-group > li > button, .serverbutton-prime, .serverbutton-success, .serverbutton-alert {
   display: inline-block;
   border: 0;
   text-align: center;
@@ -1953,8 +1953,8 @@ meter {
   /*
     Basic styles
   */
-  padding: 0;
-  background: #fff; }
+  padding: 10px;
+  background: #262626; }
 
 .panel-top {
   /*
@@ -1987,9 +1987,9 @@ meter {
   /*
     Shadows
   */ }
-  @media only screen and (min-width: 18.75em) {
+  @media only screen and (min-width: 31.25em) {
     .panel-right {
-      width: 300px; } }
+      width: 500px; } }
   .panel-right.is-active {
     box-shadow: -3px 0 10px rgba(0, 0, 0, 0.25); }
 
@@ -2024,9 +2024,9 @@ meter {
   /*
     Shadows
   */ }
-  @media only screen and (min-width: 18.75em) {
+  @media only screen and (min-width: 31.25em) {
     .panel-left {
-      width: 300px; } }
+      width: 500px; } }
   .panel-left.is-active {
     box-shadow: 3px 0 10px rgba(0, 0, 0, 0.25); }
 
@@ -6058,3 +6058,84 @@ p {
   color: white;
   padding-top: 5px;
   padding-left: 20px; }
+
+.server-card {
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+  padding: 1rem; }
+
+.server-card:hover {
+  background-color: #313131; }
+
+.serverbutton-prime {
+  border: 1px solid #ff9933;
+  background: transparent;
+  color: #ff9933;
+  margin: 0px;
+  width: 100%;
+  margin-top: 10px; }
+  .serverbutton-prime:hover, .serverbutton-prime:focus {
+    border-color: #ffb366;
+    background: transparent;
+    color: #ffb366; }
+  .serverbutton-prime .iconic * {
+    fill: #ff9933;
+    stroke: #ff9933; }
+    .serverbutton-prime .iconic *.iconic-property-accent {
+      fill: #ff9933;
+      stroke: #ff9933; }
+  .serverbutton-prime:hover .iconic * {
+    fill: #ffb366;
+    stroke: #ffb366; }
+    .serverbutton-prime:hover .iconic *.iconic-property-accent {
+      fill: #ffb366;
+      stroke: #ffb366; }
+
+.serverbutton-success {
+  border: 1px solid #43AC6A;
+  background: transparent;
+  color: #43AC6A;
+  margin: 0px;
+  width: 100%;
+  margin-top: 10px; }
+  .serverbutton-success:hover, .serverbutton-success:focus {
+    border-color: #6dc68e;
+    background: transparent;
+    color: #6dc68e; }
+  .serverbutton-success .iconic * {
+    fill: #43AC6A;
+    stroke: #43AC6A; }
+    .serverbutton-success .iconic *.iconic-property-accent {
+      fill: #43AC6A;
+      stroke: #43AC6A; }
+  .serverbutton-success:hover .iconic * {
+    fill: #6dc68e;
+    stroke: #6dc68e; }
+    .serverbutton-success:hover .iconic *.iconic-property-accent {
+      fill: #6dc68e;
+      stroke: #6dc68e; }
+
+.serverbutton-alert {
+  border: 1px solid #F04124;
+  background: transparent;
+  color: #F04124;
+  margin: 0px;
+  width: 100%;
+  margin-top: 10px; }
+  .serverbutton-alert:hover, .serverbutton-alert:focus {
+    border-color: #f4715b;
+    background: transparent;
+    color: #f4715b; }
+  .serverbutton-alert .iconic * {
+    fill: #F04124;
+    stroke: #F04124; }
+    .serverbutton-alert .iconic *.iconic-property-accent {
+      fill: #F04124;
+      stroke: #F04124; }
+  .serverbutton-alert:hover .iconic * {
+    fill: #f4715b;
+    stroke: #f4715b; }
+    .serverbutton-alert:hover .iconic *.iconic-property-accent {
+      fill: #f4715b;
+      stroke: #f4715b; }
