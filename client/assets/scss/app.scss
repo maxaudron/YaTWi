@@ -147,10 +147,6 @@ p {
   //margin-right: 2rem;
 }
 
-.server-card:hover {
-  background-color: smartscale($dark-color, 5%)
-}
-
 .serverbutton-prime {
   @extend %button;
   @include button-style(

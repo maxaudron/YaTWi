@@ -6065,9 +6065,6 @@ p {
   margin-top: 10px;
   padding: 1rem; }
 
-.server-card:hover {
-  background-color: #313131; }
-
 .serverbutton-prime {
   border: 1px solid #ff9933;
   background: transparent;
