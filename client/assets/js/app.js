@@ -1,5 +1,5 @@
-(function() {
-  'use strict';
+(function () {
+  'use strict'
 
   angular.module('application', [
       'ui.router',
@@ -19,8 +19,8 @@
           .state('parent', {
             templateUrl: 'templates/parent.html',
             abstract: true,
-            onEnter: function (){
-              create_server_list();
+            onEnter: function () {
+              create_server_list()
             }
           })
           .state('root', {
@@ -100,11 +100,12 @@
     .run(function(PermPermissionStore) {
       PermPermissionStore
         .definePermission('anonymous', function() {
-          var auth = login_check();
-          if (auth == true) {
-            return false;
-          } else if (auth == false) {
-            return true;
+          var auth = login_check()
+          if (auth === true) {
+            return false
+          } else if (auth === false) {
+            console.log('anon');
+            return true
           }
         })
     })
@@ -112,35 +113,39 @@
   .run(function(PermPermissionStore) {
     PermPermissionStore
       .definePermission('isAuthorized', function() {
-        var auth = login_check();
-        if (auth == true) {
-          return true;
-        } else if (auth == false) {
-          return false;
+        var auth = login_check()
+        if (auth === true) {
+          console.log('authed')
+          return true
+        } else if (auth === false) {
+          return false
         }
       })
-  });
+  })
 
-  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+  config.$inject = ['$urlRouterProvider', '$locationProvider']
 
   function config($urlProvider, $locationProvider) {
-    $urlProvider.otherwise('/');
+    $urlProvider.otherwise('/')
 
     locationProvider.html5Mode({
       enabled: false,
       requireBase: false
-    });
+    })
 
-    $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('!')
   }
 
   function run() {
-    FastClick.attach(document.body);
+    FastClick.attach(document.body)
   }
 
-})();
+  function reload() {
+    $state.reload()
+  }
+})()
 
-(function() {
+/*(function () {
   /**
    * Decimal adjustment of a number.
    *
@@ -149,43 +154,41 @@
    * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
    * @returns {Number} The adjusted value.
    */
-  function decimalAdjust(type, value, exp) {
+  /*function decimalAdjust (type, value, exp) {
     // If the exp is undefined or zero...
     if (typeof exp === 'undefined' || +exp === 0) {
-      return Math[type](value);
+      return Math[type](value)
     }
-    value = +value;
-    exp = +exp;
+    value = +value
+    exp = +exp
     // If the value is not a number or the exp is not an integer...
     if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-      return NaN;
+      return NaN
     }
     // Shift
-    value = value.toString().split('e');
-    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    value = value.toString().split('e')
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)))
     // Shift back
-    value = value.toString().split('e');
-    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+    value = value.toString().split('e')
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp))
   }
 
   // Decimal round
   if (!Math.round10) {
-    Math.round10 = function(value, exp) {
-      return decimalAdjust('round', value, exp);
-    };
+    Math.round10 = function (value, exp) {
+      return decimalAdjust('round', value, exp)
+    }
   }
   // Decimal floor
   if (!Math.floor10) {
-    Math.floor10 = function(value, exp) {
-      return decimalAdjust('floor', value, exp);
-    };
+    Math.floor10 = function (value, exp) {
+      return decimalAdjust('floor', value, exp)
+    }
   }
   // Decimal ceil
   if (!Math.ceil10) {
-    Math.ceil10 = function(value, exp) {
-      return decimalAdjust('ceil', value, exp);
-    };
+    Math.ceil10 = function (value, exp) {
+      return decimalAdjust('ceil', value, exp)
+    }
   }
-})();
-
-var selected_server_uid = '1'
+})()*/

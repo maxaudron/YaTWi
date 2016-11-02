@@ -8,9 +8,7 @@ function get_clients (callback) {
     url: '/assets/php/lib/clients/get_clients.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var clients = JSON.parse(data)
@@ -24,9 +22,7 @@ function get_channels (callback) {
     url: '/assets/php/lib/server/get_channel.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var channels = JSON.parse(data)

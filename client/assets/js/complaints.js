@@ -8,9 +8,7 @@ function get_complains(callback) {
     url: '/assets/php/lib/clients/get_complaints.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var out = JSON.parse(data)
@@ -41,11 +39,9 @@ function delete_complain (tcldbid, fcldbid, callback) {
     url: '/assets/php/lib/clients/remove_complaints.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
       'tcldbid': tcldbid,
       'fcldbid': fcldbid,
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var out = JSON.parse(data)

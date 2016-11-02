@@ -19,8 +19,6 @@ function server_Start (sid) {
     url: '/assets/php/lib/server/server_start.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
       'sid': sid
     },
     success: function (data) {
@@ -35,8 +33,6 @@ function server_Stop (sid) {
     url: '/assets/php/lib/server/server_stop.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
       'sid': sid
     },
     success: function (data) {
@@ -47,7 +43,20 @@ function server_Stop (sid) {
 }
 
 function server_select (sid) {
-  var selected_server_uid = sid
+  $.ajax({
+    url: '/assets/php/lib/server/auth.php',
+    type: 'post',
+    data: {
+      'sid': sid,
+      'action': 'select_server'
+    },
+    success: function (data) {
+      console.log('Server ' + sid + ' selected')
+      populate_dashboard()
+      complain_list()
+      get_server_view()
+    }
+  })
 }
 
 function get_server_list (callback) {
@@ -55,9 +64,7 @@ function get_server_list (callback) {
     url: '/assets/php/lib/server/get_server_list.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var server = JSON.parse(data)
@@ -68,7 +75,6 @@ function get_server_list (callback) {
 }
 
 function create_server_list () {
-  console.log(selected_server_uid);
    get_server_list(function (server) {
      if (server.success === true) {
        var server = server.data
@@ -90,9 +96,7 @@ function get_server_info (callback) {
     url: '/assets/php/lib/server/get_server_info.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var serverInfo = JSON.parse(data)
@@ -112,8 +116,8 @@ function populate_dashboard () {
     $('#ts_version').html(serverInfo.virtualserver_version)
     $('#ts_platform').html(serverInfo.virtualserver_platform)
     $('#ts_runtime').html(serverInfo.virtualserver_uptime)
-    $('#ts_data_transfered_up').html(Math.round10(serverInfo.connection_bytes_sent_total / 1024000, -2))
-    $('#ts_data_transfered_down').html(Math.round10(serverInfo.connection_bytes_received_total / 1024000, -2))
+    $('#ts_data_transfered_up').html(/*Math.round10(*/serverInfo.connection_bytes_sent_total / 1024000)
+    $('#ts_data_transfered_down').html(/*Math.round10(*/serverInfo.connection_bytes_received_total / 1024000)
     $('#ts_banner').attr('src', serverInfo.virtualserver_hostbanner_gfx_url)
   })
 }

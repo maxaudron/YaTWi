@@ -1,4 +1,5 @@
 <?php
+  session_start();
 
 $ts3_ip = '178.238.233.133';
 $ts3_queryport = 10011;

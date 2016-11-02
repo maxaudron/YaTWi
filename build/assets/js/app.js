@@ -1,5 +1,5 @@
-(function() {
-  'use strict';
+(function () {
+  'use strict'
 
   angular.module('application', [
       'ui.router',
@@ -19,8 +19,8 @@
           .state('parent', {
             templateUrl: 'templates/parent.html',
             abstract: true,
-            onEnter: function (){
-              create_server_list();
+            onEnter: function () {
+              create_server_list()
             }
           })
           .state('root', {
@@ -100,11 +100,12 @@
     .run(function(PermPermissionStore) {
       PermPermissionStore
         .definePermission('anonymous', function() {
-          var auth = login_check();
-          if (auth == true) {
-            return false;
-          } else if (auth == false) {
-            return true;
+          var auth = login_check()
+          if (auth === true) {
+            return false
+          } else if (auth === false) {
+            console.log('anon');
+            return true
           }
         })
     })
@@ -112,35 +113,39 @@
   .run(function(PermPermissionStore) {
     PermPermissionStore
       .definePermission('isAuthorized', function() {
-        var auth = login_check();
-        if (auth == true) {
-          return true;
-        } else if (auth == false) {
-          return false;
+        var auth = login_check()
+        if (auth === true) {
+          console.log('authed')
+          return true
+        } else if (auth === false) {
+          return false
         }
       })
-  });
+  })
 
-  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+  config.$inject = ['$urlRouterProvider', '$locationProvider']
 
   function config($urlProvider, $locationProvider) {
-    $urlProvider.otherwise('/');
+    $urlProvider.otherwise('/')
 
     locationProvider.html5Mode({
       enabled: false,
       requireBase: false
-    });
+    })
 
-    $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('!')
   }
 
   function run() {
-    FastClick.attach(document.body);
+    FastClick.attach(document.body)
   }
 
-})();
+  function reload() {
+    $state.reload()
+  }
+})()
 
-(function() {
+/*(function () {
   /**
    * Decimal adjustment of a number.
    *
@@ -149,142 +154,160 @@
    * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
    * @returns {Number} The adjusted value.
    */
-  function decimalAdjust(type, value, exp) {
+  /*function decimalAdjust (type, value, exp) {
     // If the exp is undefined or zero...
     if (typeof exp === 'undefined' || +exp === 0) {
-      return Math[type](value);
+      return Math[type](value)
     }
-    value = +value;
-    exp = +exp;
+    value = +value
+    exp = +exp
     // If the value is not a number or the exp is not an integer...
     if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-      return NaN;
+      return NaN
     }
     // Shift
-    value = value.toString().split('e');
-    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    value = value.toString().split('e')
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)))
     // Shift back
-    value = value.toString().split('e');
-    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+    value = value.toString().split('e')
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp))
   }
 
   // Decimal round
   if (!Math.round10) {
-    Math.round10 = function(value, exp) {
-      return decimalAdjust('round', value, exp);
-    };
+    Math.round10 = function (value, exp) {
+      return decimalAdjust('round', value, exp)
+    }
   }
   // Decimal floor
   if (!Math.floor10) {
-    Math.floor10 = function(value, exp) {
-      return decimalAdjust('floor', value, exp);
-    };
+    Math.floor10 = function (value, exp) {
+      return decimalAdjust('floor', value, exp)
+    }
   }
   // Decimal ceil
   if (!Math.ceil10) {
-    Math.ceil10 = function(value, exp) {
-      return decimalAdjust('ceil', value, exp);
-    };
+    Math.ceil10 = function (value, exp) {
+      return decimalAdjust('ceil', value, exp)
+    }
   }
-})();
+})()*/
 
-var selected_server_uid = '1'
-
-/////////////////////////////////////////////////////////////////
-////  Authentification functions                             ////
-////  Developed for YaTWi                                    ////
-////  Licensed under MIT license                             ////
-/////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////
+// //  Authentification functions                             ////
+// //  Developed for YaTWi                                    ////
+// //  Licensed under MIT license                             ////
+// ///////////////////////////////////////////////////////////////
 
 // Write session cookie
 function writeCookie (name, value, days) {
-  var date, expires;
+  var date, expires
   if (days) {
-    date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toGMTString();
+    date = new Date()
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
+    expires = '; expires=' + date.toGMTString()
   } else {
-    expires = "";
+    expires = ""
   }
-  document.cookie = name + "=" + value + expires + "; path=/";
+  document.cookie = name + '=' + value + expires + '; path=/'
 }
 
 
 // Read Session cookie
-function readCookie(name) {
-  var i, c, ca, nameEQ = name + "=";
-  ca = document.cookie.split(';');
+function readCookie (name) {
+  var i, c, ca, nameEQ = name + '='
+  ca = document.cookie.split(';')
   for (i = 0; i < ca.length; i++) {
-    c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1, c.length);
+    c = ca[i]
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1, c.length)
     }
-    if (c.indexOf(nameEQ) == 0) {
-      return c.substring(nameEQ.length, c.length);
+    if (c.indexOf(nameEQ) === 0) {
+      return c.substring(nameEQ.length, c.length)
     }
   }
-  return '';
+  return ''
 }
 
 // Delete Cookie
-function eraseCookie(name) {
-  writeCookie(name, "", -1);
+function eraseCookie (name) {
+  writeCookie(name, '', -1)
 }
 
-var retrive_user = (function() {
-  var userdata = readCookie('SessionId');
-  var userdata = userdata.split('/~/');
-  var username = function(){return userdata[0]};
-  var password = function(){return userdata[1]};
-  return {username:username, password:password};
-}());
+var retrive_user = (function () {
+  var userdata = readCookie('SessionId')
+  userdata = userdata.split('/~/')
+  var username = function () { return userdata[0] }
+  var password = function () { return userdata[1] }
+  return {username: username, password: password}
+}())
 
 function login(form) {
-  var username = document.loginform.username.value;
-  var password = document.loginform.password.value;
-  var sessiontimeout = document.loginform.session_timeout.checked;
-  if (sessiontimeout == true) {
-    var sessiontimeout = '30';
+  var username = document.loginform.username.value
+  var password = document.loginform.password.value
+  var sessiontimeout = document.loginform.session_timeout.checked
+  if (sessiontimeout === true) {
+    sessiontimeout = '30'
   } else {
-    var sessiontimeout = '1';
+    sessiontimeout = '1'
   }
   $.ajax({
-    url: '/assets/php/lib/server/login.php',
+    url: '/assets/php/lib/server/auth.php',
     type: 'post',
     data: {
       'username': username,
-      'password': password
+      'password': password,
+      'action': 'login'
     },
-    success: function(data) {
-      if (data == 'Login success') {
-        console.log(data);
-        writeCookie('SessionId', username + '/~/' + password, sessiontimeout);
-        location.assign('/#/');
-      } else if (data == 'Connection failed') {
-        console.log(data);
-        $('#connect_fail').show(1000);
-      } else if (data == 'Login failed') {
-        console.log(data);
-        $('#login_fail').show(1000);
+    success: function (data) {
+      if (data === '200') {
+        location.assign('/#/')
+      } else if (data === '503') {
+        console.log(data)
+        $('#connect_fail').show(1000)
+      } else if (data === '401') {
+        console.log(data)
+        $('#login_fail').show(1000)
       }
     }
-  });
+  })
 }
 
-function logout() {
-  eraseCookie('SessionId');
-  location.assign('/#/login');
+function logout () {
+  $.ajax({
+    url: '/assets/php/lib/server/auth.php',
+    type: 'post',
+    data: {
+      'action': 'logout'
+    },
+    success: function() {
+      eraseCookie('PHPSESSID')
+    }
+  })
+  location.assign('/#/login')
 }
 
-function login_check() {
-  if (document.cookie.indexOf('SessionId') >= 0) {
-    return true;
+function login_check () {
+  if (document.cookie.indexOf("PHPSESSID") >= 0) {
+    return true
   } else {
-    return false;
+    return false
   }
 }
 
-
+/*function login_check_handler (callback) {
+  return $.ajax({
+    url: '/assets/php/lib/server/auth.php',
+    type: 'post',
+    data: {
+      'action': 'login_check'
+    },
+    success: function (data) {
+      console.log(data)
+      callback(data)
+    }
+  })
+}*/
 
 /*
 var sId = readCookie('sessionId') // Cokie write
@@ -303,9 +326,7 @@ function get_complains(callback) {
     url: '/assets/php/lib/clients/get_complaints.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var out = JSON.parse(data)
@@ -336,11 +357,9 @@ function delete_complain (tcldbid, fcldbid, callback) {
     url: '/assets/php/lib/clients/remove_complaints.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
       'tcldbid': tcldbid,
       'fcldbid': fcldbid,
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var out = JSON.parse(data)
@@ -383,8 +402,6 @@ function server_Start (sid) {
     url: '/assets/php/lib/server/server_start.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
       'sid': sid
     },
     success: function (data) {
@@ -399,8 +416,6 @@ function server_Stop (sid) {
     url: '/assets/php/lib/server/server_stop.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
       'sid': sid
     },
     success: function (data) {
@@ -411,7 +426,20 @@ function server_Stop (sid) {
 }
 
 function server_select (sid) {
-  var selected_server_uid = sid
+  $.ajax({
+    url: '/assets/php/lib/server/auth.php',
+    type: 'post',
+    data: {
+      'sid': sid,
+      'action': 'select_server'
+    },
+    success: function (data) {
+      console.log('Server ' + sid + ' selected')
+      populate_dashboard()
+      complain_list()
+      get_server_view()
+    }
+  })
 }
 
 function get_server_list (callback) {
@@ -419,9 +447,7 @@ function get_server_list (callback) {
     url: '/assets/php/lib/server/get_server_list.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var server = JSON.parse(data)
@@ -432,7 +458,6 @@ function get_server_list (callback) {
 }
 
 function create_server_list () {
-  console.log(selected_server_uid);
    get_server_list(function (server) {
      if (server.success === true) {
        var server = server.data
@@ -454,9 +479,7 @@ function get_server_info (callback) {
     url: '/assets/php/lib/server/get_server_info.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var serverInfo = JSON.parse(data)
@@ -476,8 +499,8 @@ function populate_dashboard () {
     $('#ts_version').html(serverInfo.virtualserver_version)
     $('#ts_platform').html(serverInfo.virtualserver_platform)
     $('#ts_runtime').html(serverInfo.virtualserver_uptime)
-    $('#ts_data_transfered_up').html(Math.round10(serverInfo.connection_bytes_sent_total / 1024000, -2))
-    $('#ts_data_transfered_down').html(Math.round10(serverInfo.connection_bytes_received_total / 1024000, -2))
+    $('#ts_data_transfered_up').html(/*Math.round10(*/serverInfo.connection_bytes_sent_total / 1024000)
+    $('#ts_data_transfered_down').html(/*Math.round10(*/serverInfo.connection_bytes_received_total / 1024000)
     $('#ts_banner').attr('src', serverInfo.virtualserver_hostbanner_gfx_url)
   })
 }
@@ -492,9 +515,7 @@ function get_clients (callback) {
     url: '/assets/php/lib/clients/get_clients.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var clients = JSON.parse(data)
@@ -508,9 +529,7 @@ function get_channels (callback) {
     url: '/assets/php/lib/server/get_channel.php',
     type: 'post',
     data: {
-      'username': retrive_user.username(),
-      'password': retrive_user.password(),
-      'selected_server': selected_server_uid
+      'selected_server': '1'
     },
     success: function (data) {
       var channels = JSON.parse(data)
