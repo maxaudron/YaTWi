@@ -15,6 +15,11 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    checks:
+      CleanCode/BooleanArgumentFlag:
+        enabled: false
+      CleanCode/ElseExpression:
+        enabled: false
   duplication:
     enabled: true
     config:
@@ -37,3 +42,11 @@ exclude_paths:
  - "build/assets/js/foundation.js"
 exclude_fingerprints:
  - c7d8b3b6cf184a3f18ca6516365278b0
+ - d49f43a7669a32b989385a3971f26200
+ - 7005a85b3eb8523256825f3e503ef11d
+ - e397ff3623a19862d1bfc0ab5de902d9
+ - ba58a60487affa42386f001b346c0166
+ - 262987f978e44c2bc7fab6b77954c694
+ - a91a46ae111008c8c85881f2d54f34f7
+ - f05e625cbcb0156d24ea90fd3768a740
+ - 93dec59f594f4c996f885e098bb2ab14
