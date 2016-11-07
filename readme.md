@@ -20,3 +20,6 @@ Design elements aren't completely finished and there are bugs too expect.
 
 ## Testing  
 To try Yatwi out in its current stage donwload a zipped version of this repo or clone it and copy the contents of the *build* folder onto a php enabled webhost. Enter your servers ip in /assets/php/config.php
+
+
+Powered by par0noid's ts3admin.class.php
