@@ -1,6 +1,3 @@
-(function () {
-  'use strict'
-
   angular.module('application', [
       'ui.router',
       'ui.router.stateHelper',
@@ -140,10 +137,8 @@
     FastClick.attach(document.body)
   }
 
-  function reload() {
-    $state.reload()
-  }
-})()
+  var app = angular.module('application')
+
 
 /*(function () {
   /**

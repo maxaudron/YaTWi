@@ -85,7 +85,7 @@ gulp.task('copy:templates', function() {
 });
 
 gulp.task('copy:js', function() {
-  return gulp.src('./client/assets/js/lib/**/*.js')
+  return gulp.src('./client/assets/js/lib/**/*.*')
     .pipe(gulp.dest('./build/assets/js/lib'))
   ;
 });

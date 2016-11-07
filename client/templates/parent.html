@@ -134,9 +134,25 @@
     </zf-accordion>
     <ul class="dark menu-bar horizontal bottom">
       <li class="grid-content small-6 height_10"><a href="#" onclick="logout()">Logout</a></li>
-      <li class="grid-content small-6 height_10"><a ui-sref="settings">Settings</a></li>
+      <li class="grid-content small-6 height_10"><a zf-open="advancedModal">Settings</a></li>
     </ul>
   </div>
+
+  <div zf-modal="" id="message_modal" class="collapse">
+    <div class="grid-block vertical">
+      <div class="grid-content padding" style="padding-top: 1rem;">
+        <h3 id="message_recipant"></h3>
+        <form>
+          <input id="message_mode" type="text" placeholder="mode" style="display: none" />
+          <input id="message_target" type="text" style="display: none" />
+          <input id="message_content" type="text" placeholder="Your Message" />
+          <a zf-close="" class="button" onclick="$('#message_modal').hide()">OK</a>
+          <a zf-close="" class="button">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
   <div ui-view class="grid-content medium-9" style="overflow: auto; margin: 0 auto;">
   </div>
