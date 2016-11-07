@@ -8,6 +8,9 @@ engines:
    enabled: true
   eslint:
     enabled: true
+    checks:
+      max-statements:
+        enabled: false
   csslint:
     enabled: true
   phpmd:
@@ -30,4 +33,7 @@ ratings:
    - "**.py"
    - "**.rb"
 exclude_paths:
-- client/**
+ - client/**
+ - "build/assets/js/foundation.js"
+exclude_fingerprints:
+ - c7d8b3b6cf184a3f18ca6516365278b0
