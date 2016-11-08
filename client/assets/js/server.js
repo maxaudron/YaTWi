@@ -5,9 +5,9 @@
 // ///////////////////////////////////////////////////////////////
 
 function server_status (server2) {
-  if (server2.virtualserver_status == 'online') {
+  if (server2.virtualserver_status === 'online') {
     return 'Stop'
-  } else if (server2.virtualserver_status == 'offline') {
+  } else if (server2.virtualserver_status === 'offline') {
     return 'Start'
   } else {
     return ''

@@ -73,7 +73,7 @@ function get_server_view() {
                   icon: "edit",
                   callback: function(key, options) {
                     console.log('test');
-                    angular.injector(['ng', 'foundation.core']).invoke(function() {
+                    angular.injector(['ng', 'foundation.core']).invoke(function(foundationApi) {
                        foundationApi.publish('message_modal', 'open')
                     })
                   }
