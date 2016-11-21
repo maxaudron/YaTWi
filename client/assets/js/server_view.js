@@ -48,65 +48,62 @@ function get_server_view() {
       var chache = ''
       channels.forEach(function(item, index, arr) {
         var channels2 = channels[index]
-        chache = chache + '<div id="channel_' + channels2.cid + '" class="channel-card" title="' + channels2.channel_topic + '">' + channels2.channel_name + '<span id="channel_client_container_' + channels2.cid + '"></span></div>'
+        chache = chache + '<div id="channel_"' + channels2.cid + ' class="channel-card" title="' + channels2.channel_topic + '">' + channels2.channel_name + '<span id="channel_client_container_' + channels2.cid + '"></span></div>'
       })
       $('#server_view').html(chache.replace(/(\[[cr]*spacer[0-9]+\])/g, ''))
-      get_clients(function(clients) {
+      get_clients(function (clients) {
         if (clients.success === true) {
           var clients = clients.data
           var chache = {}
-          clients.forEach(function(item, index, arr) {
+          clients.forEach(function (item, index, arr) {
             var clients2 = clients[index]
             chache[clients2.cid] = ''
           })
-          clients.forEach(function(item, index, arr) {
+          clients.forEach(function (item, index, arr) {
             var clients2 = clients[index]
             $.contextMenu({
               selector: '#client_' + clients2.clid,
-              callback: function(key, options) {
-                var m = "clicked: " + key;
-                window.console && console.log(m) || alert(m);
+              callback: function (key, options) {
+                var m = 'clicked: ' + key
+                window.console && console.log(m) || alert(m)
               },
               items: {
-                "message": {
-                  name: "Send Message",
-                  icon: "edit",
-                  callback: function(key, options) {
-                    console.log('test');
-                    angular.injector(['ng', 'foundation.core']).invoke(function(foundationApi) {
-                       foundationApi.publish('message_modal', 'open')
-                    })
+                'message': {
+                  name: 'Send Message',
+                  icon: 'edit',
+                  callback: function (key, options) {
+                    message_dialog(clients2)
                   }
                 },
-                "poke": {
-                  name: "Poke",
-                  icon: "cut",
+                'poke': {
+                  name: 'Poke',
+                  icon: 'cut',
                   callback: poke_dialog(clients2)
                 },
-                "servergroup": {
-                  name: "Change Server Group",
-                  icon: "copy",
+                'servergroup': {
+                  name: 'Change Server Group',
+                  icon: 'copy',
                   callback: server_group_dialog(clients2)
                 },
-                "kick": {
-                  name: "Kick",
-                  icon: "paste",
+                'kick': {
+                  name: 'Kick',
+                  icon: 'paste',
                   callback: kick_dialog(clients2)
                 },
-                "ban": {
-                  name: "Ban",
-                  icon: "delete",
+                'ban': {
+                  name: 'Ban',
+                  icon: 'delete',
                   callback: ban_dialog(clients2)
                 },
-                "sep1": "---------",
-                "quit": {
-                  name: "Quit",
-                  icon: function() {
-                    return 'context-menu-icon context-menu-icon-quit';
+                'sep1': '---------',
+                'quit': {
+                  name: 'Quit',
+                  icon: function () {
+                    return 'context-menu-icon context-menu-icon-quit'
                   }
                 }
               }
-            });
+            })
             chache[clients2.cid] = chache[clients2.cid] + '<div id="client_' + clients2.clid + '" class="client-card">' + clients2.client_nickname + '</div>'
             $('#channel_client_container_' + clients2.cid).html(chache[clients2.cid])
           })

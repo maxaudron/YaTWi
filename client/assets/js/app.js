@@ -41,6 +41,10 @@
               get_server_view()
             }
           })
+          .state('livechat', {
+            templateUrl: 'templates/livechat.html',
+            url: '/livechat'
+          })
           .state('settings', {
             url: '/settings',
             templateUrl: 'templates/settings.html',
