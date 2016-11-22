@@ -1,6 +1,7 @@
 /* Dialogs for functions */
 
 function message_dialog(clients2) {
+  console.log(clients2.client_nickname + ' und ' + clients2.clid);
   angular.injector(['ng', 'foundation']).invoke(function (ModalFactory) {
     var modal = new ModalFactory({
       // Add CSS classes to the modal
@@ -11,7 +12,7 @@ function message_dialog(clients2) {
       // Set if the modal can be closed by clicking on the overlay
       overlayClose: false,
       // Define a template to use for the modal
-      template: '<div class="grid-block vertical"><div class="grid-content padding" style="padding-top: 1rem;"><h4 id="message_recipant">Send Message to: ' + clients2.client_nickname + '</h4><form name="messageform"><input id="message_mode" type="text" placeholder="mode" style="display: none" /><input id="message_target" type="text" style="display: none" /><input id="message_content" name="message" type="text" placeholder="Your Message" /><a zf-close="" class="button" onclick="send_message(this.form, &apos;1&apos;,' + clients2.cid + ')">Send</a><a zf-close="" class="button">Cancel</a></form></div></div>',
+      template: '<div class="grid-block vertical"><div class="grid-content padding" style="padding-top: 1rem;"><h4 id="message_recipant">Send Message to: ' + clients2.client_nickname + '</h4><form name="messageform"><input id="message_mode" type="text" placeholder="mode" style="display: none" /><input id="message_target" type="text" style="display: none" /><input id="message_content" name="message" type="text" placeholder="Your Message" /><a zf-close="" class="button" onclick="send_message(this.form, &apos;1&apos;,' + clients2.clid + ')">Send</a><a zf-close="" class="button">Cancel</a></form></div></div>',
       // Allows you to pass in properties to the scope of the modal
       contentScope: {
         close: function () {
