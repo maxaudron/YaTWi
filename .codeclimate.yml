@@ -40,7 +40,7 @@ ratings:
 exclude_paths:
  - client/**
  - "build/assets/js/foundation.js"
- - "build/assets/php/ts3aadmin.class.php"
+ - "build/assets/php/ts3admin.class.php"
  - "build/assets/js/lib/**"
 exclude_fingerprints:
  - c7d8b3b6cf184a3f18ca6516365278b0
