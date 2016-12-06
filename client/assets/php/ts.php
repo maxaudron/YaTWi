@@ -1,7 +1,10 @@
 <?php
+session_start();
 
-require($_SERVER['DOCUMENT_ROOT'].'/assets/php/lib/config.php');
 require($_SERVER['DOCUMENT_ROOT'].'/assets/php/ts3admin.class.php');
+
+$ts3_ip = 'tba.synmatter.com';
+$ts3_queryport = 10011;
 
 $sidc = $_SESSION['serverid'];
 $selected_server = intval($sidc);

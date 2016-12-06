@@ -76,18 +76,13 @@ p {
 }
 
 .bottom {
-  position: absolute;
-  bottom: 50px;
-  min-width: 400px;
-  height: 60px;
-  padding: 0px;
-  overflow: hidden;
-  background-color: $dark-color;
-  margin-top: -100px;
+  //position: absolute;
+  margin-bottom: 50px;
 }
 
 .height_10 {
   height: 60px;
+  width: 50%;
   padding: 0px;
   margin: 0px;
 }

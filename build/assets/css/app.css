@@ -5984,17 +5984,11 @@ p {
   margin-top: 6px; }
 
 .bottom {
-  position: absolute;
-  bottom: 50px;
-  min-width: 400px;
-  height: 60px;
-  padding: 0px;
-  overflow: hidden;
-  background-color: #262626;
-  margin-top: -100px; }
+  margin-bottom: 50px; }
 
 .height_10 {
   height: 60px;
+  width: 50%;
   padding: 0px;
   margin: 0px; }
 
