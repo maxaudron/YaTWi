@@ -9,6 +9,7 @@ Design elements aren't completely finished and there are bugs too expect.
 ### Implemented  
 * Server view
 * Dashboard (Overview over settings complains and Server View)  
+* Client Message and Poke
 
 ### ToDo  
 * Dashboard quick actions
