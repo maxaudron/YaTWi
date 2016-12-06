@@ -78,7 +78,9 @@ function get_server_view() {
                 'poke': {
                   name: 'Poke',
                   icon: 'cut',
-                  callback: poke_dialog(clients2)
+                  callback: function (key, options) {
+                    poke_dialog(clients2)
+                  }
                 },
                 'servergroup': {
                   name: 'Change Server Group',

@@ -144,6 +144,24 @@
   var app = angular.module('application')
 
 
+function call_php (callback, action, var1, var2, var3, var4) {
+  return $.ajax({
+    url: '/assets/php/ts.php',
+    type: 'post',
+    data: {
+      'action': action,
+      'var1': var1,
+      'var2': var2,
+      'var3': var3,
+      'var4': var4
+    },
+    success: function (data) {
+      var out = JSON.parse(data)
+      callback(out)
+    }
+  })
+}
+
 /*(function () {
   /**
    * Decimal adjustment of a number.
@@ -383,6 +401,7 @@ function remove_complain (tcldbid, fcldbid) {
 /* Dialogs for functions */
 
 function message_dialog(clients2) {
+  console.log(clients2.client_nickname + ' und ' + clients2.clid);
   angular.injector(['ng', 'foundation']).invoke(function (ModalFactory) {
     var modal = new ModalFactory({
       // Add CSS classes to the modal
@@ -393,7 +412,7 @@ function message_dialog(clients2) {
       // Set if the modal can be closed by clicking on the overlay
       overlayClose: false,
       // Define a template to use for the modal
-      template: '<div class="grid-block vertical"><div class="grid-content padding" style="padding-top: 1rem;"><h4 id="message_recipant">Send Message to: ' + clients2.client_nickname + '</h4><form name="messageform"><input id="message_mode" type="text" placeholder="mode" style="display: none" /><input id="message_target" type="text" style="display: none" /><input id="message_content" name="message" type="text" placeholder="Your Message" /><a zf-close="" class="button" onclick="send_message(this.form, &apos;1&apos;,' + clients2.cid + ')">Send</a><a zf-close="" class="button">Cancel</a></form></div></div>',
+      template: '<div class="grid-block vertical"><div class="grid-content padding" style="padding-top: 1rem;"><h4 id="message_recipant">Send Message to: ' + clients2.client_nickname + '</h4><form name="messageform"><input id="message_mode" type="text" placeholder="mode" style="display: none" /><input id="message_target" type="text" style="display: none" /><input id="message_content" name="message" type="text" placeholder="Your Message" /><a zf-close="" class="button" onclick="send_message(this.form, &apos;1&apos;,' + clients2.clid + ')">Send</a><a zf-close="" class="button">Cancel</a></form></div></div>',
       // Allows you to pass in properties to the scope of the modal
       contentScope: {
         close: function () {
@@ -408,8 +427,31 @@ function message_dialog(clients2) {
   })
 }
 
-function poke_dialog() {
-
+function poke_dialog(clients2) {
+  console.log(clients2.client_nickname + ' und ' + clients2.clid);
+  angular.injector(['ng', 'foundation']).invoke(function (ModalFactory) {
+    var modal = new ModalFactory({
+      // Add CSS classes to the modal
+      // Can be a single string or an array of classes
+      class: 'collapse',
+      // Set if the modal has a background overlay
+      overlay: true,
+      // Set if the modal can be closed by clicking on the overlay
+      overlayClose: false,
+      // Define a template to use for the modal
+      template: '<div class="grid-block vertical"><div class="grid-content padding" style="padding-top: 1rem;"><h4 id="message_recipant">Poke: ' + clients2.client_nickname + '</h4><form name="messageform"><input id="message_mode" type="text" placeholder="mode" style="display: none" /><input id="message_target" type="text" style="display: none" /><input id="message_content" name="message" type="text" placeholder="Your Message" /><a zf-close="" class="button" onclick="send_poke(this.form,' + clients2.clid + ')">Send</a><a zf-close="" class="button">Cancel</a></form></div></div>',
+      // Allows you to pass in properties to the scope of the modal
+      contentScope: {
+        close: function () {
+          modal.deactivate()
+          $timeout(function () {
+            modal.destroy()
+          }, 1000)
+        }
+      }
+    })
+    modal.activate()
+  })
 }
 
 function server_group_dialog() {
@@ -430,9 +472,68 @@ function ban_dialog() {
 // //  under MIT license                                      ////
 // ///////////////////////////////////////////////////////////////
 
-function send_message (form, mode, target) {
-  var message = document.messageform.message.value
-  console.log(message)
+function send_message (form, msg_mode, target) {
+  var msg = document.messageform.message.value
+  console.log(msg)
+  $.ajax({
+    url: '/assets/php/lib/clients/message.php',
+    type: 'post',
+    data: {
+      'msg_mode': msg_mode,
+      'msg': msg,
+      'target': target
+      //'action': 'poke'
+    },
+    success: function (data) {
+
+    }
+  })
+}
+
+function send_poke (form, target) {
+  var msg = document.messageform.message.value
+  console.log(msg)
+  call_php(function (out) {}, 'clientPoke', target, msg)
+}
+
+function check_bottom () {
+  var out = document.getElementById('out')
+    // allow 1px inaccuracy by adding 1
+  var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1
+  if (isScrolledToBottom) {
+    out.scrollTop = out.scrollHeight - out.clientHeight
+  }
+}
+
+function live_chat (msg_mode) {
+  $.ajax({
+    url: '/assets/php/lib/clients/message.php',
+    type: 'post',
+    data: {
+      'msg_mode': msg_mode,
+      'action': 'listen'
+    },
+    success: function (data) {
+      chat_handler(data)
+    }
+  })
+}
+
+function chat_handler (out) {
+  if (out.success === true) {
+    out = out.data
+    var cache = ''
+    out.forEach(function (item, index, arr) {
+      var out2 = out[index]
+      var msg = '<p><span class="highlight_text">' + out2.invokername + '</span>' + out2.msg
+      $('#chat_' + out2.invokerid).append(msg)
+    })
+    $('#complains').html(cache)
+  }
+}
+
+function spawn_chat_tab (invokerid, msg) {
+
 }
 
 // ///////////////////////////////////////////////////////////////
@@ -639,7 +740,9 @@ function get_server_view() {
                 'poke': {
                   name: 'Poke',
                   icon: 'cut',
-                  callback: poke_dialog(clients2)
+                  callback: function (key, options) {
+                    poke_dialog(clients2)
+                  }
                 },
                 'servergroup': {
                   name: 'Change Server Group',

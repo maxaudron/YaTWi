@@ -144,6 +144,24 @@
   var app = angular.module('application')
 
 
+function call_php (callback, action, var1, var2, var3, var4) {
+  return $.ajax({
+    url: '/assets/php/ts.php',
+    type: 'post',
+    data: {
+      'action': action,
+      'var1': var1,
+      'var2': var2,
+      'var3': var3,
+      'var4': var4
+    },
+    success: function (data) {
+      var out = JSON.parse(data)
+      callback(out)
+    }
+  })
+}
+
 /*(function () {
   /**
    * Decimal adjustment of a number.

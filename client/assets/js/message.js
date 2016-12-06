@@ -13,13 +13,19 @@ function send_message (form, msg_mode, target) {
     data: {
       'msg_mode': msg_mode,
       'msg': msg,
-      'target': target,
-      'action': 'send'
+      'target': target
+      //'action': 'poke'
     },
     success: function (data) {
 
     }
   })
+}
+
+function send_poke (form, target) {
+  var msg = document.messageform.message.value
+  console.log(msg)
+  call_php(function (out) {}, 'clientPoke', target, msg)
 }
 
 function check_bottom () {
