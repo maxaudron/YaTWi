@@ -3,23 +3,8 @@
 //  under MIT license                                          //
 // /////////////////////////////////////////////////////////// //
 
-function get_complains(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/clients/get_complaints.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function (data) {
-      var out = JSON.parse(data)
-      out = out
-      callback(out)
-    }
-  })
-}
-
 function complain_list() {
-  get_complains(function (out) {
+  call_php(function (out) {
     if (out.success === true) {
       out = out.data
       var cache = ''
@@ -31,34 +16,17 @@ function complain_list() {
     } else {
       $('#complains').html('<p>No Complains</p>')
     }
-  })
-}
-
-function delete_complain (tcldbid, fcldbid, callback) {
-  return $.ajax({
-    url: '/assets/php/lib/clients/remove_complaints.php',
-    type: 'post',
-    data: {
-      'tcldbid': tcldbid,
-      'fcldbid': fcldbid,
-      'selected_server': '1'
-    },
-    success: function (data) {
-      var out = JSON.parse(data)
-      out = out
-      callback(out)
-    }
-  })
+  }, 'complainList')
 }
 
 function remove_complain (tcldbid, fcldbid) {
   console.log(tcldbid + ' / ' + fcldbid)
-  delete_complain(tcldbid, fcldbid, function (out) {
+  call_php(function (out) {
     if (out.success === true) {
       $('#complain_' + tcldbid + fcldbid).remove()
       console.log('Removed ' + tcldbid + fcldbid)
     } else if (out.success === false) {
       console.log('Something went wrong: ' + out.error)
     }
-  })
+  }, 'complainDelete', tcldbid, fcldbid)
 }

@@ -157,6 +157,7 @@ function call_php (callback, action, var1, var2, var3, var4) {
     },
     success: function (data) {
       var out = JSON.parse(data)
+      console.log(out);
       callback(out)
     }
   })
@@ -269,7 +270,7 @@ function login(form) {
     sessiontimeout = '1'
   }
   $.ajax({
-    url: '/assets/php/lib/server/auth.php',
+    url: '/assets/php/auth.php',
     type: 'post',
     data: {
       'username': username,
@@ -292,7 +293,7 @@ function login(form) {
 
 function logout () {
   $.ajax({
-    url: '/assets/php/lib/server/auth.php',
+    url: '/assets/php/auth.php',
     type: 'post',
     data: {
       'action': 'logout'
@@ -314,7 +315,7 @@ function login_check () {
 
 /*function login_check_handler (callback) {
   return $.ajax({
-    url: '/assets/php/lib/server/auth.php',
+    url: '/assets/php/auth.php',
     type: 'post',
     data: {
       'action': 'login_check'
@@ -338,23 +339,8 @@ writeCookie('sessionId', sId, 3); // Cokie Read
 //  under MIT license                                          //
 // /////////////////////////////////////////////////////////// //
 
-function get_complains(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/clients/get_complaints.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function (data) {
-      var out = JSON.parse(data)
-      out = out
-      callback(out)
-    }
-  })
-}
-
 function complain_list() {
-  get_complains(function (out) {
+  call_php(function (out) {
     if (out.success === true) {
       out = out.data
       var cache = ''
@@ -366,36 +352,19 @@ function complain_list() {
     } else {
       $('#complains').html('<p>No Complains</p>')
     }
-  })
-}
-
-function delete_complain (tcldbid, fcldbid, callback) {
-  return $.ajax({
-    url: '/assets/php/lib/clients/remove_complaints.php',
-    type: 'post',
-    data: {
-      'tcldbid': tcldbid,
-      'fcldbid': fcldbid,
-      'selected_server': '1'
-    },
-    success: function (data) {
-      var out = JSON.parse(data)
-      out = out
-      callback(out)
-    }
-  })
+  }, 'complainList')
 }
 
 function remove_complain (tcldbid, fcldbid) {
   console.log(tcldbid + ' / ' + fcldbid)
-  delete_complain(tcldbid, fcldbid, function (out) {
+  call_php(function (out) {
     if (out.success === true) {
       $('#complain_' + tcldbid + fcldbid).remove()
       console.log('Removed ' + tcldbid + fcldbid)
     } else if (out.success === false) {
       console.log('Something went wrong: ' + out.error)
     }
-  })
+  }, 'complainDelete', tcldbid, fcldbid)
 }
 
 /* Dialogs for functions */
@@ -475,19 +444,7 @@ function ban_dialog() {
 function send_message (form, msg_mode, target) {
   var msg = document.messageform.message.value
   console.log(msg)
-  $.ajax({
-    url: '/assets/php/lib/clients/message.php',
-    type: 'post',
-    data: {
-      'msg_mode': msg_mode,
-      'msg': msg,
-      'target': target
-      //'action': 'poke'
-    },
-    success: function (data) {
-
-    }
-  })
+  call_php(function (out) {}, 'sendMessage', msg_mode, target, msg)
 }
 
 function send_poke (form, target) {
@@ -496,7 +453,7 @@ function send_poke (form, target) {
   call_php(function (out) {}, 'clientPoke', target, msg)
 }
 
-function check_bottom () {
+/*function check_bottom () {
   var out = document.getElementById('out')
     // allow 1px inaccuracy by adding 1
   var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1
@@ -534,7 +491,7 @@ function chat_handler (out) {
 
 function spawn_chat_tab (invokerid, msg) {
 
-}
+}*/
 
 // ///////////////////////////////////////////////////////////////
 // //  Implementation of Basic Server Features                ////
@@ -542,7 +499,7 @@ function spawn_chat_tab (invokerid, msg) {
 // //  under MIT license                                      ////
 // ///////////////////////////////////////////////////////////////
 
-function server_status (server2) {
+function server_status(server2) {
   if (server2.virtualserver_status === 'online') {
     return 'Stop'
   } else if (server2.virtualserver_status === 'offline') {
@@ -552,43 +509,29 @@ function server_status (server2) {
   }
 }
 
-function server_Start (sid) {
-  $.ajax({
-    url: '/assets/php/lib/server/server_start.php',
-    type: 'post',
-    data: {
-      'sid': sid
-    },
-    success: function (data) {
-      console.log('Server started')
-      create_server_list()
-    }
-  })
+function server_Start(sid) {
+  call_php(function(sid) {
+    console.log('Server started')
+    create_server_list()
+  }, 'serverStart', sid)
 }
 
-function server_Stop (sid) {
-  $.ajax({
-    url: '/assets/php/lib/server/server_stop.php',
-    type: 'post',
-    data: {
-      'sid': sid
-    },
-    success: function (data) {
-      console.log('Server stoped')
-      create_server_list()
-    }
-  })
+function server_Stop(sid) {
+  call_php(function(sid) {
+    console.log('Server stopped')
+    create_server_list()
+  }, 'serverStop', sid)
 }
 
-function server_select (sid) {
+function server_select(sid) {
   $.ajax({
-    url: '/assets/php/lib/server/auth.php',
+    url: '/assets/php/auth.php',
     type: 'post',
     data: {
       'sid': sid,
       'action': 'select_server'
     },
-    success: function (data) {
+    success: function(data) {
       console.log('Server ' + sid + ' selected')
       populate_dashboard()
       complain_list()
@@ -597,46 +540,31 @@ function server_select (sid) {
   })
 }
 
-function get_server_list (callback) {
-  return $.ajax({
-    url: '/assets/php/lib/server/get_server_list.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function (data) {
-      var server = JSON.parse(data)
-      server = server
-      callback(server)
-    }
-  })
-}
-
 function create_server_list () {
-   get_server_list(function (server) {
-     if (server.success === true) {
-       var server = server.data
-       var chache = ''
-       server.forEach(function (item, index, arr) {
-         var server2 = server[index]
-         chache = chache + '    <div id="server_' + server2.virtualserver_id + '" class="server-card"> <div class="grid-block"> <div class="grid-content small-12"> <p> <span class="highlight_text">Name:</span>' + server2.virtualserver_name + '</br> <span class="highlight_text">Port: </span>' + server2.virtualserver_port + '</br> <span class="highlight_text">Online: </span>'
-  + server2.virtualserver_clientsonline + '/' + server2.virtualserver_maxclients + '</br> <span class="highlight_text">Status: </span>' + server2.virtualserver_status + ' </p></div> </div> <div class="grid-block"> <div class="grid-content expand"> <a class="serverbutton-prime" onclick="server_' + server_status(server2) + '(' + server2.virtualserver_id + ')">' + server_status(server2) + '</a> </div><div class="grid-content expand"> <a class="serverbutton-success" onclick="server_select(' + server2.virtualserver_id + ')">Select</a> </div> <div class="grid-content expand"> <a class="serverbutton-alert" onclick="server_delete(' + server2.virtualserver_id + ')">Delete</a> </div> </div> </div>'
-       })
-       $('#serverpanel').html(chache)
-     } else {
-       console.log('Could not retrive server list')
-     }
-   })
+  call_php(function (server) {
+    if (server.success === true) {
+      server = server.data
+      var chache = ''
+      server.forEach(function (item, index, arr) {
+        var server2 = server[index]
+        chache = chache + '    <div id="server_' + server2.virtualserver_id + '" class="server-card"> <div class="grid-block"> <div class="grid-content small-12"> <p> <span class="highlight_text">Name:</span>' + server2.virtualserver_name + '</br> <span class="highlight_text">Port: </span>' + server2.virtualserver_port + '</br> <span class="highlight_text">Online: </span>' +
+          server2.virtualserver_clientsonline + '/' + server2.virtualserver_maxclients + '</br> <span class="highlight_text">Status: </span>' + server2.virtualserver_status + ' </p></div> </div> <div class="grid-block"> <div class="grid-content expand"> <a class="serverbutton-prime" onclick="server_' + server_status(server2) + '(' + server2.virtualserver_id + ')">' + server_status(server2) + '</a> </div><div class="grid-content expand"> <a class="serverbutton-success" onclick="server_select(' + server2.virtualserver_id + ')">Select</a> </div> <div class="grid-content expand"> <a class="serverbutton-alert" onclick="server_delete(' + server2.virtualserver_id + ')">Delete</a> </div> </div> </div>'
+      })
+      $('#serverpanel').html(chache)
+    } else {
+      console.log('Could not retrive server list')
+    }
+  }, 'serverList')
 }
 
-function get_server_info (callback) {
+function get_server_info(callback) {
   return $.ajax({
     url: '/assets/php/lib/server/get_server_info.php',
     type: 'post',
     data: {
       'selected_server': '1'
     },
-    success: function (data) {
+    success: function(data) {
       var serverInfo = JSON.parse(data)
       serverInfo = serverInfo.data
       callback(serverInfo)
@@ -644,8 +572,9 @@ function get_server_info (callback) {
   })
 }
 
-function populate_dashboard () {
-  get_server_info(function (serverInfo) {
+function populate_dashboard() {
+  call_php(function(serverInfo) {
+    serverInfo = serverInfo.data
     $('#ts_name').html(serverInfo.virtualserver_name)
     $('#ts_motd').html(serverInfo.virtualserver_welcomemessage)
     $('#ts_clients_online').html(serverInfo.virtualserver_clientsonline)
@@ -654,45 +583,16 @@ function populate_dashboard () {
     $('#ts_version').html(serverInfo.virtualserver_version)
     $('#ts_platform').html(serverInfo.virtualserver_platform)
     $('#ts_runtime').html(serverInfo.virtualserver_uptime)
-    $('#ts_data_transfered_up').html(/*Math.round10(*/serverInfo.connection_bytes_sent_total / 1024000)
-    $('#ts_data_transfered_down').html(/*Math.round10(*/serverInfo.connection_bytes_received_total / 1024000)
+    $('#ts_data_transfered_up').html( /*Math.round10(*/ serverInfo.connection_bytes_sent_total / 1024000)
+    $('#ts_data_transfered_down').html( /*Math.round10(*/ serverInfo.connection_bytes_received_total / 1024000)
     $('#ts_banner').attr('src', serverInfo.virtualserver_hostbanner_gfx_url)
-  })
+  }, 'serverInfo')
 }
 
 /*
  *  Server View Module
  *  Description: Creates a viewable list of all channels and clients in channels in HTML
  */
-
-function get_clients(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/clients/get_clients.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function(data) {
-      var clients = JSON.parse(data)
-      callback(clients)
-    }
-  })
-}
-
-function get_channels(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/server/get_channel.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function(data) {
-      var channels = JSON.parse(data)
-      channels = channels
-      callback(channels)
-    }
-  })
-}
 
 var context_client = [{
   name: 'test',
@@ -704,7 +604,7 @@ var context_client = [{
 }];
 
 function get_server_view() {
-  get_channels(function(channels) {
+  call_php(function(channels) {
     if (channels.success === true) {
       var channels = channels.data
       var chache = ''
@@ -713,7 +613,7 @@ function get_server_view() {
         chache = chache + '<div id="channel_"' + channels2.cid + ' class="channel-card" title="' + channels2.channel_topic + '">' + channels2.channel_name + '<span id="channel_client_container_' + channels2.cid + '"></span></div>'
       })
       $('#server_view').html(chache.replace(/(\[[cr]*spacer[0-9]+\])/g, ''))
-      get_clients(function (clients) {
+      call_php(function (clients) {
         if (clients.success === true) {
           var clients = clients.data
           var chache = {}
@@ -774,7 +674,7 @@ function get_server_view() {
         } else {
           console.log('Something went wrong while retriving the clients:')
         }
-      })
+      }, 'clientList')
     }
-  })
+  }, 'channelList')
 }

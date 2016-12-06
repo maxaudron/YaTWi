@@ -3,35 +3,6 @@
  *  Description: Creates a viewable list of all channels and clients in channels in HTML
  */
 
-function get_clients(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/clients/get_clients.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function(data) {
-      var clients = JSON.parse(data)
-      callback(clients)
-    }
-  })
-}
-
-function get_channels(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/server/get_channel.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function(data) {
-      var channels = JSON.parse(data)
-      channels = channels
-      callback(channels)
-    }
-  })
-}
-
 var context_client = [{
   name: 'test',
   title: 'test button',
@@ -42,7 +13,7 @@ var context_client = [{
 }];
 
 function get_server_view() {
-  get_channels(function(channels) {
+  call_php(function(channels) {
     if (channels.success === true) {
       var channels = channels.data
       var chache = ''
@@ -51,7 +22,7 @@ function get_server_view() {
         chache = chache + '<div id="channel_"' + channels2.cid + ' class="channel-card" title="' + channels2.channel_topic + '">' + channels2.channel_name + '<span id="channel_client_container_' + channels2.cid + '"></span></div>'
       })
       $('#server_view').html(chache.replace(/(\[[cr]*spacer[0-9]+\])/g, ''))
-      get_clients(function (clients) {
+      call_php(function (clients) {
         if (clients.success === true) {
           var clients = clients.data
           var chache = {}
@@ -112,7 +83,7 @@ function get_server_view() {
         } else {
           console.log('Something went wrong while retriving the clients:')
         }
-      })
+      }, 'clientList')
     }
-  })
+  }, 'channelList')
 }

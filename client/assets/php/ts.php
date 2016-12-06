@@ -25,15 +25,46 @@ if ($ts->getElement('success', $ts->connect())) {
   $ts->selectServer($selected_server, 'serverId');
   if(isset($action) && !empty($action)) {
     switch($action) {
-      case 'sendMessage' :
-          $out = $ts->sendMessage($msg_mode, $target, $msg);
+      case 'channelList' :
+          $out = $ts->channelList($_SESSION['serverid']);
           print json_encode($out);
           break;
       case 'clientPoke' :
           $out = $ts->clientPoke($var1, $var2);
           print json_encode($out);
           break;
-      case 'select_server' : select_server();break;
+      case 'clientList' :
+          $out = $ts->clientList($_SESSION['serverid']);
+          print json_encode($out);
+          break;
+      case 'complainList' :
+          $out = $ts->complainList();
+          print json_encode($out);
+          break;
+      case 'complainDelete' :
+          $out = $ts->complainDelete($var1, $var2);
+          print json_encode($out);
+          break;
+      case 'sendMessage' :
+          $out = $ts->sendMessage($var1, $var2, $var3);
+          print json_encode($out);
+          break;
+      case 'serverInfo' :
+          $out = $ts->serverInfo($_SESSION['serverid']);
+          print json_encode($out);
+          break;
+      case 'serverList' :
+          $out = $ts->serverList();
+          print json_encode($out);
+          break;
+      case 'serverStart' :
+          $out = $ts->serverStart($var1);
+          print json_encode($out);
+          break;
+      case 'serverStop' :
+          $out = $ts->serverStop($var1);
+          print json_encode($out);
+          break;
     }
   }
 }

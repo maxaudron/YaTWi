@@ -7,19 +7,7 @@
 function send_message (form, msg_mode, target) {
   var msg = document.messageform.message.value
   console.log(msg)
-  $.ajax({
-    url: '/assets/php/lib/clients/message.php',
-    type: 'post',
-    data: {
-      'msg_mode': msg_mode,
-      'msg': msg,
-      'target': target
-      //'action': 'poke'
-    },
-    success: function (data) {
-
-    }
-  })
+  call_php(function (out) {}, 'sendMessage', msg_mode, target, msg)
 }
 
 function send_poke (form, target) {
@@ -28,7 +16,7 @@ function send_poke (form, target) {
   call_php(function (out) {}, 'clientPoke', target, msg)
 }
 
-function check_bottom () {
+/*function check_bottom () {
   var out = document.getElementById('out')
     // allow 1px inaccuracy by adding 1
   var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1
@@ -66,4 +54,4 @@ function chat_handler (out) {
 
 function spawn_chat_tab (invokerid, msg) {
 
-}
+}*/

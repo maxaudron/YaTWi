@@ -57,7 +57,7 @@ function login(form) {
     sessiontimeout = '1'
   }
   $.ajax({
-    url: '/assets/php/lib/server/auth.php',
+    url: '/assets/php/auth.php',
     type: 'post',
     data: {
       'username': username,
@@ -80,7 +80,7 @@ function login(form) {
 
 function logout () {
   $.ajax({
-    url: '/assets/php/lib/server/auth.php',
+    url: '/assets/php/auth.php',
     type: 'post',
     data: {
       'action': 'logout'
@@ -102,7 +102,7 @@ function login_check () {
 
 /*function login_check_handler (callback) {
   return $.ajax({
-    url: '/assets/php/lib/server/auth.php',
+    url: '/assets/php/auth.php',
     type: 'post',
     data: {
       'action': 'login_check'

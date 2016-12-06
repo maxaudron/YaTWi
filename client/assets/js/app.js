@@ -157,6 +157,7 @@ function call_php (callback, action, var1, var2, var3, var4) {
     },
     success: function (data) {
       var out = JSON.parse(data)
+      console.log(out);
       callback(out)
     }
   })
