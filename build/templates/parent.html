@@ -8,14 +8,14 @@
     <div class="menu-group-right">
       <ul class="primary condense menu-bar">
         <li>
-          <a style="margin: 0px;" zf-toggle="serverpanel" class="button">Select Server</a>
+          <a style="margin: 0px;" ba-toggle="serverpanel" class="button">Select Server</a>
         </li>
       </ul>
     </div>
   </div>
 </div>
 <div class="grid-block">
-  <div zf-panel="" id="serverpanel" position="right" style="margin-right: 1rem;">
+  <div ba-panel="" id="serverpanel" position="right" style="margin-right: 1rem;">
     <div id="server_' + server2.virtualserver_id + '" class="server-card">
       <div class="grid-block">
         <div class="grid-content small-12">
@@ -41,11 +41,11 @@
     </div>
   </div>
   <div class="grid-content medium-3 fullheight" style="padding: 0px; max-width:400px;">
-    <zf-accordion class="">
+    <ba-accordion class="">
       <ul class="dark menu-bar expand vertical" style="padding-left: 1rem">
         <div class="grid-block">
           <div class="grid-content small-12 align-top">
-            <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Server">
+            <ba-accordion-item class="menu-bar-acc small-12 grid-content" title="Server">
               <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                 <li>
                   <a ui-sref="home">&nbsp;&nbsp;&nbsp; Overview</a>
@@ -60,13 +60,13 @@
                   <a href="#">&nbsp;&nbsp;&nbsp; Files</a>
                 </li>
               </ul>
-            </zf-accordion-item>
+            </ba-accordion-item>
 
             <ul class="menu-bar-acc small-12 grid-content">
               <li><a href="#">Channel</a></li>
             </ul>
 
-            <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Clients">
+            <ba-accordion-item class="menu-bar-acc small-12 grid-content" title="Clients">
               <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                 <li>
                   <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
@@ -78,9 +78,9 @@
                   <a href="#">&nbsp;&nbsp;&nbsp; Bans</a>
                 </li>
               </ul>
-            </zf-accordion-item>
+            </ba-accordion-item>
 
-            <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Permissions">
+            <ba-accordion-item class="menu-bar-acc small-12 grid-content" title="Permissions">
               <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                 <li>
                   <a href="#">&nbsp;&nbsp;&nbsp; Overview</a>
@@ -95,9 +95,9 @@
                   <a href="#">&nbsp;&nbsp;&nbsp; Tokens</a>
                 </li>
               </ul>
-            </zf-accordion-item>
+            </ba-accordion-item>
 
-            <zf-accordion-item class="menu-bar-acc small-12 grid-content" title="Backup & Restore">
+            <ba-accordion-item class="menu-bar-acc small-12 grid-content" title="Backup & Restore">
               <ul class="dark menu-bar vertical" style="padding-left: 0rem;">
                 <li>
                   <a href="#">&nbsp;&nbsp;&nbsp; Backup Server</a>
@@ -112,21 +112,21 @@
                   <a href="#">&nbsp;&nbsp;&nbsp; Restore Channels</a>
                 </li>
               </ul>
-            </zf-accordion-item>
+            </ba-accordion-item>
           </div>
 
           <div class="grid-content small-12 bottom">
             <ul class="dark menu-bar horizontal" style="position: relative; width: 22vw; max-width: 383px;">
               <li class="height_10"><a href="#" onclick="logout()">Logout</a></li>
-              <li class="height_10"><a zf-open="advancedModal">Settings</a></li>
+              <li class="height_10"><a ba-open="advancedModal">Settings</a></li>
             </ul>
           </div>
         </div>
       </ul>
-    </zf-accordion>
+    </ba-accordion>
   </div>
 
-  <div zf-modal="" id="message_modal" class="collapse">
+  <div ba-modal="" id="message_modal" class="collapse">
     <div class="grid-block vertical">
       <div class="grid-content padding" style="padding-top: 1rem;">
         <h3 id="message_recipant"></h3>
@@ -134,8 +134,8 @@
           <input id="message_mode" type="text" placeholder="mode" style="display: none" />
           <input id="message_target" type="text" style="display: none" />
           <input id="message_content" type="text" placeholder="Your Message" />
-          <a zf-close="" class="button" onclick="$('#message_modal').hide()">OK</a>
-          <a zf-close="" class="button">Cancel</a>
+          <a ba-close="" class="button" onclick="$('#message_modal').hide()">OK</a>
+          <a ba-close="" class="button">Cancel</a>
         </form>
       </div>
     </div>

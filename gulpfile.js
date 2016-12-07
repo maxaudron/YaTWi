@@ -30,7 +30,7 @@ var paths = {
   // Sass will check these folders for files when you use @import.
   sass: [
     'client/assets/scss',
-    'bower_components/foundation-apps/scss'
+    'bower_components/angular-base-apps/scss'
   ],
   // These files include Foundation for Apps and its dependencies
   foundationJS: [
@@ -44,15 +44,13 @@ var paths = {
     'bower_components/angular-permission/dist/angular-permission-ui.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
     'bower_components/angular-ui-router.stateHelper/statehelper.js',
-    'bower_components/foundation-apps/js/vendor/**/*.js',
-    'bower_components/foundation-apps/js/angular/**/*.js',
-    'bower_components/moment/moment.js',
-    '!bower_components/foundation-apps/js/angular/app.js'
+    'bower_components/angular-base-apps/dist/js/base-apps.js',
+    'bower_components/moment/moment.js'
   ],
   // These files are for your app's JavaScript
   appJS: [
     'client/assets/js/app.js',
-    'client/assets/js/*.js',
+    'client/assets/js/*.js'
   ]
 }
 
@@ -98,7 +96,7 @@ gulp.task('copy:php', function() {
 
 // Compiles the Foundation for Apps directive partials into a single JavaScript file
 gulp.task('copy:foundation', function(cb) {
-  gulp.src('bower_components/foundation-apps/js/angular/components/**/*.html')
+  gulp.src('bower_components/angular-base-apps/js/angular/components/**/*.html')
     .pipe($.ngHtml2js({
       prefix: 'components/',
       moduleName: 'foundation',
@@ -146,7 +144,7 @@ gulp.task('uglify:foundation', function(cb) {
 
   return gulp.src(paths.foundationJS)
     .pipe(uglify)
-    .pipe($.concat('foundation.js'))
+    .pipe($.concat('base-apps.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 });

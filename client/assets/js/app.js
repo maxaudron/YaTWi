@@ -5,10 +5,10 @@
       'permission.ui',
       'ngAnimate',
 
-      //foundation
-      'foundation',
-      //'foundation.dynamicRouting',
-      //'foundation.dynamicRouting.animations'
+      //base
+      'base',
+      //'base.dynamicRouting',
+      //'base.dynamicRouting.animations'
     ])
     .config(
       function($stateProvider, $urlRouterProvider) {
