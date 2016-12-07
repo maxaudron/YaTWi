@@ -163,7 +163,7 @@ function call_php (callback, action, var1, var2, var3, var4) {
   })
 }
 
-/*(function () {
+(function () {
   /**
    * Decimal adjustment of a number.
    *
@@ -172,7 +172,7 @@ function call_php (callback, action, var1, var2, var3, var4) {
    * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
    * @returns {Number} The adjusted value.
    */
-  /*function decimalAdjust (type, value, exp) {
+  function decimalAdjust (type, value, exp) {
     // If the exp is undefined or zero...
     if (typeof exp === 'undefined' || +exp === 0) {
       return Math[type](value)
@@ -209,7 +209,7 @@ function call_php (callback, action, var1, var2, var3, var4) {
       return decimalAdjust('ceil', value, exp)
     }
   }
-})()*/
+})()
 
 // ///////////////////////////////////////////////////////////////
 // //  Authentification functions                             ////
@@ -582,9 +582,11 @@ function populate_dashboard() {
     $('#ts_port').html(serverInfo.virtualserver_port)
     $('#ts_version').html(serverInfo.virtualserver_version)
     $('#ts_platform').html(serverInfo.virtualserver_platform)
-    $('#ts_runtime').html(serverInfo.virtualserver_uptime)
-    $('#ts_data_transfered_up').html( /*Math.round10(*/ serverInfo.connection_bytes_sent_total / 1024000)
-    $('#ts_data_transfered_down').html( /*Math.round10(*/ serverInfo.connection_bytes_received_total / 1024000)
+    $('#ts_runtime').html(moment("2015-01-01").startOf('day')
+    .seconds(serverInfo.virtualserver_uptime)
+    .format('H[h ]mm[min ]ss[sec]'))
+    $('#ts_data_transfered_up').html(Math.round10(serverInfo.connection_bytes_sent_total / 1024000, -2))
+    $('#ts_data_transfered_down').html(Math.round10(serverInfo.connection_bytes_received_total / 1024000, -2))
     $('#ts_banner').attr('src', serverInfo.virtualserver_hostbanner_gfx_url)
   }, 'serverInfo')
 }

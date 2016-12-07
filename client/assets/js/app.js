@@ -163,7 +163,7 @@ function call_php (callback, action, var1, var2, var3, var4) {
   })
 }
 
-/*(function () {
+(function () {
   /**
    * Decimal adjustment of a number.
    *
@@ -172,7 +172,7 @@ function call_php (callback, action, var1, var2, var3, var4) {
    * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
    * @returns {Number} The adjusted value.
    */
-  /*function decimalAdjust (type, value, exp) {
+  function decimalAdjust (type, value, exp) {
     // If the exp is undefined or zero...
     if (typeof exp === 'undefined' || +exp === 0) {
       return Math[type](value)
@@ -209,4 +209,4 @@ function call_php (callback, action, var1, var2, var3, var4) {
       return decimalAdjust('ceil', value, exp)
     }
   }
-})()*/
+})()

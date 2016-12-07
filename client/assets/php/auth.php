@@ -1,7 +1,7 @@
 <?php
   /*  Connect to server and check if valid creditentals */
 
-  require($_SERVER['DOCUMENT_ROOT'].'/assets/php/lib/config.php');
+  require($_SERVER['DOCUMENT_ROOT'].'/assets/php/config.php');
   require($_SERVER['DOCUMENT_ROOT'].'/assets/php/ts3admin.class.php');
 
   if(isset($_POST['action']) && !empty($_POST['action'])) {
