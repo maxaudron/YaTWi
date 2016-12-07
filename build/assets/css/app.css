@@ -5984,13 +5984,14 @@ p {
   margin-top: 6px; }
 
 .bottom {
-  margin-bottom: 50px; }
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  padding: 0px; }
 
 .height_10 {
   height: 60px;
-  width: 50%;
-  padding: 0px;
-  margin: 0px; }
+  width: 50% !important; }
 
 .is-hidden {
   display: none; }
