@@ -26,6 +26,18 @@ if ($ts->getElement('success', $ts->connect())) {
   $ts->selectServer($selected_server, 'serverId');
   if(isset($action) && !empty($action)) {
     switch($action) {
+      case 'banClient' :
+          $out = $ts->banClient($var1, $var2, $var3);
+          print json_encode($out);
+          break;
+      case 'banAddByIp' :
+              $out = $ts->banAddByIp($var4, $var2, $var3);
+              print json_encode($out);
+              break;
+      case 'banAddByUid' :
+              $out = $ts->banAddByUid($var1, $var2, $var3);
+              print json_encode($out);
+              break;
       case 'channelList' :
           $out = $ts->channelList($_SESSION['serverid']);
           print json_encode($out);
@@ -35,7 +47,11 @@ if ($ts->getElement('success', $ts->connect())) {
           print json_encode($out);
           break;
       case 'clientList' :
-          $out = $ts->clientList($_SESSION['serverid']);
+          $out = $ts->clientList("-ip -uid");
+          print json_encode($out);
+          break;
+      case 'clientKick' :
+          $out = $ts->clientKick($var1, $var2, $var3);
           print json_encode($out);
           break;
       case 'complainList' :

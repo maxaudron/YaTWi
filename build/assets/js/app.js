@@ -157,7 +157,6 @@ function call_php (callback, action, var1, var2, var3, var4) {
     },
     success: function (data) {
       var out = JSON.parse(data)
-      console.log(out);
       callback(out)
     }
   })
@@ -334,6 +333,35 @@ writeCookie('sessionId', sId, 3); // Cokie Read
 
 */
 
+/*
+ * Client Manegement functions
+ */
+
+function client_kick (form, target) {
+  var kick_mode = document.kickform.kick_mode.value
+  var kick_reason = document.kickform.kick_reason.value
+  call_php(function (out) {
+    list_clients()
+  }, 'clientKick', target, kick_mode, kick_reason)
+}
+
+function client_ban (form, target) {
+  var ban_mode = document.banform.ban_mode.value
+  if (ban_mode === 'ip') {
+    ban_mode = 'banAddByIp'
+  } else if (ban_mode === 'id') {
+    ban_mode = 'banAddByUid'
+  } else {
+    ban_mode = 'banClient'
+  }
+  var ban_time = document.banform.ban_time.value
+  var ban_reason = document.banform.ban_reason.value
+  var ban_ip = document.banform.ban_ip.value
+  call_php(function (out) {
+    list_clients()
+  }, ban_mode, target, ban_time, ban_reason, ban_ip)
+}
+
 // /////////////////////////////////////////////////////////// //
 //  Developed for YaTWi                                        //
 //  under MIT license                                          //
@@ -425,16 +453,63 @@ function poke_dialog (clients2) {
   })
 }
 
-function server_group_dialog() {
-
+function server_group_dialog (clients2) {
 }
 
-function kick_dialog() {
-
+function kick_dialog (clients2) {
+  console.log(clients2.client_nickname + ' und ' + clients2.clid)
+  angular.injector(['ng', 'base']).invoke(function (ModalFactory) {
+    var modal = new ModalFactory({
+      // Add CSS classes to the modal
+      // Can be a single string or an array of classes
+      class: 'collapse',
+      // Set if the modal has a background overlay
+      overlay: true,
+      // Set if the modal can be closed by clicking on the overlay
+      overlayClose: false,
+      'destroyOnClose': true,
+      // Define a template to use for the modal
+      template: '<div class="grid-block vertical"><div class="grid-content padding" style="padding-top: 1rem;"><h4 id="message_recipant">Kick: ' + clients2.client_nickname + '</h4><form name="kickform"><label>Kick from:</label><input type="radio" name="kick_mode" value="server" id="pokemonRed"><label for="pokemonRed">Server</label><input type="radio" name="kick_mode" value="channel" id="pokemonBlue"><label for="pokemonBlue">Channel</label></br></br><input id="kick_reason" name="kick_reason" type="text" placeholder="Kick reason" /><a ba-close="" class="button" onclick="client_kick(this.form, ' + clients2.clid + ')">Kick</a><a ba-close="" class="button">Cancel</a></form></div></div>',
+      // Allows you to pass in properties to the scope of the modal
+      'contentScope': {
+        'close': function () {
+          modal.deactivate()
+          $timeout(function () {
+            modal.destroy()
+          }, 1000)
+        }
+      }
+    })
+    modal.activate()
+  })
 }
 
-function ban_dialog() {
-
+function ban_dialog(clients2) {
+  console.log(clients2.client_nickname + ' und ' + clients2.clid)
+  angular.injector(['ng', 'base']).invoke(function (ModalFactory) {
+    var modal = new ModalFactory({
+      // Add CSS classes to the modal
+      // Can be a single string or an array of classes
+      class: 'collapse',
+      // Set if the modal has a background overlay
+      overlay: true,
+      // Set if the modal can be closed by clicking on the overlay
+      overlayClose: false,
+      'destroyOnClose': true,
+      // Define a template to use for the modal
+      template: '<div class="grid-block vertical"><div class="grid-content padding" style="padding-top: 1rem;"><h4 id="message_recipant">Ban: ' + clients2.client_nickname + '</h4><form name="banform"><input name="ban_ip" style="display: none" value="' + clients2.connection_client_ip + '"></input><label>Ban by:</label><input type="radio" name="ban_mode" value="ip" id="ip"><label for="ip">IP</label><input type="radio" name="ban_mode" value="id" id="id"><label for="id">ID</label><input type="radio" name="ban_mode" value="all" id="all"><label for="all">All</label></br></br><input name="ban_time" type="number" placeholder="Time the client gets banned in seconds. 0 = Unlimited" required></input></br><input id="ban_reason" name="kick_reason" type="text" placeholder="Ban reason" /><a ba-close="" class="button" onclick="client_ban(this.form, \'' + clients2.client_unique_identifier + '\')">Ban</a><a ba-close="" class="button">Cancel</a></form></div></div>',
+      // Allows you to pass in properties to the scope of the modal
+      'contentScope': {
+        'close': function () {
+          modal.deactivate()
+          $timeout(function () {
+            modal.destroy()
+          }, 1000)
+        }
+      }
+    })
+    modal.activate()
+  })
 }
 
 // ///////////////////////////////////////////////////////////////
@@ -607,7 +682,76 @@ var context_client = [{
   }
 }];
 
-function get_server_view() {
+function list_clients () {
+  call_php(function (clients) {
+    if (clients.success === true) {
+      var clients = clients.data
+      var chache = {}
+      clients.forEach(function (item, index, arr) {
+        var clients2 = clients[index]
+        chache[clients2.cid] = ''
+      })
+      clients.forEach(function (item, index, arr) {
+        var clients2 = clients[index]
+        $.contextMenu({
+          selector: '#client_' + clients2.clid,
+          callback: function (key, options) {
+            var m = 'clicked: ' + key
+            window.console && console.log(m) || alert(m)
+          },
+          items: {
+            'message': {
+              name: 'Send Message',
+              icon: 'edit',
+              callback: function (key, options) {
+                message_dialog(clients2)
+              }
+            },
+            'poke': {
+              name: 'Poke',
+              icon: 'cut',
+              callback: function (key, options) {
+                poke_dialog(clients2)
+              }
+            },
+            'servergroup': {
+              name: 'Change Server Group',
+              icon: 'copy',
+              callback: server_group_dialog(clients2)
+            },
+            'kick': {
+              name: 'Kick',
+              icon: 'paste',
+              callback: function (key, options) {
+                kick_dialog(clients2)
+              }
+            },
+            'ban': {
+              name: 'Ban',
+              icon: 'delete',
+              callback: function (key, options) {
+                ban_dialog(clients2)
+              }
+            },
+            'sep1': '---------',
+            'quit': {
+              name: 'Quit',
+              icon: function () {
+                return 'context-menu-icon context-menu-icon-quit'
+              }
+            }
+          }
+        })
+        chache[clients2.cid] = chache[clients2.cid] + '<div id="client_' + clients2.clid + '" class="client-card">' + clients2.client_nickname + '</div>'
+        $('#channel_client_container_' + clients2.cid).html(chache[clients2.cid])
+      })
+    } else {
+      console.log('Something went wrong while retriving the clients:')
+    }
+  }, 'clientList')
+}
+
+function list_channels () {
   call_php(function(channels) {
     if (channels.success === true) {
       var channels = channels.data
@@ -617,68 +761,12 @@ function get_server_view() {
         chache = chache + '<div id="channel_"' + channels2.cid + ' class="channel-card" title="' + channels2.channel_topic + '">' + channels2.channel_name + '<span id="channel_client_container_' + channels2.cid + '"></span></div>'
       })
       $('#server_view').html(chache.replace(/(\[[cr]*spacer[0-9]+\])/g, ''))
-      call_php(function (clients) {
-        if (clients.success === true) {
-          var clients = clients.data
-          var chache = {}
-          clients.forEach(function (item, index, arr) {
-            var clients2 = clients[index]
-            chache[clients2.cid] = ''
-          })
-          clients.forEach(function (item, index, arr) {
-            var clients2 = clients[index]
-            $.contextMenu({
-              selector: '#client_' + clients2.clid,
-              callback: function (key, options) {
-                var m = 'clicked: ' + key
-                window.console && console.log(m) || alert(m)
-              },
-              items: {
-                'message': {
-                  name: 'Send Message',
-                  icon: 'edit',
-                  callback: function (key, options) {
-                    message_dialog(clients2)
-                  }
-                },
-                'poke': {
-                  name: 'Poke',
-                  icon: 'cut',
-                  callback: function (key, options) {
-                    poke_dialog(clients2)
-                  }
-                },
-                'servergroup': {
-                  name: 'Change Server Group',
-                  icon: 'copy',
-                  callback: server_group_dialog(clients2)
-                },
-                'kick': {
-                  name: 'Kick',
-                  icon: 'paste',
-                  callback: kick_dialog(clients2)
-                },
-                'ban': {
-                  name: 'Ban',
-                  icon: 'delete',
-                  callback: ban_dialog(clients2)
-                },
-                'sep1': '---------',
-                'quit': {
-                  name: 'Quit',
-                  icon: function () {
-                    return 'context-menu-icon context-menu-icon-quit'
-                  }
-                }
-              }
-            })
-            chache[clients2.cid] = chache[clients2.cid] + '<div id="client_' + clients2.clid + '" class="client-card">' + clients2.client_nickname + '</div>'
-            $('#channel_client_container_' + clients2.cid).html(chache[clients2.cid])
-          })
-        } else {
-          console.log('Something went wrong while retriving the clients:')
-        }
-      }, 'clientList')
+
     }
   }, 'channelList')
+}
+
+function get_server_view () {
+  list_channels()
+  list_clients()
 }
