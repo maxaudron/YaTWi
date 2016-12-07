@@ -146,7 +146,7 @@
 
 function call_php (callback, action, var1, var2, var3, var4) {
   return $.ajax({
-    url: '/assets/php/ts.php',
+    url: './assets/php/ts.php',
     type: 'post',
     data: {
       'action': action,

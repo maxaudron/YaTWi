@@ -146,7 +146,7 @@
 
 function call_php (callback, action, var1, var2, var3, var4) {
   return $.ajax({
-    url: '/assets/php/ts.php',
+    url: './assets/php/ts.php',
     type: 'post',
     data: {
       'action': action,
@@ -269,7 +269,7 @@ function login(form) {
     sessiontimeout = '1'
   }
   $.ajax({
-    url: '/assets/php/auth.php',
+    url: './assets/php/auth.php',
     type: 'post',
     data: {
       'username': username,
@@ -292,7 +292,7 @@ function login(form) {
 
 function logout () {
   $.ajax({
-    url: '/assets/php/auth.php',
+    url: './assets/php/auth.php',
     type: 'post',
     data: {
       'action': 'logout'
@@ -314,7 +314,7 @@ function login_check () {
 
 /*function login_check_handler (callback) {
   return $.ajax({
-    url: '/assets/php/auth.php',
+    url: './assets/php/auth.php',
     type: 'post',
     data: {
       'action': 'login_check'
@@ -541,7 +541,7 @@ function send_poke (form, target) {
 
 function live_chat (msg_mode) {
   $.ajax({
-    url: '/assets/php/lib/clients/message.php',
+    url: './assets/php/lib/clients/message.php',
     type: 'post',
     data: {
       'msg_mode': msg_mode,
@@ -602,7 +602,7 @@ function server_Stop(sid) {
 
 function server_select(sid) {
   $.ajax({
-    url: '/assets/php/auth.php',
+    url: './assets/php/auth.php',
     type: 'post',
     data: {
       'sid': sid,
@@ -632,21 +632,6 @@ function create_server_list () {
       console.log('Could not retrive server list')
     }
   }, 'serverList')
-}
-
-function get_server_info(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/server/get_server_info.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function(data) {
-      var serverInfo = JSON.parse(data)
-      serverInfo = serverInfo.data
-      callback(serverInfo)
-    }
-  })
 }
 
 function populate_dashboard() {

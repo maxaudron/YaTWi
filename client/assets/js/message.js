@@ -27,7 +27,7 @@ function send_poke (form, target) {
 
 function live_chat (msg_mode) {
   $.ajax({
-    url: '/assets/php/lib/clients/message.php',
+    url: './assets/php/lib/clients/message.php',
     type: 'post',
     data: {
       'msg_mode': msg_mode,

@@ -30,7 +30,7 @@ function server_Stop(sid) {
 
 function server_select(sid) {
   $.ajax({
-    url: '/assets/php/auth.php',
+    url: './assets/php/auth.php',
     type: 'post',
     data: {
       'sid': sid,
@@ -60,21 +60,6 @@ function create_server_list () {
       console.log('Could not retrive server list')
     }
   }, 'serverList')
-}
-
-function get_server_info(callback) {
-  return $.ajax({
-    url: '/assets/php/lib/server/get_server_info.php',
-    type: 'post',
-    data: {
-      'selected_server': '1'
-    },
-    success: function(data) {
-      var serverInfo = JSON.parse(data)
-      serverInfo = serverInfo.data
-      callback(serverInfo)
-    }
-  })
 }
 
 function populate_dashboard() {

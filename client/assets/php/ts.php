@@ -1,7 +1,7 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'].'/assets/php/config.php');
-require($_SERVER['DOCUMENT_ROOT'].'/assets/php/ts3admin.class.php');
+require('./config.php');
+require('./ts3admin.class.php');
 
 
 $sidc = $_SESSION['serverid'];

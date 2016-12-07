@@ -20,7 +20,8 @@ Design elements aren't completely finished and there are bugs too expect.
 * Backup & Restore  
 
 ## Testing  
-To try Yatwi out in its current stage donwload a zipped version of this repo or clone it and copy the contents of the *build* folder onto a php enabled webhost. Enter your servers ip in /assets/php/config.php
+To try Yatwi out in its current stage donwload a zipped version of this repo or clone it and copy the contents of the *build* folder onto a php enabled webhost. Enter your servers ip in ./assets/php/config.php.  
+You will need to give all non serverqueryadmin clients the permission `b_serverinstance_virtualserver_list` and `b_virtualserver_select` respectively so these can list and select different serverss
 
 
 Powered by par0noid's ts3admin.class.php
