@@ -13,6 +13,7 @@ import { LoginComponent } from './login.component/login.component';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
+import { CookieService } from './services/cookie.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AuthGuard } from './services/auth-guard.service';
   ],
   providers: [
     AuthGuard,
-    AuthService
+    AuthService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

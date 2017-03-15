@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { OverviewComponent } from '../overview.component/overview.component';
+
 @Component({
   selector: 'dashboard',
   moduleId: module.id,
