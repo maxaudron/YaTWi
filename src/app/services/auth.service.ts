@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
+import { JwtHelper } from 'angular2-jwt';
 
 import { Observable } from 'rxjs/Rx';
 //import { Observable } from 'rxjs/Observable';
@@ -33,10 +34,21 @@ export class AuthService {
       .catch(this.handleError); //...errors if
   }
 
+  jwtHelper: JwtHelper = new JwtHelper();
+
   loggedIn() {
-    var token = localStorage.getItem('id_token');
-    console.log(tokenNotExpired(token))
-    return tokenNotExpired(token);
+    var token   = localStorage.getItem('id_token');
+
+    if (token) {
+        var decoded = this.jwtHelper.decodeToken(token);
+        if (decoded.exp >= Math.floor(Date.now() / 1000)) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
   }
 
   private extractData(res: Response) {
@@ -68,6 +80,7 @@ export class AuthService {
   }
 
   logout(): void {
+    localStorage.removeItem('id_token');
     this.isLoggedIn = false;
   }
 }

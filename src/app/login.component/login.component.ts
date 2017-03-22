@@ -21,7 +21,7 @@ export class LoginComponent {
     this.setMessage();
   }
   setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+    this.message = 'Logged ' + (this.authService.loggedIn ? 'in' : 'out');
   }
 
   model = new LoginData('', '');
@@ -30,10 +30,10 @@ export class LoginComponent {
     this.message = 'Trying to log in ...';
     this.authService.login(this.model).subscribe(() => {
       this.setMessage();
-      if (this.authService.isLoggedIn) {
+      if (this.authService.loggedIn) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/crisis-center/admin';
+        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
         // Redirect the user
         this.router.navigate([redirect]);
       }

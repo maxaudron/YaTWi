@@ -14,6 +14,7 @@ import { LoginComponent } from './login.component/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CookieService } from './services/cookie.service';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CookieService } from './services/cookie.service';
   providers: [
     AuthGuard,
     AuthService,
-    CookieService
+    CookieService,
+    ApiService,
   ],
   bootstrap: [AppComponent]
 })
