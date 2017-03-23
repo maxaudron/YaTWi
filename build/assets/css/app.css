@@ -5105,14 +5105,12 @@ meter {
   -ms-flex-flow: column nowrap;
       flex-flow: column nowrap;
   -ms-flex-align: stretch;
-      -ms-grid-row-align: stretch;
       align-items: stretch; }
 
 .small-vertical.grid-frame, .small-vertical.grid-block, .small-vertical.small-grid-block, .small-vertical.medium-grid-block, .small-vertical.large-grid-block {
   -ms-flex-flow: column nowrap;
       flex-flow: column nowrap;
   -ms-flex-align: stretch;
-      -ms-grid-row-align: stretch;
       align-items: stretch; }
 
 .small-horizontal.grid-frame, .small-horizontal.grid-block, .small-horizontal.small-grid-block, .small-horizontal.medium-grid-block, .small-horizontal.large-grid-block {
@@ -5124,7 +5122,6 @@ meter {
     -ms-flex-flow: column nowrap;
         flex-flow: column nowrap;
     -ms-flex-align: stretch;
-        -ms-grid-row-align: stretch;
         align-items: stretch; }
   .medium-horizontal.grid-frame, .medium-horizontal.grid-block, .medium-horizontal.small-grid-block, .medium-horizontal.medium-grid-block, .medium-horizontal.large-grid-block {
     -ms-flex-flow: row wrap;
@@ -5135,7 +5132,6 @@ meter {
     -ms-flex-flow: column nowrap;
         flex-flow: column nowrap;
     -ms-flex-align: stretch;
-        -ms-grid-row-align: stretch;
         align-items: stretch; }
   .large-horizontal.grid-frame, .large-horizontal.grid-block, .large-horizontal.small-grid-block, .large-horizontal.medium-grid-block, .large-horizontal.large-grid-block {
     -ms-flex-flow: row wrap;
@@ -5161,14 +5157,12 @@ meter {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   -ms-flex-align: start;
-      -ms-grid-row-align: flex-start;
       align-items: flex-start; }
 
 .gutters.grid-frame, .gutters.grid-block, .gutters.small-grid-block, .gutters.medium-grid-block, .gutters.large-grid-block {
   margin: -0.46875rem; }
   .gutters.wrap.grid-frame, .gutters.wrap.grid-block, .gutters.wrap.small-grid-block, .gutters.wrap.medium-grid-block, .gutters.wrap.large-grid-block {
     -ms-flex-align: stretch;
-        -ms-grid-row-align: stretch;
         align-items: stretch; }
 
 .shrink.grid-block, .shrink.grid-content, .shrink.small-grid-block, .shrink.small-grid-content, .shrink.medium-grid-block, .shrink.medium-grid-content, .shrink.large-grid-block, .shrink.large-grid-content {
@@ -5245,7 +5239,6 @@ meter {
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
       -ms-flex-align: stretch;
-          -ms-grid-row-align: stretch;
           align-items: stretch; }
     .grid-content .grid-block .grid-content {
       overflow: visible; }
@@ -7849,7 +7842,7 @@ meter {
   list-style-type: none;
   overflow-y: visible; }
   .menu-bar > li, .menu-bar-acc > li {
-    -ms-flex: 1 0 0;
+    -ms-flex: 1 0 0px;
         flex: 1 0 0;
     -ms-flex-align: center;
         align-items: center;
@@ -7947,7 +7940,7 @@ meter {
     Stretch
   */ }
     .menu-bar > li > a, .menu-bar.horizontal > li > a {
-      -ms-flex: 1 0 0;
+      -ms-flex: 1 0 0px;
           flex: 1 0 0; }
     .menu-bar > li > a, .menu-bar.horizontal > li > a {
       -ms-flex-flow: column nowrap;
@@ -8058,7 +8051,7 @@ meter {
     Stretch
   */ }
     .menu-bar.small-horizontal > li > a {
-      -ms-flex: 1 0 0;
+      -ms-flex: 1 0 0px;
           flex: 1 0 0; }
     .menu-bar.small-horizontal > li > a {
       -ms-flex-flow: column nowrap;
@@ -8090,7 +8083,7 @@ meter {
     Stretch
   */ }
       .menu-bar.medium-horizontal > li > a {
-        -ms-flex: 1 0 0;
+        -ms-flex: 1 0 0px;
             flex: 1 0 0; }
       .menu-bar.medium-horizontal > li > a {
         -ms-flex-flow: column nowrap;
@@ -8122,7 +8115,7 @@ meter {
     Stretch
   */ }
       .menu-bar.large-horizontal > li > a {
-        -ms-flex: 1 0 0;
+        -ms-flex: 1 0 0px;
             flex: 1 0 0; }
       .menu-bar.large-horizontal > li > a {
         -ms-flex-flow: column nowrap;
@@ -8335,7 +8328,6 @@ meter {
     -ms-flex-flow: row nowrap;
         flex-flow: row nowrap;
     -ms-flex-align: center;
-        -ms-grid-row-align: center;
         align-items: center; }
     .menu-bar.icon-left > li > a > img {
       margin: 0 1rem 0 0; }
@@ -8542,7 +8534,6 @@ meter {
     -ms-flex-flow: row nowrap;
         flex-flow: row nowrap;
     -ms-flex-align: center;
-        -ms-grid-row-align: center;
         align-items: center; }
     .menu-bar.small-icon-left > li > a > img {
       margin: 0 1rem 0 0; }
@@ -8753,7 +8744,6 @@ meter {
       -ms-flex-flow: row nowrap;
           flex-flow: row nowrap;
       -ms-flex-align: center;
-          -ms-grid-row-align: center;
           align-items: center; }
       .menu-bar.medium-icon-left > li > a > img {
         margin: 0 1rem 0 0; }
@@ -8964,7 +8954,6 @@ meter {
       -ms-flex-flow: row nowrap;
           flex-flow: row nowrap;
       -ms-flex-align: center;
-          -ms-grid-row-align: center;
           align-items: center; }
       .menu-bar.large-icon-left > li > a > img {
         margin: 0 1rem 0 0; }
@@ -9301,7 +9290,6 @@ meter {
   display: none;
   background-color: rgba(51, 51, 51, 0.7);
   -ms-flex-align: center;
-      -ms-grid-row-align: center;
       align-items: center;
   -ms-flex-pack: center;
       justify-content: center;
@@ -9440,6 +9428,16 @@ meter {
   position: fixed !important; }
   .static-notification, .static-notification h1, .static-notification h2, .static-notification h3, .static-notification h4, .static-notification h5, .static-notification h6 {
     color: white; }
+  .static-notification.default-position {
+    width: 25rem;
+    right: 1rem;
+    top: 1rem; }
+    @media only screen and (min-width: 0em) and (max-width: 39.9375rem) {
+      .static-notification.default-position {
+        width: auto;
+        left: 1rem;
+        right: 1rem;
+        margin-left: 0; } }
   .static-notification.top-right {
     width: 25rem;
     right: 1rem;
@@ -9540,6 +9538,16 @@ meter {
       left: 1rem;
       right: 1rem;
       margin-left: 0; } }
+  .notification-container.default-position {
+    width: 25rem;
+    right: 1rem;
+    top: 1rem; }
+    @media only screen and (min-width: 0em) and (max-width: 39.9375rem) {
+      .notification-container.default-position {
+        width: auto;
+        left: 1rem;
+        right: 1rem;
+        margin-left: 0; } }
   .notification-container.top-right {
     width: 25rem;
     right: 1rem;
@@ -10174,6 +10182,7 @@ blockquote p {
         align-self: flex-start; }
   .v-align .align-center {
     -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
         align-self: center; }
   .v-align .align-bottom {
     -ms-flex-item-align: end;
@@ -10183,6 +10192,7 @@ blockquote p {
         align-self: flex-start; }
   .v-align .small-align-center {
     -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
         align-self: center; }
   .v-align .small-align-bottom {
     -ms-flex-item-align: end;
@@ -10194,6 +10204,7 @@ blockquote p {
   @media only screen and (min-width: 40em) {
     .v-align .medium-align-center {
       -ms-flex-item-align: center;
+          -ms-grid-row-align: center;
           align-self: center; } }
   @media only screen and (min-width: 40em) {
     .v-align .medium-align-bottom {
@@ -10206,6 +10217,7 @@ blockquote p {
   @media only screen and (min-width: 75em) {
     .v-align .large-align-center {
       -ms-flex-item-align: center;
+          -ms-grid-row-align: center;
           align-self: center; } }
   @media only screen and (min-width: 75em) {
     .v-align .large-align-bottom {
@@ -10636,7 +10648,6 @@ p {
     -ms-flex-flow: row nowrap;
         flex-flow: row nowrap;
     -ms-flex-align: center;
-        -ms-grid-row-align: center;
         align-items: center; }
     .menu-bar-acc > li > a > img {
       margin: 0 1rem 0 0; }
