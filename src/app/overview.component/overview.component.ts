@@ -9,14 +9,14 @@ import { ApiService, Data } from '../services/api.service'
 export class OverviewComponent implements OnInit {
   constructor(public apiService: ApiService) { }
 
-  data: Data = {};
+  data: Data[] = [];
 
   ngOnInit() { this.getData() }
   getData() {
     this.apiService.get('serverinfo')
     .subscribe(
-     body => this.data = body
+     response => this.data = response
    )
-   console.log(this.data.virtualserver_name)
+   //console.log(this.data.virtualserver_name)
   }
 }
