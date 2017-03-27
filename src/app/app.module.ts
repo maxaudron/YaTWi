@@ -10,6 +10,7 @@ import { MenuBarComponent } from './menubar.component/menubar.component';
 import { DashboardComponent } from './dashboard.component/dashboard.component';
 import { OverviewComponent } from './overview.component/overview.component';
 import { LoginComponent } from './login.component/login.component';
+import { ServerviewComponent } from './serverview.component/serverview.component';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -22,7 +23,8 @@ import { ApiService } from './services/api.service';
     MenuBarComponent,
     DashboardComponent,
     OverviewComponent,
-    LoginComponent
+    LoginComponent,
+    ServerviewComponent
   ],
   imports: [
     BrowserModule,
