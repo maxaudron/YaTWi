@@ -4,7 +4,9 @@
     </div>
     <div class="card-block">
       <div *ngFor="let channel of channels">
-        {{channel.channel_name}}
+        <div [ngClass]="!regtest(channel.channel_name) ? 'channel': 'spacer'">
+          {{regstrip(channel.channel_name)}}
+        </div>
       </div>
     </div>
   </div>
