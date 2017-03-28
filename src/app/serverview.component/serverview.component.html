@@ -6,6 +6,9 @@
       <div *ngFor="let channel of channels">
         <div [ngClass]="!regtest(channel.channel_name) ? 'channel': 'spacer'">
           {{regstrip(channel.channel_name)}}
+          <div *ngFor="let client of clients">
+            <span *ngIf="client.cid == channel.cid" class="client"> {{client.client_nickname}}</span>
+          </div>
         </div>
       </div>
     </div>

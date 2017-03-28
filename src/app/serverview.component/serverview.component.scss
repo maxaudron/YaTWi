@@ -2,5 +2,10 @@
     color: #ff9933;
 }
 .spacer {
+    color: lighten(#ff9933, 20%);
+}
+
+.client {
     color: white;
+    padding-left: 15px;
 }
