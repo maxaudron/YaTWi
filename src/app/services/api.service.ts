@@ -34,7 +34,6 @@ export class ApiService {
   // localStorage.setItem('id_token', JSON.stringify({ token: body.token }));
   private extractData(res: Response) {
     let body = res.json();
-    console.log(body);
     return body || {};
   }
 

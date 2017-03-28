@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard.component/dashboard.component';
 import { OverviewComponent } from './overview.component/overview.component';
 import { LoginComponent } from './login.component/login.component';
 import { ServerviewComponent } from './serverview.component/serverview.component';
+import { ServerEditComponent } from './server_edit.component/serveredit.component';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -24,7 +25,8 @@ import { ApiService } from './services/api.service';
     DashboardComponent,
     OverviewComponent,
     LoginComponent,
-    ServerviewComponent
+    ServerviewComponent,
+    ServerEditComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,11 @@ import { ApiService } from './services/api.service';
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'editserver',
+        component: ServerEditComponent,
         canActivate: [AuthGuard]
       },
       {
