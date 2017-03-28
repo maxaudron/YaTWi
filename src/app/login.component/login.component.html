@@ -1,0 +1,13 @@
+<h2>LOGIN</h2>
+<p>{{message}}</p>
+<form (ngSubmit)="login()">
+  <div class="form-group">
+    <label for="name">Username</label>
+    <input type="text" class="form-control" id="name" required [(ngModel)]="model.username" name="name" #name="ngModel">
+</div>
+<div class="form-group">
+  <label for="pass">Password</label>
+  <input type="password" class="form-control" id="pass" required [(ngModel)]="model.password" name="pass" #pass="ngModel">
+</div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

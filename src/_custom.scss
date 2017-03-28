@@ -1,0 +1,38 @@
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
+
+// Start with assigning color names to specific hex values.
+$white:  #fff;
+$black:  #000;
+$red:    #d9534f;
+$orange: #ff9933;
+$yellow: #ffd500;
+$green:  #5cb85c;
+$blue:   #0275d8;
+$teal:   #5bc0de;
+$pink:   #ff5b77;
+$purple: #613d7c;
+
+// Create grayscale
+$gray-dark:                 #333333;
+$gray:                      #464a4c;
+$gray-light:                #636c72;
+$gray-lighter:              #eceeef;
+$gray-lightest:             #f7f7f9;
+
+// Color Vars
+$brand-primary:             $orange;
+$brand-success:             $green;
+$brand-info:                $teal;
+$brand-warning:             #f0ad4e;
+$brand-danger:              $red;
+$brand-inverse:             $gray-dark;
+
+$body-bg:       darken($gray-dark, 5%);
+
+// Cards
+$card-border-width:        0px;
+$card-cap-bg:              $brand-primary;
+
