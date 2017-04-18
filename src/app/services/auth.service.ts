@@ -6,6 +6,8 @@ import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Rx';
 //import { Observable } from 'rxjs/Observable';
 
+import { config } from '../../config';
+
 // Import RxJs required methods
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
@@ -17,7 +19,7 @@ import 'rxjs/add/operator/catch';
 export class AuthService {
   isLoggedIn: boolean = false;
   constructor(private http: Http) { }
-  private authUrl = 'http://localhost:3000/api/auth/';
+  private authUrl = config.api_url + '/api/auth/';
   data: any
 
   // store the URL so we can redirect after logging in

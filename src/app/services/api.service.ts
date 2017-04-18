@@ -4,6 +4,8 @@ import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 //import { Observable } from 'rxjs/Observable';
 
+import { config } from '../../config';
+
 export class Data {
 
 }
@@ -17,7 +19,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ApiService {
-  private getUrl = 'http://localhost:3000/api/get/';
+  private apiUrl = config.api_url + '/api/get/';
 
   constructor(private http: Http) { }
 
@@ -25,7 +27,7 @@ export class ApiService {
   get(what): Observable<Data[]> {
     var token = JSON.parse(localStorage.getItem('id_token'));
     return this.http
-      .get(this.getUrl + what + '?token=' + token.token)
+      .get(this.apiUrl + what + '?token=' + token.token)
       .map(this.extractData)
       .catch(this.handleError);
 //response => response.json() as Data[]
