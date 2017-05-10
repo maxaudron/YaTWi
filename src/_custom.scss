@@ -32,6 +32,16 @@ $brand-inverse:             $gray-dark;
 
 $body-bg:       darken($gray-dark, 5%);
 
+// Buttons
+$btn-primary-color:              $white;
+$btn-primary-bg:                 $brand-primary;
+$btn-primary-border:             $btn-primary-bg;
+
+$btn-border-radius:              0px;
+$btn-border-radius-lg:           0px;
+$btn-border-radius-sm:           0px;
+
+
 // Cards
 $card-border-width:        0px;
 $card-cap-bg:              $brand-primary;

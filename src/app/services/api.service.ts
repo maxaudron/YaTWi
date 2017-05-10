@@ -24,18 +24,18 @@ export class ApiService {
   constructor(private http: Http) { }
 
 
-  get(what): Observable<Data[]> {
+  get(action, sid): Observable<Data[]> {
     var token = JSON.parse(localStorage.getItem('id_token'));
     return this.http
-      .get(this.apiUrl + what + '?token=' + token.token)
+      .get(this.apiUrl + sid + '/' + action + '?token=' + token.token)
       .map(this.extractData)
       .catch(this.handleError);
-//response => response.json() as Data[]
   }
 
   // localStorage.setItem('id_token', JSON.stringify({ token: body.token }));
   private extractData(res: Response) {
     let body = res.json();
+    console.log(body);
     return body || {};
   }
 
