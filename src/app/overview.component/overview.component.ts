@@ -22,6 +22,7 @@ export class OverviewComponent implements OnInit {
     ngOnInit() {
         this.subscription = this.serverIdService.ServerId$
             .subscribe(sid => { this.getData(sid) })
+        this.getData(this.sid)
     }
 
   getData(sid) {

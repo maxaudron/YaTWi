@@ -27,6 +27,7 @@ export class ServerviewComponent {
     ngOnInit() {
         this.subscription = this.serverIdService.ServerId$
             .subscribe(sid => { this.getData(sid) })
+        this.getData(this.sid)
     }
     getData(sid) {
         this.apiService.get('channellist', sid).subscribe( response => this.channels = response )
@@ -38,8 +39,7 @@ export class ServerviewComponent {
 	}
 	regstrip(channelname) {
 		var res = channelname.replace(/(\[.*?spacer.*?\])+/g, "");
-        console.log(res)
-		return res
+        return res
 	}
 
     ngOnDestroy() {
