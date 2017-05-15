@@ -20,11 +20,25 @@ export class ServerSwitcherComponent {
     console.log('selected nav item ' + item);
     this.serverIdService.announceSid(item);
   }
+
+  startServer(sid: string) {
+    this.apiService.post('serverstart', {sid: sid})
+    .subscribe(
+     response => this.servers = response
+   )
+  }
+
+  stopServer(sid: string) {
+    this.apiService.post('serverstop', {sid: sid})
+    .subscribe(
+     response => this.servers = response
+   )
+  }
+
   getData() {
     this.apiService.get('serverlist', this.sid)
     .subscribe(
      response => this.servers = response
    )
-      this.selectServer('2')
   }
 }

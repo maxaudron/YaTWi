@@ -38,7 +38,7 @@ import { ServerIdService } from './services/sid.service';
     NgbModule.forRoot(),
     RouterModule.forRoot([
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent,
         canActivate: [AuthGuard]
       },

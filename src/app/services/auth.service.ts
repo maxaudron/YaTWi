@@ -39,6 +39,7 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
 
   loggedIn() {
+    console.log('loggedIn')
     var token   = localStorage.getItem('id_token');
 
     if (token) {

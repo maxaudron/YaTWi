@@ -14,10 +14,10 @@
                 <button class="btn btn-primary" (click)="selectServer(server.virtualserver_id)" >Select</button>
               </div>
               <div class="col">
-                <button class="btn btn-success">Start</button>
+                <button class="btn btn-success" (click)="startServer(server.virtualserver_id)" >Start</button>
               </div>
               <div class="col">
-                <button class="btn btn-danger">Stop</button>
+                <button class="btn btn-danger" (click)="stopServer(server.virtualserver_id)" >Stop</button>
               </div>
             </div>
           </div>
