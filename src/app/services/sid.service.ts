@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject }    from 'rxjs/Subject';
+import { BehaviorSubject }    from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ServerIdService {
   // Observable string sources
-  private ServerIdSource = new Subject<string>();
+  private ServerIdSource = new BehaviorSubject<string>('2');
 
   // Observable string streams
   ServerId$ = this.ServerIdSource.asObservable();
