@@ -12,11 +12,13 @@ import { OverviewComponent } from './overview.component/overview.component';
 import { LoginComponent } from './login.component/login.component';
 import { ServerviewComponent } from './serverview.component/serverview.component';
 import { ServerEditComponent } from './server_edit.component/serveredit.component';
+import { ServerSwitcherComponent } from './server_switcher.component/server_switcher.component'
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CookieService } from './services/cookie.service';
 import { ApiService } from './services/api.service';
+import { ServerIdService } from './services/sid.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { ApiService } from './services/api.service';
     OverviewComponent,
     LoginComponent,
     ServerviewComponent,
-    ServerEditComponent
+    ServerEditComponent,
+    ServerSwitcherComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { ApiService } from './services/api.service';
     NgbModule.forRoot(),
     RouterModule.forRoot([
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent,
         canActivate: [AuthGuard]
       },
@@ -55,6 +58,7 @@ import { ApiService } from './services/api.service';
     AuthService,
     CookieService,
     ApiService,
+    ServerIdService,
   ],
   bootstrap: [AppComponent]
 })
