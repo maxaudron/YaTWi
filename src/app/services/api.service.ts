@@ -19,23 +19,35 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ApiService {
-  private apiUrl = config.api_url + '/api/get/';
+  private apiGet = config.api_url + '/api/get/';
+  private apiPost = config.api_url + '/api/post/';
 
   constructor(private http: Http) { }
 
-
-  get(what): Observable<Data[]> {
+  get(action, sid): Observable<Data[]> {
     var token = JSON.parse(localStorage.getItem('id_token'));
     return this.http
-      .get(this.apiUrl + what + '?token=' + token.token)
+      .get(this.apiGet + sid + '/' + action + '?token=' + token.token)
       .map(this.extractData)
       .catch(this.handleError);
-//response => response.json() as Data[]
+  }
+
+  post(action, data): Observable<Data[]> {
+    console.log('posting')
+    var token = JSON.parse(localStorage.getItem('id_token'))
+    let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers }); // Create a request option
+
+    return this.http
+      .post(this.apiPost + action + '?token=' + token.token, JSON.stringify(data), options)
+      .map(this.extractData)
+      .catch(this.handleError)
   }
 
   // localStorage.setItem('id_token', JSON.stringify({ token: body.token }));
   private extractData(res: Response) {
     let body = res.json();
+    //console.log(body);
     return body || {};
   }
 
