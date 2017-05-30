@@ -24,8 +24,7 @@ export class ServerEditComponent {
 
     ngOnInit() {
         this.subscription = this.serverIdService.ServerId$
-            .subscribe(sid => { this.getData(sid) })
-        this.getData(this.sid)
+            .subscribe(sid => { this.getData(sid); this.sid = sid })
     }
 
     getData(sid) {

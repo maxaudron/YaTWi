@@ -12,17 +12,13 @@ export class OverviewComponent implements OnInit {
     sid: string;
     subscription: Subscription;
 
-    constructor(public apiService: ApiService, private serverIdService: ServerIdService) {
-        this.subscription = this.serverIdService.ServerId$
-            .subscribe(sid => this.sid = sid)
-    }
+    constructor(public apiService: ApiService, private serverIdService: ServerIdService) {}
 
   data: Data[] = [];
 
     ngOnInit() {
         this.subscription = this.serverIdService.ServerId$
-            .subscribe(sid => { this.getData(sid) })
-        this.getData(this.sid)
+            .subscribe(sid => { this.getData(sid); this.sid = sid })
     }
 
   getData(sid) {
