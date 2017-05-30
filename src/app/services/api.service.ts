@@ -10,19 +10,33 @@ export class Data {
 
 }
 
-export class ServerData {
-	constructor(
-virtualserver_name: string,
-virtualserver_welcomemessage: string,
-virtualserver_maxclients: number,
-virtualserver_password: string,
-virtualserver_hostbanner_url: string,
-virtualserver_hostbanner_gfx_url: string,
-virtualserver_hostbanner_gfx_interval: number,
-virtualserver_hostbutton_url: string,
-virtualserver_hostbutton_gfx_url: string,
-virtualserver_hostbutton_tooltip: string
-	) {}
+export interface ServerData {
+	virtualserver_name: string
+		virtualserver_welcomemessage: string
+		virtualserver_maxclients: number
+		virtualserver_password: string
+		virtualserver_hostbanner_url: string
+		virtualserver_hostbanner_gfx_url: string
+		virtualserver_hostbanner_gfx_interval: number
+		virtualserver_hostbutton_url: string
+		virtualserver_hostbutton_gfx_url: string
+		virtualserver_hostbutton_tooltip: string
+		virtualserver_download_quota: number
+		virtualserver_upload_quota: number
+		virtualserver_max_download_total_bandwidth: number
+		virtualserver_max_upload_total_bandwidth: number
+        virtualserver_default_server_group: number
+        virtualserver_default_channel_group: number
+        virtualserver_default_channel_admin_group: number
+        virtualserver_complain_autoban_count: number
+        virtualserver_complain_autoban_time: number
+        virtualserver_complain_remove_time: number
+        virtualserver_log_client: number
+		virtualserver_log_server: number
+		virtualserver_log_query: number
+		virtualserver_log_permissions: number
+		virtualserver_log_channel: number
+		virtualserver_log_filetransfer: number
 }
 
 // Import RxJs required methods
@@ -47,7 +61,7 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  getServerInfo(action, sid): Observable<ServerData[]> {
+  getServerInfo(action, sid): Observable<ServerData> {
     var token = JSON.parse(localStorage.getItem('id_token'));
     return this.http
       .get(this.apiGet + sid + '/' + action + '?token=' + token.token)

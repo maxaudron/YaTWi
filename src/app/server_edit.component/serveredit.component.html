@@ -65,6 +65,9 @@
         </div>
       </div>
     </div>
+  </div>
+
+<div class="row">
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">Hostbanner</div>
@@ -72,7 +75,7 @@
         <div class="card-block">
             <div class="form-group">
               <label for="hostbanner_link">Link:</label>
-              <input type="text" class="form-control" id="hostbanner_link" [(ngModel)]="data.virtualserver_hostbanner_url" name="hostbanner_link" #hostbanner_link="ngModel"> 
+              <input type="text" class="form-control" id="hostbanner_link" [(ngModel)]="data.virtualserver_hostbanner_url" name="hostbanner_link" #hostbanner_link="ngModel">
             </div>
             <div class="form-group">
               <label for="hostbanner_source">Source:</label>
@@ -102,6 +105,98 @@
               <label for="hostbutton_tooltip">Tooltip:</label>
               <input type="text" class="form-control" id="hostbutton_tooltip" [(ngModel)]="data.virtualserver_hostbutton_tooltip" name="hostbutton_tooltip" #hostbutton_tooltip="ngModel">
             </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Security</div>
+        <div class="card-block">
+            <div class="form-group">
+              <label for="needed_identity_security_level">Needed Security Level:</label>
+              <input type="text" class="form-control" id="needed_identity_security_level" [(ngModel)]="data.virtualserver_needed_identity_security_level" name="needed_identity_security_level" #hostbanner_link="ngModel">
+            </div>
+            <div class="form-group">
+              <label for="antiflood_points_tick_reduce">Anti-Flood Reduce Points per Tick:</label>
+              <input type="text" class="form-control" id="antiflood_points_tick_reduce" [(ngModel)]="data.virtualserver_antiflood_points_tick_reduce" name="antiflood_points_tick_reduce" #hostbanner_source="ngModel">
+            </div>
+            <div class="form-group">
+              <label for="antiflood_points_needed_command_block">Anti-Flood Point needed for Command Block:</label>
+              <input type="number" class="form-control" id="antiflood_points_needed_command_block" [(ngModel)]="data.virtualserver_antiflood_points_needed_command_block" name="antiflood_points_needed_command_block" #hostbanner_interval="ngModel">
+            </div>
+            <div class="form-group">
+              <label for="antiflood_points_needed_ip_block">Anti-Flood Point needed for IP Block:</label>
+              <input type="number" class="form-control" id="antiflood_points_needed_ip_block" [(ngModel)]="data.virtualserver_antiflood_points_needed_ip_block" name="antiflood_points_needed_ip_block" #hostbanner_interval="ngModel">
+            </div>
+        </div>
+      </div>
+    </div>
+		<div class="col-md-6">
+   		<div class="card">
+        <div class="card-header">Misc</div>
+        <div class="card-block">
+          <label for="default-server-groups">Default Groups</label>
+          <div class="row" id="default-groups">
+            <div class="col">
+              <div class="form-group">
+                <label for="default_server_group">Server:</label>
+                <input type="text" class="form-control" id="default_server_group" [(ngModel)]="data.virtualserver_default_server_group">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="default_channel_group">Channel:</label>
+                <input type="text" class="form-control" id="default_channel_group" [(ngModel)]="data.virtualserver_default_channel_group">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="default_channel_admin_group">Channel Admin:</label>
+                <input type="text" class="form-control" id="default_channel_admin_group" [(ngModel)]="data.virtualserver_default_channel_admin_group">
+              </div>
+            </div>
+          </div>
+          <label for="default-groups">Complains</label>
+          <div class="row" id="default-groups">
+            <div class="col">
+              <div class="form-group">
+                <label for="complain_autoban_count">Autoban Count:</label>
+                <input type="text" class="form-control" id="complain_autoban_count" [(ngModel)]="data.virtualserver_complain_autoban_count">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="complain_autoban_time">Autoban Time:</label>
+                <input type="text" class="form-control" id="complain_autoban_time" [(ngModel)]="data.virtualserver_complain_autoban_time">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="complain_remove_time">Remove Time:</label>
+                <input type="text" class="form-control" id="complain_remove_time" [(ngModel)]="data.virtualserver_complain_remove_time">
+              </div>
+            </div>
+          </div>
+          <label for="default-groups">Logs</label>
+          <div class="row" id="default-groups">
+            <div class="col">
+              <div class="form-group">
+                <div class="row">
+                <div class="col"><input type="checkbox" [(ngModel)]="data.virtualserver_log_client"> Clients</div>
+                <div class="col"><input type="checkbox" [(ngModel)]="data.virtualserver_log_channel"> Channels</div>
+                <div class="col"><input type="checkbox" [(ngModel)]="data.virtualserver_log_server"> Server</div>
+                </div><div class="row">
+                <div class="col"><input type="checkbox" [(ngModel)]="data.virtualserver_log_query"> ServerQuery</div>
+                <div class="col"><input type="checkbox" [(ngModel)]="data.virtualserver_log_permissions"> Permissions</div>
+                <div class="col"><input type="checkbox" [(ngModel)]="data.virtualserver_log_filetransfer"> File Transfer</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
