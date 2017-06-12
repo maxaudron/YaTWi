@@ -24,6 +24,7 @@ $gray-lightest:             #f7f7f9;
 
 // Color Vars
 $brand-primary:             $orange;
+$brand-secondary:           $gray-dark;
 $brand-success:             $green;
 $brand-info:                $teal;
 $brand-warning:             #f0ad4e;
@@ -31,6 +32,7 @@ $brand-danger:              $red;
 $brand-inverse:             $gray-dark;
 
 $body-bg:       darken($gray-dark, 5%);
+$body-color:     $gray-lightest;
 
 // Buttons
 $btn-primary-color:              $white;
@@ -45,4 +47,5 @@ $btn-border-radius-sm:           0px;
 // Cards
 $card-border-width:        0px;
 $card-cap-bg:              $brand-primary;
+$card-bg:                  $gray-dark;
 

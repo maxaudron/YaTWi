@@ -39,17 +39,20 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
 
   loggedIn() {
-    console.log('loggedIn')
-    var token   = localStorage.getItem('id_token');
+    var token = localStorage.getItem('id_token');
 
-    if (token) {
+      if (token) {
+        // Checks if token isn't expired
         var decoded = this.jwtHelper.decodeToken(token);
         if (decoded.exp >= Math.floor(Date.now() / 1000)) {
+            console.log('loggedIn')
             return true
         } else {
+            this.logout
             return false
         }
-    } else {
+      } else {
+        this.logout
         return false
     }
   }
