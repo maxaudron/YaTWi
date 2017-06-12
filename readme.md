@@ -1,27 +1,29 @@
-# Yatwi
+# Yet another Teamspeak Webinterface  
+YaTWi strives to be a simplistic, sleek looking and fast Webinterface for Teamspeak build with the power of Angular and NodeJS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.1.
+## Current Status  
+YaTWi currently is in a very early alpha phase with only a few components working.
+Design elements aren't completely finished and there are bugs too expect.  
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Roadmap  
+### Implemented
+* Authentication
+* Comunication with a Backend
+* Server viewer
+* Dashboard (Overview over settings and Server View)
+* Editing of most Server Properties
 
-## Code scaffolding
+### ToDo  
+* Dashboard quick actions
+* Channel Management
+* CLient Management
+* Permission Management
+* Backup & Restore  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+## Development / Testing
+To try Yatwi out in its current stage clone the repo fill in your Server IP and VirtualServer ID in 'src/config.ts'.
+Install all needed dependencies with 'npm install' and build with 'node_modules/@angular/cli/bin/ng build' or your global angular-cli install
 
-## Build
+You will need to give all non serverqueryadmin clients the permission `b_serverinstance_virtualserver_list`, `b_virtualserver_select` and 'b_serverquery_login' if you intent on login in with them.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+More information on how to help with the development of this Project can be found [here](https://gitlab.com/audron/YaTWi/wikis/development)
