@@ -19,7 +19,7 @@ import 'rxjs/add/operator/catch';
 export class AuthService {
   isLoggedIn: boolean = false;
   constructor(private http: Http) { }
-  private authUrl = config.api_url + '/api/auth/';
+  private authUrl = config.api_url + '/api/auth';
   data: any
 
   // store the URL so we can redirect after logging in
@@ -28,10 +28,11 @@ export class AuthService {
   login(logindata): Observable<boolean> {
     //let bodyString = JSON.stringify(body); // Stringify payload
     console.log(logindata)
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }); // ... Set content type to JSON
-    let options = new RequestOptions({ headers: headers }); // Create a request option
+    let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers }); // Create a request o
 
-    return this.http.post(this.authUrl, "username=" + logindata.username + "&password=" + logindata.password, options) // ...using post request
+    return this.http
+      .post(this.authUrl, JSON.stringify({username: logindata.username, password: logindata.password, server_ip: config.ts_ip}), options) // ...using post request
       .map(this.extractData) // ...and calling .json() on the response to return data
       .catch(this.handleError); //...errors if
   }

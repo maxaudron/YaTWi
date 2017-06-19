@@ -61,10 +61,10 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  getServerInfo(action, sid): Observable<ServerData> {
+  getNoSid(action): Observable<Data[]> {
     var token = JSON.parse(localStorage.getItem('id_token'));
     return this.http
-      .get(this.apiGet + sid + '/' + action + '?token=' + token.token)
+      .get(this.apiGet + action + '?token=' + token.token)
       .map(this.extractData)
       .catch(this.handleError);
   }
