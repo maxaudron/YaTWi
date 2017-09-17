@@ -14,7 +14,7 @@ export class OverviewComponent implements OnInit {
 
     constructor(public apiService: ApiService, private serverIdService: ServerIdService) {}
 
-  data: Data[] = [];
+    data = {};
 
     ngOnInit() {
         this.subscription = this.serverIdService.ServerId$
@@ -24,7 +24,7 @@ export class OverviewComponent implements OnInit {
   getData(sid) {
     this.apiService.get('serverinfo', sid)
     .subscribe(
-     response => this.data = response
+     response => this.data = response[0]
    )
   }
 }

@@ -2,7 +2,7 @@
     <div class="card-header">
       Server View
     </div>
-    <div class="card-block">
+    <div class="card-block" style="margin: 1rem">
       <div *ngFor="let channel of channels">
         <div [ngClass]="!regtest(channel.channel_name) ? 'channel': 'spacer'">
           {{regstrip(channel.channel_name)}}

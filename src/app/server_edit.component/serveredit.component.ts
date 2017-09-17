@@ -29,11 +29,11 @@ export class ServerEditComponent {
 
     getData(sid) {
         this.apiService.get('serverinfo', sid).subscribe( (response) => {
-            this.data = response
+            this.data = response[0]/*
 			this.data.virtualserver_max_upload_total_bandwidth = this.cleanData(this.data.virtualserver_max_upload_total_bandwidth)
 			this.data.virtualserver_max_download_total_bandwidth = this.cleanData(this.data.virtualserver_max_download_total_bandwidth)
 			this.data.virtualserver_upload_quota = this.cleanData(this.data.virtualserver_upload_quota)
-			this.data.virtualserver_download_quota = this.cleanData(this.data.virtualserver_download_quota)
+            this.data.virtualserver_download_quota = this.cleanData(this.data.virtualserver_download_quota)*/
 		})
 	}
 
@@ -55,7 +55,7 @@ export class ServerEditComponent {
     saveData(data) {
 
         console.log(data)
-        this.apiService.postServer(this.sid, 'serveredit', {
+        this.apiService.post(this.sid, 'serveredit', {
             virtualserver_name: data.virtualserver_name,
             virtualserver_welcomemessage: data.virtualserver_welcomemessage,
             virtualserver_maxclients: data.virtualserver_maxclients,
@@ -70,7 +70,11 @@ export class ServerEditComponent {
 			virtualserver_download_quota: data.virtualserver_download_quota,
 			virtualserver_upload_quota: data.virtualserver_upload_quota,
 			virtualserver_max_download_total_bandwidth: data.virtualserver_max_download_total_bandwidth,
-			virtualserver_max_upload_total_bandwidth: data.virtualserver_max_upload_total_bandwidth,
+            virtualserver_max_upload_total_bandwidth: data.virtualserver_max_upload_total_bandwidth,
+            virtualserver_needed_identity_security_level: data.virtualserver_needed_identity_security_level,
+            virtualserver_antiflood_points_tick_reduce: data.virtualserver_antiflood_points_tick_reduce,
+            virtualserver_antiflood_points_needed_command_block: data.virtualserver_antiflood_points_needed_command_block,
+            virtualserver_antiflood_points_needed_ip_block: data.virtualserver_antiflood_points_needed_ip_block,
             virtualserver_default_server_group: data.virtualserver_default_server_group,
             virtualserver_default_channel_group: data.virtualserver_default_channel_group,
             virtualserver_default_channel_admin_group: data.virtualserver_default_channel_admin_group,
