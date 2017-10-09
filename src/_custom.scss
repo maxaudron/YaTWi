@@ -4,39 +4,50 @@
 // without modifying source files.
 
 // Start with assigning color names to specific hex values.
-$white:  #fff;
-$black:  #000;
-$red:    #d9534f;
-$orange: #ff9933;
-$yellow: #ffd500;
-$green:  #5cb85c;
-$blue:   #0275d8;
-$teal:   #5bc0de;
-$pink:   #ff5b77;
-$purple: #613d7c;
 
-// Create grayscale
-$gray-dark:                 #333333;
-$gray:                      #464a4c;
-$gray-light:                #636c72;
-$gray-lighter:              #eceeef;
-$gray-lightest:             #f7f7f9;
+$orange: #ff9933;
+
+$white:  #fff !default;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #333333;
+$black:  #000 ;
+
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #dc3545;
+$orange:  #ff9933;
+$yellow:  #ffc107;
+$green:   #28a745;
+$teal:    #20c997;
+$cyan:    #17a2b8;
 
 // Color Vars
-$brand-primary:             $orange;
-$brand-secondary:           $gray-dark;
-$brand-success:             $green;
-$brand-info:                $teal;
-$brand-warning:             #f0ad4e;
-$brand-danger:              $red;
-$brand-inverse:             $gray-dark;
+$theme-colors: (
+  primary: $orange,
+  secondary: $gray-600,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-900
+);
 
-$body-bg:       darken($gray-dark, 5%);
-$body-color:     $gray-lightest;
+$body-bg:       darken($gray-900, 5%);
+$body-color:     $gray-100;
 
 // Buttons
 $btn-primary-color:              $white;
-$btn-primary-bg:                 $brand-primary;
+$btn-primary-bg:                 theme-colors('primary');
 $btn-primary-border:             $btn-primary-bg;
 
 $btn-border-radius:              0px;
@@ -46,6 +57,6 @@ $btn-border-radius-sm:           0px;
 
 // Cards
 $card-border-width:        0px;
-$card-cap-bg:              $brand-primary;
-$card-bg:                  $gray-dark;
+$card-cap-bg:              theme-colors('primary');
+$card-bg:                  $gray-900;
 

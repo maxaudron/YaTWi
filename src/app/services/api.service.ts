@@ -64,7 +64,7 @@ export class ApiService {
         .catch(this.handleError);
     }
 
-    post(sid, action, data): Observable<Data[]> {
+    post(action, sid, data): Observable<Data[]> {
         console.log('posting')
         var token = JSON.parse(localStorage.getItem('id_token')).token
         let headers = new Headers({ 'Content-Type': 'application/json', 'sid': sid, 'Authorization': 'Basic ' + btoa(token + ':') }); // ... Set content type to JSON

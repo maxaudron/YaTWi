@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-block">
+    <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
+      <input #myInput style="width: 100%;" placeholder="Filter by Nickname..." [(ngModel)]="name" (input)="filterItem(myInput.value)"/>
+    </div>
+    <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
+      <table class="table table-hover table-striped" style="margin-bottom: 0rem">
+        <thead style="background-color: #ff9933; color: #000000">
+          <tr>
+            <td>Nickname</td>
+            <td>Status</td>
+            <td>Database ID</td>
+            <td>Unique Identifier</td>
+            <td>First Connected</td>
+            <td>Last Connected</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of filteredItems">
+            <td>{{client.client_nickname}}</td>
+            <td></td>
+            <td>{{client.cldbid}}</td>
+            <td>{{client.client_unique_identifier}}</td>
+            <td>{{client.client_created}}</td>
+            <td>{{client.client_lastconnected}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

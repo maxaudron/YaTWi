@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http'; 
+import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
 
 import { AppComponent } from './app.component/app.component';
@@ -12,6 +12,7 @@ import { LoginComponent } from './login.component/login.component';
 import { ServerviewComponent } from './serverview.component/serverview.component';
 import { ServerEditComponent } from './server_edit.component/serveredit.component';
 import { ServerSwitcherComponent } from './server_switcher.component/server_switcher.component'
+import { UserManagementComponent } from './usermanagement.component/usermanagement.component'
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -20,44 +21,50 @@ import { ApiService } from './services/api.service';
 import { ServerIdService } from './services/sid.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MenuBarComponent,
-    DashboardComponent,
-    OverviewComponent,
-    LoginComponent,
-    ServerviewComponent,
-    ServerEditComponent,
-    ServerSwitcherComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: DashboardComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'editserver',
-        component: ServerEditComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-      }
-    ])
-  ],
-  providers: [
-    AuthGuard,
-    AuthService,
-    CookieService,
-    ApiService,
-    ServerIdService,
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MenuBarComponent,
+        DashboardComponent,
+        OverviewComponent,
+        LoginComponent,
+        ServerviewComponent,
+        ServerEditComponent,
+        ServerSwitcherComponent,
+        UserManagementComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot([
+            {
+                path: '',
+                component: DashboardComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'editserver',
+                component: ServerEditComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'usermanagement',
+                component: UserManagementComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'login',
+                component: LoginComponent,
+            }
+        ])
+    ],
+    providers: [
+        AuthGuard,
+        AuthService,
+        CookieService,
+        ApiService,
+        ServerIdService,
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
