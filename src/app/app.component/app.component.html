@@ -16,6 +16,6 @@
     <div class="col" style="padding: 2rem;">
       <router-outlet></router-outlet>
     </div>
-    <serverswitcher *ngIf="apiService.isLoggedIn" class="col-md-3 menubar" [ngClass]="{'collapse': !isServerSwitcherVisible }"></serverswitcher>
+    <serverswitcher class="col-md-3 menubar" [ngClass]="{'collapse': !isServerSwitcherVisible }"></serverswitcher>
   </div>
 </div>
