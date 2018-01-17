@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { tokenNotExpired } from 'angular2-jwt';
-import { JwtHelper } from 'angular2-jwt';
 
 import { Observable } from 'rxjs/Rx';
 //import { Observable } from 'rxjs/Observable';
@@ -36,8 +34,6 @@ export class AuthService {
         .map(this.extractData) // ...and calling .json() on the response to return data
         .catch(this.handleError); //...errors if
     }
-
-    jwtHelper: JwtHelper = new JwtHelper();
 
     loggedIn() {
         var token = localStorage.getItem('id_token');
