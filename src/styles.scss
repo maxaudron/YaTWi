@@ -1,16 +1,99 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/scss/_functions";
+
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
+
+// Start with assigning color names to specific hex values.
+
+// stylelint-disable
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #333333;
+$gray-900: #212529;
+$black:    #000 !default;
+
+$grays: ();
+$grays: map-merge((
+  "100": $gray-100,
+  "200": $gray-200,
+  "300": $gray-300,
+  "400": $gray-400,
+  "500": $gray-500,
+  "600": $gray-600,
+  "700": $gray-700,
+  "800": $gray-800,
+  "900": $gray-900
+), $grays);
+
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #dc3545;
+$orange:  #ff9933;
+$yellow:  #ffc107;
+$green:   #28a745;
+$teal:    #20c997;
+$cyan:    #17a2b8;
+
+$colors: ();
+$colors: map-merge((
+  "blue":       $blue,
+  "indigo":     $indigo,
+  "purple":     $purple,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+  "white":      $white,
+  "gray":       $gray-600,
+  "gray-dark":  $gray-800
+), $colors);
+
+$primary:       $orange;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-100;
+$dark:          $gray-800;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+$body-bg:       darken($gray-800, 5%);
+$body-color:     $gray-100;
+
+// Buttons
+$btn-border-radius:              0px;
+$btn-border-radius-lg:           0px;
+$btn-border-radius-sm:           0px;
+
+
+// Cards
+$card-border-width:        0px;
+$card-cap-bg:              theme-color('primary');
+$card-bg:                  $gray-800;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
-
-.btn-navbar {
-  width: 45px;
-  height: 45px;
-  border: 0px;
-  border-radius: 0px;
-  padding: 0px;
-  background-color: rgb(255, 153, 51);
-}
-
-.btn-navbar:hover {
-    background-color: darken(#ff9933, 5%);
-}
-

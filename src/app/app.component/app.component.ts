@@ -7,6 +7,7 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'app works!';
-    constructor(public apiService: ApiService) {}
+	constructor(public apiService: ApiService) {}
+	isMenuVisible = true
+	isServerSwitcherVisible = false
 }
