@@ -22,22 +22,57 @@ export class UserManagementComponent {
 
 	runOnce = 0
     clients: any = [];
+    sorted: any = [];
 	clientsonline: any = [];
     filteredItems: any = [];
 
     ngOnInit() {
         this.subscription = this.serverIdService.ServerId$
             .subscribe(sid => { this.getData(sid); this.sid = sid })
+		
     }
 
     getData(sid) {
         this.apiService.post('clientdblist', sid, {'duration': '999'}).subscribe( (response) => {
-            this.clients = response; this.assignCopy()
+			response = response.map(function(o) {
+				o['online'] = 'false'
+				return o
+			})
+            this.clients = response; this.assignCopy();
+			this.sortData({sortColumn: 'online', sortDirection: 'desc'})
         })
 		this.apiService.get('clientlist', sid).subscribe( response => {
 			this.clientsonline = response 
 		})
     }
+	
+	sortDataBack(criteria: ClientCriteria): Client[] {
+        return this.clients.sort((a,b) => {
+          if(criteria.sortDirection === 'desc'){
+            return a[criteria.sortColumn] < b[criteria.sortColumn];
+          }
+          else {
+            return a[criteria.sortColumn] > b[criteria.sortColumn];
+          }
+        });
+    }
+
+	sortData(criteria: ClientCriteria) {
+		this.filteredItems = this.clients.sort((a,b) => {
+          if(criteria.sortDirection === 'desc'){
+            return a[criteria.sortColumn] < b[criteria.sortColumn];
+          }
+          else {
+            return a[criteria.sortColumn] > b[criteria.sortColumn];
+          }
+        });
+		console.log(this.filteredItems)
+	}
+
+	onSorted($event) {
+		console.log($event)
+		this.sortData($event)
+	}
 
     assignCopy(){
             this.filteredItems = Object.assign([], this.clients);
@@ -76,4 +111,21 @@ export class UserManagementComponent {
 			this.runOnce = 1
 		}
 	}
+}
+
+export class Client {
+	cldbid: number;
+	client_created: number;
+	client_description: string;
+	client_lastconnected: number;
+	client_lastip: string;
+	client_nickname: string;
+	client_totalconnections: string;
+	client_unique_identifier: string;
+	online: string;
+}
+
+export class ClientCriteria {
+	sortColumn: string;
+	sortDirection: string;
 }

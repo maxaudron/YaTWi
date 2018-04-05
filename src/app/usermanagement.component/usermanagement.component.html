@@ -12,15 +12,14 @@
 	  </div>
     </div>
     <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
-      <table class="table table-hover table-striped" style="margin-bottom: 0rem">
+      <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-striped" style="margin-bottom: 0rem">
         <thead style="background-color: #ff9933; color: #000000">
           <tr>
-            <td>Nickname</td>
-            <td>Status</td>
-            <td>Database ID</td>
-            <td>Unique Identifier</td>
-            <td>First Connected</td>
-            <td>Last Connected</td>
+            <th sortable-column="client_nickname">Nickname</th>
+            <th sortable-column="online">Status</th>
+            <th sortable-column="cldbid">ID</th>
+            <th sortable-column="client_created">First Connected</th>
+            <th sortable-column="client_lastconnected">Last Connected</th>
           </tr>
         </thead>
         <tbody>
@@ -28,9 +27,8 @@
             <td>{{client.client_nickname}}</td>
 			<td><span *ngIf="client.online == 'true'; else offline" style="color: #33ff33">online</span><ng-template #offline><span style="color: #ff3333">offline</span></ng-template></td>
             <td>{{client.cldbid}}</td>
-            <td>{{client.client_unique_identifier}}</td>
-            <td>{{client.client_created}}</td>
-            <td>{{client.client_lastconnected}}</td>
+            <td>{{client.client_created * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
+			<td>{{client.client_lastconnected * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
           </tr>
         </tbody>
       </table>

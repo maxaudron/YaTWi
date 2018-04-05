@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { AppComponent } from './app.component/app.component';
 import { MenuBarComponent } from './menubar.component/menubar.component';
 import { DashboardComponent } from './dashboard.component/dashboard.component';
@@ -20,6 +22,10 @@ import { CookieService } from './services/cookie.service';
 import { ApiService } from './services/api.service';
 import { ServerIdService } from './services/sid.service';
 
+import { SortService } from './sortable.component/sort.service';
+import { SortableTableDirective } from './sortable.component/sortable.directive';
+import { SortableColumnComponent } from './sortable.component/sortable-column.component';
+
 import { APP_INITIALIZER } from '@angular/core';
 import { AppConfig }       from './app.config';
 
@@ -33,12 +39,15 @@ import { AppConfig }       from './app.config';
         ServerviewComponent,
         ServerEditComponent,
         ServerSwitcherComponent,
-        UserManagementComponent
-    ],
+        UserManagementComponent,
+		SortableTableDirective, 
+		SortableColumnComponent
+	],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+		NgxDatatableModule,
         RouterModule.forRoot([
             {
                 path: '',
@@ -68,7 +77,8 @@ import { AppConfig }       from './app.config';
         ApiService,
         ServerIdService,
 		AppConfig,
-        { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }
+        { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true },
+		SortService
     ],
     bootstrap: [AppComponent]
 })
