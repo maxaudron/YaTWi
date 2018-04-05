@@ -1,7 +1,6 @@
-{ 
-  "name": "YaTWi",
-  "version": "0.3.0",
->>>>>>> release/0.3
+{
+  "name": "testpro",
+  "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -21,9 +20,8 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-beta.9",
-    "@swimlane/ngx-datatable": "^11.2.0",
-    "bootstrap": "4.0.0-beta.2",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.9",
+    "bootstrap": "^4.0.0-beta.2",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

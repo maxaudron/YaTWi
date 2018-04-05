@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, Data } from '../services/api.service'
+import { Subscription } from 'rxjs/Subscription';
+import { ApiService, Data } from '../services/api.service';
+import { ServerIdService } from '../services/sid.service';
 
 @Component({
   selector: 'overview',
@@ -7,16 +9,25 @@ import { ApiService, Data } from '../services/api.service'
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
-  constructor(public apiService: ApiService) { }
+    sid: string;
+    subscription: Subscription;
 
-  data: Data[] = [];
+    constructor(public apiService: ApiService, private serverIdService: ServerIdService) {}
 
-  ngOnInit() { this.getData() }
-  getData() {
-    this.apiService.get('serverinfo')
+    data = {};
+
+    ngOnInit() {
+        this.subscription = this.serverIdService.ServerId$
+            .subscribe(sid => { this.getData(sid); this.sid = sid })
+    }
+
+  getData(sid) {
+    this.apiService.get('serverinfo', sid)
     .subscribe(
-     response => this.data = response
+     response => this.data = response[0]
    )
-   //console.log(this.data.virtualserver_name)
   }
+	convert(num) {
+		return Math.round(num / 1048576).toFixed(2)
+	}
 }

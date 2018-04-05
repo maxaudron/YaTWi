@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 10px;">
+  <div *ngFor="let server of servers">
+    <div class="row">
+      <div class="col">
+        <div class="card" style="margin: 0.3rem">
+          <div class="card-block" style="background-color: #262626; padding: 1rem;">
+            <p style="margin-bottom: 0.3rem;">
+              <span class="highlight-text">Name: </span>{{server.virtualserver_name}}<br>
+              <span class="highlight-text">Status: </span>{{server.virtualserver_status}}<br>
+              <span class="highlight-text">Users: </span>{{server.virtualserver_clientsonline}} / {{server.virtualserver_maxclients}}<br>
+            </p>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" (click)="selectServer(server.virtualserver_id)" >Select</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-success" (click)="startServer(server.virtualserver_id)" >Start</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-danger" (click)="stopServer(server.virtualserver_id)" >Stop</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
