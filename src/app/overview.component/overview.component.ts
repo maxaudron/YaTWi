@@ -27,4 +27,7 @@ export class OverviewComponent implements OnInit {
      response => this.data = response[0]
    )
   }
+	convert(num) {
+		return Math.round(num / 1048576).toFixed(2)
+	}
 }
