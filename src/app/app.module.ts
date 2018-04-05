@@ -20,6 +20,9 @@ import { CookieService } from './services/cookie.service';
 import { ApiService } from './services/api.service';
 import { ServerIdService } from './services/sid.service';
 
+import { APP_INITIALIZER } from '@angular/core';
+import { AppConfig }       from './app.config';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -64,6 +67,8 @@ import { ServerIdService } from './services/sid.service';
         CookieService,
         ApiService,
         ServerIdService,
+		AppConfig,
+        { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }
     ],
     bootstrap: [AppComponent]
 })

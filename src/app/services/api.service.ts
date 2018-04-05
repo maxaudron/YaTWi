@@ -4,7 +4,7 @@ import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 //import { Observable } from 'rxjs/Observable';
 
-import { config } from '../../config';
+import { AppConfig } from '../app.config';
 
 export class Data {
 
@@ -48,10 +48,10 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ApiService {
-    private apiGet = config.api_url + '/api/get/';
-    private apiPost = config.api_url + '/api/post/';
+    constructor(private http: Http, private config: AppConfig) { }
 
-    constructor(private http: Http) { }
+    private apiGet = this.config.getConfig('api_url') + '/api/get/';
+    private apiPost = this.config.getConfig('api_url') + '/api/post/';
 
     get(action, sid): Observable<Data[]> {
         var token = JSON.parse(localStorage.getItem('id_token')).token
