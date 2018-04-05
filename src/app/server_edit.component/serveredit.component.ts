@@ -55,7 +55,7 @@ export class ServerEditComponent {
     saveData(data) {
 
         console.log(data)
-        this.apiService.post(this.sid, 'serveredit', {
+        this.apiService.post('serveredit', this.sid, {
             virtualserver_name: data.virtualserver_name,
             virtualserver_welcomemessage: data.virtualserver_welcomemessage,
             virtualserver_maxclients: data.virtualserver_maxclients,

@@ -4,7 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 //import { Observable } from 'rxjs/Observable';
 
-import { config } from '../../config';
+import { AppConfig } from '../app.config';
 
 // Import RxJs required methods
 import 'rxjs/add/observable/of';
@@ -16,8 +16,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class AuthService {
     isLoggedIn: boolean = false;
-    constructor(private http: Http) { }
-    private authUrl = config.api_url + '/api/auth';
+    constructor(private http: Http, private config: AppConfig) { }
+    private authUrl = this.config.getConfig('api_url') + '/api/auth';
     data: any
 
     // store the URL so we can redirect after logging in
@@ -26,7 +26,7 @@ export class AuthService {
     login(logindata): Observable<boolean> {
         //let bodyString = JSON.stringify(body); // Stringify payload
         console.log(logindata)
-        let headers = new Headers({ 'Authorization': 'Basic ' + btoa(logindata.username + ':' + logindata.password), 'ip': config.ts_ip }); // ... Set content type to JSON
+        let headers = new Headers({ 'Authorization': 'Basic ' + btoa(logindata.username + ':' + logindata.password), 'ip': this.config.getConfig('ts_ip') }); // ... Set content type to JSON
         let options = new RequestOptions({ headers: headers }); // Create a request o
 
         return this.http
