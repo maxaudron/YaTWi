@@ -19,7 +19,7 @@
           <span class="highlight-text">Version: </span>{{data.virtualserver_version}}<br />
           <span class="highlight-text">Platform: </span>{{data.virtualserver_platform}}<br />
           <span class="highlight-text">Uptime: </span>{{data.virtualserver_uptime}}<br />
-          <span class="highlight-text">Transfered Data: </span>{{data.connection_bytes_sent_total}} / {{data.connection_bytes_received_total}}
+          <span class="highlight-text">Transfered Data: </span>{{convert(data.connection_bytes_sent_total) + ' MB'}} / {{convert(data.connection_bytes_received_total) + ' MB'}}
         </div>
       </div>
     </div>
