@@ -1,7 +1,15 @@
 <div class="card">
   <div class="card-block">
     <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
-      <input #myInput style="width: 100%;" placeholder="Filter by Nickname..." [(ngModel)]="name" (input)="filterItem(myInput.value)"/>
+	  <div class="col" style="padding: 0px;">
+		<input #myInput style="width: 100%;" placeholder="Filter by Nickname..." [(ngModel)]="name" (input)="filterItem(myInput.value, 'nick')"/>
+	  </div>
+	  <div class="col" style="padding:0px;">
+	    <input #myInput style="width: 100%;" placeholder="Filter by Database ID..." [(ngModel)]="dbid" (input)="filterItem(myInput.value, 'dbid')"/>
+	  </div>
+	  <div class="col" style="padding:0px;">
+	    <input #myInput style="width: 100%;" placeholder="Filter by Unique ID..." [(ngModel)]="uid" (input)="filterItem(myInput.value, 'uid')"/>
+	  </div>
     </div>
     <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
       <table class="table table-hover table-striped" style="margin-bottom: 0rem">
@@ -18,7 +26,7 @@
         <tbody>
           <tr *ngFor="let client of filteredItems">
             <td>{{client.client_nickname}}</td>
-            <td></td>
+			<td><span *ngIf="client.online == 'true'; else offline" style="color: #33ff33">online</span><ng-template #offline><span style="color: #ff3333">offline</span></ng-template></td>
             <td>{{client.cldbid}}</td>
             <td>{{client.client_unique_identifier}}</td>
             <td>{{client.client_created}}</td>

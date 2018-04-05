@@ -20,7 +20,9 @@ export class UserManagementComponent {
 
     constructor(public apiService: ApiService, private serverIdService: ServerIdService) {}
 
-    data: any = [];
+	runOnce = 0
+    clients: any = [];
+	clientsonline: any = [];
     filteredItems: any = [];
 
     ngOnInit() {
@@ -30,18 +32,48 @@ export class UserManagementComponent {
 
     getData(sid) {
         this.apiService.post('clientdblist', sid, {'duration': '999'}).subscribe( (response) => {
-            this.data = response; this.assignCopy()
+            this.clients = response; this.assignCopy()
         })
+		this.apiService.get('clientlist', sid).subscribe( response => {
+			this.clientsonline = response 
+		})
     }
 
     assignCopy(){
-            this.filteredItems = Object.assign([], this.data);
+            this.filteredItems = Object.assign([], this.clients);
+			this.checkOnline()
     }
 
-    filterItem(value){
-        if(!value) this.assignCopy(); //when nothing has typed
-        this.filteredItems = Object.assign([], this.data).filter(
-            item => item.client_nickname.toLowerCase().indexOf(value.toLowerCase()) > -1
-        )
+    filterItem(value, col){
+        if(!value) this.assignCopy(); //when nothing has typed 
+        switch(col){
+			case 'nick': {
+				this.filteredItems = Object.assign([], this.clients).filter( 
+				item => item.client_nickname.toLowerCase().indexOf(value.toLowerCase()) > -1)
+			}
+			case 'dbid': {
+				this.filteredItems = Object.assign([], this.clients).filter( 
+				item => item.cldbid.indexOf(value) > -1)
+			}
+			case 'uid': {
+				this.filteredItems = Object.assign([], this.clients).filter( 
+				item => item.client_unique_identifier.indexOf(value) > -1)
+			}
+		} 
     }
+
+	checkOnline(){
+		if (this.runOnce == 0) {
+			console.log('starting')
+			this.clientsonline.forEach(client => {
+				var obj = this.clients.findIndex(function (obj) {
+					return obj.cldbid === client.client_database_id 
+				})
+				if (obj > -1) {
+					this.clients[obj].online = 'true'
+				}
+			})
+			this.runOnce = 1
+		}
+	}
 }
