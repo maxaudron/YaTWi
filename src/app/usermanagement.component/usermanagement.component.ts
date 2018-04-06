@@ -7,13 +7,16 @@ import { debounceTime } from 'rxjs/operator/debounceTime';
 import { ApiService, ServerData } from '../services/api.service';
 import { VirtualServerProperties } from '../services/types'
 import { ServerIdService } from '../services/sid.service';
+import { FilterNamePipe } from '../pipes/filterName.pipe';
+import { FilterUidPipe } from '../pipes/filterUid.pipe'
+import { FilterIdPipe } from '../pipes/filterId.pipe'
 
 export class RegEx {}
 
 @Component({
     selector: 'usermanagement',
     templateUrl: './usermanagement.component.html',
-    styleUrls: ['./usermanagement.component.scss']
+    styleUrls: ['./usermanagement.component.scss'],
 })
 
 export class UserManagementComponent {
@@ -30,6 +33,7 @@ export class UserManagementComponent {
     sorted: any = [];
 	clientsonline: any = [];
     filteredItems: any = [];
+	lastEvent: any = {sortColumn: 'online', sortDirection: 'desc'};
 
 	banModel = new banUserData;
 	kickModel = new kickUserData;
@@ -74,30 +78,13 @@ export class UserManagementComponent {
 	}
 
 	onSorted($event) {
+		this.lastEvent = $event
 		this.sortData($event)
 	}
 
     assignCopy(){
             this.filteredItems = Object.assign([], this.clients);
 			this.checkOnline()
-    }
-
-    filterItem(value, col){
-        if(!value) this.assignCopy(); //when nothing has typed 
-        switch(col){
-			case 'nick': {
-				this.filteredItems = Object.assign([], this.clients).filter( 
-				item => item.client_nickname.toLowerCase().indexOf(value.toLowerCase()) > -1)
-			}
-			case 'dbid': {
-				this.filteredItems = Object.assign([], this.clients).filter( 
-				item => item.cldbid.indexOf(value) > -1)
-			}
-			case 'uid': {
-				this.filteredItems = Object.assign([], this.clients).filter( 
-				item => item.client_unique_identifier.indexOf(value) > -1)
-			}
-		} 
     }
 
 	checkOnline(){

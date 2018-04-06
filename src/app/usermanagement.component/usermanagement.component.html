@@ -3,16 +3,16 @@
 	<div class="row">
 		<ngb-alert *ngIf="alertMessage" type="warning" (close)="alertMessage = null" class="col">{{alertMessage}}</ngb-alert>
 	</div>
-    <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
-	  <div class="col" style="padding: 0px;">
-		<input #myInput style="width: 100%;" placeholder="Filter by Nickname..." [(ngModel)]="name" (input)="filterItem(myInput.value, 'nick')"/>
-	  </div>
-	  <div class="col" style="padding:0px;">
-	    <input #myInput style="width: 100%;" placeholder="Filter by Database ID..." [(ngModel)]="dbid" (input)="filterItem(myInput.value, 'dbid')"/>
-	  </div>
-	  <div class="col" style="padding:0px;">
-	    <input #myInput style="width: 100%;" placeholder="Filter by Unique ID..." [(ngModel)]="uid" (input)="filterItem(myInput.value, 'uid')"/>
-	  </div>
+    <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem"> 
+      <div class="col" style="padding:0;">
+        <input type="text" [(ngModel)]="searchName" class="form-control" placeholder="Search by Nickname" />
+      </div>
+      <div class="col-sm-2" style="padding:0;">
+        <input type="text" [(ngModel)]="searchId" class="form-control" placeholder="Search by ID" />
+      </div>
+      <div class="col" style="padding:0;">
+        <input type="text" [(ngModel)]="searchUid" class="form-control" placeholder="Search by UID" />
+      </div>
     </div>
     <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
       <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-striped" style="margin-bottom: 0rem">
@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let client of filteredItems">
+          <tr *ngFor="let client of filteredItems | filterName: searchName | filterUid: searchUid | filterId: searchId">
 			<td style="padding: 0.5rem 0 0 0.5rem;"><button class="btn btn-outline-primary btn-sm" (click)="btnMenu(clientInfo, client)"><i class="fas fa-bars"></i></button></td>
             <td>{{client.client_nickname}}</td>
 			<td><span *ngIf="client.online == 'true'; else offline" class="text-success">online</span><ng-template #offline><span class="text-danger">offline</span></ng-template></td>

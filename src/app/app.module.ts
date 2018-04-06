@@ -16,6 +16,10 @@ import { ServerEditComponent } from './server_edit.component/serveredit.componen
 import { ServerSwitcherComponent } from './server_switcher.component/server_switcher.component'
 import { UserManagementComponent } from './usermanagement.component/usermanagement.component'
 
+import { FilterNamePipe } from './pipes/filterName.pipe'
+import { FilterUidPipe } from './pipes/filterUid.pipe'
+import { FilterIdPipe } from './pipes/filterId.pipe'
+
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CookieService } from './services/cookie.service';
@@ -41,7 +45,10 @@ import { AppConfig }       from './app.config';
         ServerSwitcherComponent,
         UserManagementComponent,
 		SortableTableDirective, 
-		SortableColumnComponent
+		SortableColumnComponent,
+		FilterNamePipe,
+		FilterUidPipe,
+		FilterIdPipe
 	],
     imports: [
         BrowserModule,
@@ -81,6 +88,6 @@ import { AppConfig }       from './app.config';
         { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true },
 		SortService
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule { }
