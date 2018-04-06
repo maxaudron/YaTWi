@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router }      from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs/Subject';
+import { debounceTime } from 'rxjs/operator/debounceTime';
 import { ApiService, ServerData } from '../services/api.service';
 import { VirtualServerProperties } from '../services/types'
 import { ServerIdService } from '../services/sid.service';
@@ -29,13 +31,24 @@ export class UserManagementComponent {
 	clientsonline: any = [];
     filteredItems: any = [];
 
+	banModel = new banUserData;
+	kickModel = new kickUserData;
+
+	private _alert = new Subject<string>();
+	alertMessage: string;
+	
     ngOnInit() {
         this.subscription = this.serverIdService.ServerId$
             .subscribe(sid => { this.getData(sid); this.sid = sid })
-		
-    }
+
+		this.kickModel.kickId = 4
+
+		this._alert.subscribe((message) => this.alertMessage = message);
+			debounceTime.call(this._alert, 5000).subscribe(() => this.alertMessage = null);
+	} 
 
     getData(sid) {
+		this.runOnce = 0
         this.apiService.post('clientdblist', sid, {'duration': '999'}).subscribe( (response) => {
 			response = response.map(function(o) {
 				o['online'] = 'false'
@@ -48,17 +61,6 @@ export class UserManagementComponent {
 			this.clientsonline = response 
 		})
     }
-	
-	sortDataBack(criteria: ClientCriteria): Client[] {
-        return this.clients.sort((a,b) => {
-          if(criteria.sortDirection === 'desc'){
-            return a[criteria.sortColumn] < b[criteria.sortColumn];
-          }
-          else {
-            return a[criteria.sortColumn] > b[criteria.sortColumn];
-          }
-        });
-    }
 
 	sortData(criteria: ClientCriteria) {
 		this.filteredItems = this.clients.sort((a,b) => {
@@ -69,11 +71,9 @@ export class UserManagementComponent {
             return a[criteria.sortColumn] > b[criteria.sortColumn];
           }
         });
-		console.log(this.filteredItems)
 	}
 
 	onSorted($event) {
-		console.log($event)
 		this.sortData($event)
 	}
 
@@ -109,6 +109,7 @@ export class UserManagementComponent {
 				})
 				if (obj > -1) {
 					this.clients[obj].online = 'true'
+					this.clients[obj].clid = client.clid
 				}
 			})
 			this.runOnce = 1
@@ -117,12 +118,34 @@ export class UserManagementComponent {
 
 	btnMenu(clientInfo, client) {
 		this.modalc = client
-		this.modalService.open(clientInfo).result.then((result) => {
+		this.modalService.open(clientInfo, { centered: true, size: 'lg' }).result.then((result) => {
 			this.closeResult = `Closed with: ${result}`;
 		}, (reason) => {
 			this.closeResult = 'dismissed ${this.getDismissReason(reason)}'
 		})
 	}
+
+	banUser(client) {
+		this.apiService.post('banclient', this.sid, {'clid': client.clid, 'time': this.banModel.banTime, 'banreason': this.banModel.banReason}).subscribe( (response) => {
+			this._alert.next(client.client_nickname + ' has been banned for ' + this.banModel.banTime + ' Seconds');
+        })
+	}
+
+	kickUser(client) {
+		this.apiService.post('clientkick', this.sid, {'clid': client.clid, 'reasonid': this.kickModel.kickId, 'reasonmsg': this.kickModel.kickReason}).subscribe( (response) => {
+			this._alert.next(client.client_nickname + ' has been kicked');
+        })
+	}
+
+	deleteUser(client) {
+		if(confirm('Really delete User ' + client.client_nickname)) {
+			this.apiService.post('clientdbdelete', this.sid, {'cldbid': client.cldbid}).subscribe( (response) => {
+				this.getData(this.sid);
+				this._alert.next(client.client_nickname + ' has been deleted');
+			})
+		}
+	}
+
 
 	private getDismissReason(reason: any): string {
 		if (reason === ModalDismissReasons.ESC) {
@@ -150,4 +173,14 @@ export class Client {
 export class ClientCriteria {
 	sortColumn: string;
 	sortDirection: string;
+}
+
+export class banUserData {
+	banTime: string;
+	banReason: string;
+}
+
+export class kickUserData {
+	kickId: number;
+	kickReason: string;
 }

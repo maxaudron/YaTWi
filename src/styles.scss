@@ -96,4 +96,11 @@ $card-border-width:        0px;
 $card-cap-bg:              theme-color('primary');
 $card-bg:                  $gray-800;
 
+// Form Input
+$input-bg:                              darken($gray-800, 5%);
+$input-disabled-bg:                     $gray-200;
+$input-color:                           $gray-100;
+$input-border-color:                    $gray-400;
+$input-border-width:                    0;
+
 @import "../node_modules/bootstrap/scss/bootstrap";

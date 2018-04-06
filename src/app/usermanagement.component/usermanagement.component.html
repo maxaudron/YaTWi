@@ -1,5 +1,8 @@
 <div class="card">
   <div class="card-block">
+	<div class="row">
+		<ngb-alert *ngIf="alertMessage" type="warning" (close)="alertMessage = null" class="col">{{alertMessage}}</ngb-alert>
+	</div>
     <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
 	  <div class="col" style="padding: 0px;">
 		<input #myInput style="width: 100%;" placeholder="Filter by Nickname..." [(ngModel)]="name" (input)="filterItem(myInput.value, 'nick')"/>
@@ -77,8 +80,44 @@
 				</table>
 				</div>
 			</div>
+			<hr class="bg-light" *ngIf="modalc.online == 'true'">
+			<div class="row" *ngIf="modalc.online == 'true'">
+				<div class="col">
+					<form (ngSubmit)="banUser(client)">
+						<h5 class="text-danger">Ban User</h5>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Ban Duration in Seconds" required name="banTime" [(ngModel)]="banModel.banTime" min="1">
+						</div>
+						<div class="form-group">
+							<input type="string" class="form-control" placeholder="Reason for ban" name="banReason" [(ngModel)]="banModel.banReason">
+						</div>
+						<button type="submit" class="btn btn-outline-danger" (click)="banUser(modalc); c('Close click')">Ban</button>
+					</form>
+				</div>
+				<div class="col">
+					<form (ngSubmit)="kickUser(client)">
+						<h5 class="text-primary">Kick User</h5>
+						<div class="form-group">
+							<div class="btn-group btn-group-toggle" ngbRadioGroup name="kickId" [(ngModel)]="kickModel.kickId">
+								<label ngbButtonLabel class="btn-primary">
+									<input ngbButton type="radio" [value]="4">Kick from Channel
+								</label>
+								<label ngbButtonLabel class="btn-primary">
+									<input ngbButton type="radio" [value]="5">Kick from Server
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="string" class="form-control" placeholder="Reason for kick" name="kickReason" [(ngModel)]="kickModel.banReason"> 
+						</div>
+						<button type="submit" class="btn btn-outline-primary" (click)="kickUser(modalc); c('Close click')">Kick</button>
+					</form>
+				</div>
+
+			</div>
 		</div>
 		<div class="modal-footer bg-primary">
+			<button type="button" class="btn btn-outline-danger" (click)="deleteUser(modalc); c('Close click')">Delete</button>
 			<button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
 		</div>
 	</ng-template>
