@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router }      from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService, ServerData } from '../services/api.service';
 import { VirtualServerProperties } from '../services/types'
 import { ServerIdService } from '../services/sid.service';
@@ -18,10 +19,12 @@ export class UserManagementComponent {
     subscription:Subscription;
     // ServerData: any;
 
-    constructor(public apiService: ApiService, private serverIdService: ServerIdService) {}
+    constructor(public apiService: ApiService, private serverIdService: ServerIdService, private modalService: NgbModal) {}
 
+	closeResult: string;
 	runOnce = 0
     clients: any = [];
+	modalc: any = []
     sorted: any = [];
 	clientsonline: any = [];
     filteredItems: any = [];
@@ -109,6 +112,25 @@ export class UserManagementComponent {
 				}
 			})
 			this.runOnce = 1
+		}
+	}
+
+	btnMenu(clientInfo, client) {
+		this.modalc = client
+		this.modalService.open(clientInfo).result.then((result) => {
+			this.closeResult = `Closed with: ${result}`;
+		}, (reason) => {
+			this.closeResult = 'dismissed ${this.getDismissReason(reason)}'
+		})
+	}
+
+	private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return  `with: ${reason}`;
 		}
 	}
 }

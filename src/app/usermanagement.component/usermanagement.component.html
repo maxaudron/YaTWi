@@ -15,6 +15,7 @@
       <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-striped" style="margin-bottom: 0rem">
         <thead style="background-color: #ff9933; color: #000000">
           <tr>
+			<th></th>
             <th sortable-column="client_nickname">Nickname</th>
             <th sortable-column="online">Status</th>
             <th sortable-column="cldbid">ID</th>
@@ -24,8 +25,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let client of filteredItems">
+			<td style="padding: 0.5rem 0 0 0.5rem;"><button class="btn btn-outline-primary btn-sm" (click)="btnMenu(clientInfo, client)"><i class="fas fa-bars"></i></button></td>
             <td>{{client.client_nickname}}</td>
-			<td><span *ngIf="client.online == 'true'; else offline" style="color: #33ff33">online</span><ng-template #offline><span style="color: #ff3333">offline</span></ng-template></td>
+			<td><span *ngIf="client.online == 'true'; else offline" class="text-success">online</span><ng-template #offline><span class="text-danger">offline</span></ng-template></td>
             <td>{{client.cldbid}}</td>
             <td>{{client.client_created * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
 			<td>{{client.client_lastconnected * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
@@ -33,5 +35,52 @@
         </tbody>
       </table>
     </div>
+	<ng-template #clientInfo let-c="close" let-d="dismiss">
+		<div class="modal-header bg-primary text-dark">
+			<h4 class="modal-title">{{modalc.client_nickname}}</h4>
+			<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+				<i class="fas fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
+		<div class="modal-body bg-dark">
+			<div class="row">
+				<div class="col">
+				<table>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Nickname:</td>
+						<td>{{modalc.client_nickname}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Description:</td>
+						<td>{{modalc.client_description}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Total Connetions:</td>
+						<td>{{modalc.client_totalconnections}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Unique Identifier:</td>
+						<td>{{modalc.client_unique_identifier}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Last IP:</td>
+						<td>{{modalc.client_lastip}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">First Connected:</td>
+						<td>{{modalc.client_created * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Last Connected:</td>
+						<td>{{modalc.client_lastconnected * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
+					</tr>
+				</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer bg-primary">
+			<button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+		</div>
+	</ng-template>
   </div>
 </div>

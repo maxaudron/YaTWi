@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component/app.component';
@@ -48,6 +48,7 @@ import { AppConfig }       from './app.config';
         FormsModule,
         HttpModule,
 		NgxDatatableModule,
+		NgbModule.forRoot(),
         RouterModule.forRoot([
             {
                 path: '',
