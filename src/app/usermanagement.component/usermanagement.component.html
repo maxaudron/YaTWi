@@ -1,20 +1,24 @@
 <div class="card">
   <div class="card-block">
-    <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
-	  <div class="col" style="padding: 0px;">
-		<input #myInput style="width: 100%;" placeholder="Filter by Nickname..." [(ngModel)]="name" (input)="filterItem(myInput.value, 'nick')"/>
-	  </div>
-	  <div class="col" style="padding:0px;">
-	    <input #myInput style="width: 100%;" placeholder="Filter by Database ID..." [(ngModel)]="dbid" (input)="filterItem(myInput.value, 'dbid')"/>
-	  </div>
-	  <div class="col" style="padding:0px;">
-	    <input #myInput style="width: 100%;" placeholder="Filter by Unique ID..." [(ngModel)]="uid" (input)="filterItem(myInput.value, 'uid')"/>
-	  </div>
+	<div class="row">
+		<ngb-alert *ngIf="alertMessage" type="warning" (close)="alertMessage = null" class="col">{{alertMessage}}</ngb-alert>
+	</div>
+    <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem"> 
+      <div class="col" style="padding:0;">
+        <input type="text" [(ngModel)]="searchName" class="form-control" placeholder="Search by Nickname" style="border-style: solid; border-width: 1px; border-color: #ff9933; border-radius: 0;"/>
+      </div>
+      <div class="col-sm-2" style="padding:0;">
+        <input type="text" [(ngModel)]="searchId" class="form-control" placeholder="Search by ID" style="border-style: solid; border-width: 1px; border-color: #ff9933; border-radius: 0;"/>
+      </div>
+      <div class="col" style="padding:0;">
+        <input type="text" [(ngModel)]="searchUid" class="form-control" placeholder="Search by UID" style="border-style: solid; border-width: 1px; border-color: #ff9933; border-radius: 0;"/>
+      </div>
     </div>
     <div class="row" style="margin: 0px; margin-top: 0rem; margin-bottom: 0rem">
       <table sortable-table (sorted)="onSorted($event)" class="table table-hover table-striped" style="margin-bottom: 0rem">
         <thead style="background-color: #ff9933; color: #000000">
           <tr>
+			<th></th>
             <th sortable-column="client_nickname">Nickname</th>
             <th sortable-column="online">Status</th>
             <th sortable-column="cldbid">ID</th>
@@ -23,9 +27,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let client of filteredItems">
+          <tr *ngFor="let client of filteredItems | filterName: searchName | filterUid: searchUid | filterId: searchId">
+			<td style="padding: 0.5rem 0 0 0.5rem;"><button class="btn btn-outline-primary btn-sm" (click)="btnMenu(clientInfo, client)"><i class="fas fa-bars"></i></button></td>
             <td>{{client.client_nickname}}</td>
-			<td><span *ngIf="client.online == 'true'; else offline" style="color: #33ff33">online</span><ng-template #offline><span style="color: #ff3333">offline</span></ng-template></td>
+			<td><span *ngIf="client.online == 'true'; else offline" class="text-success">online</span><ng-template #offline><span class="text-danger">offline</span></ng-template></td>
             <td>{{client.cldbid}}</td>
             <td>{{client.client_created * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
 			<td>{{client.client_lastconnected * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
@@ -33,5 +38,88 @@
         </tbody>
       </table>
     </div>
+	<ng-template #clientInfo let-c="close" let-d="dismiss">
+		<div class="modal-header bg-primary text-dark">
+			<h4 class="modal-title">{{modalc.client_nickname}}</h4>
+			<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+				<i class="fas fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
+		<div class="modal-body bg-dark">
+			<div class="row">
+				<div class="col">
+				<table>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Nickname:</td>
+						<td>{{modalc.client_nickname}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Description:</td>
+						<td>{{modalc.client_description}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Total Connetions:</td>
+						<td>{{modalc.client_totalconnections}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Unique Identifier:</td>
+						<td>{{modalc.client_unique_identifier}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Last IP:</td>
+						<td>{{modalc.client_lastip}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">First Connected:</td>
+						<td>{{modalc.client_created * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
+					</tr>
+					<tr>
+						<td class="text-primary" style="padding-right: 10px;">Last Connected:</td>
+						<td>{{modalc.client_lastconnected * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>
+					</tr>
+				</table>
+				</div>
+			</div>
+			<hr class="bg-light" *ngIf="modalc.online == 'true'">
+			<div class="row" *ngIf="modalc.online == 'true'">
+				<div class="col">
+					<form (ngSubmit)="banUser(client)">
+						<h5 class="text-danger">Ban User</h5>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Ban Duration in Seconds" required name="banTime" [(ngModel)]="banModel.banTime" min="1">
+						</div>
+						<div class="form-group">
+							<input type="string" class="form-control" placeholder="Reason for ban" name="banReason" [(ngModel)]="banModel.banReason">
+						</div>
+						<button type="submit" class="btn btn-outline-danger" (click)="banUser(modalc); c('Close click')">Ban</button>
+					</form>
+				</div>
+				<div class="col">
+					<form (ngSubmit)="kickUser(client)">
+						<h5 class="text-primary">Kick User</h5>
+						<div class="form-group">
+							<div class="btn-group btn-group-toggle" ngbRadioGroup name="kickId" [(ngModel)]="kickModel.kickId">
+								<label ngbButtonLabel class="btn-primary">
+									<input ngbButton type="radio" [value]="4">Kick from Channel
+								</label>
+								<label ngbButtonLabel class="btn-primary">
+									<input ngbButton type="radio" [value]="5">Kick from Server
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="string" class="form-control" placeholder="Reason for kick" name="kickReason" [(ngModel)]="kickModel.banReason"> 
+						</div>
+						<button type="submit" class="btn btn-outline-primary" (click)="kickUser(modalc); c('Close click')">Kick</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer bg-primary">
+			<button type="button" class="btn btn-outline-danger" (click)="deleteUser(modalc); c('Close click')">Delete</button>
+			<button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+		</div>
+	</ng-template>
   </div>
 </div>
