@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component/app.component';
@@ -15,6 +15,10 @@ import { ServerviewComponent } from './serverview.component/serverview.component
 import { ServerEditComponent } from './server_edit.component/serveredit.component';
 import { ServerSwitcherComponent } from './server_switcher.component/server_switcher.component'
 import { UserManagementComponent } from './usermanagement.component/usermanagement.component'
+
+import { FilterNamePipe } from './pipes/filterName.pipe'
+import { FilterUidPipe } from './pipes/filterUid.pipe'
+import { FilterIdPipe } from './pipes/filterId.pipe'
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -41,13 +45,17 @@ import { AppConfig }       from './app.config';
         ServerSwitcherComponent,
         UserManagementComponent,
 		SortableTableDirective, 
-		SortableColumnComponent
+		SortableColumnComponent,
+		FilterNamePipe,
+		FilterUidPipe,
+		FilterIdPipe
 	],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
 		NgxDatatableModule,
+		NgbModule.forRoot(),
         RouterModule.forRoot([
             {
                 path: '',
@@ -80,6 +88,6 @@ import { AppConfig }       from './app.config';
         { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true },
 		SortService
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule { }
