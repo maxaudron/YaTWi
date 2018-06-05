@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/scss/_functions";
+@import "bootstrap/scss/_functions";
 
 // Bootstrap overrides
 //
@@ -103,4 +103,4 @@ $input-color:                           $gray-100;
 $input-border-color:                    $gray-400;
 $input-border-width:                    0;
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";

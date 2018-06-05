@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Router }      from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription ,  Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs/Subject';
-import { debounceTime } from 'rxjs/operator/debounceTime';
+
 import { ApiService, ServerData } from '../services/api.service';
 import { VirtualServerProperties } from '../services/types'
 import { ServerIdService } from '../services/sid.service';
@@ -47,8 +46,8 @@ export class UserManagementComponent {
 
 		this.kickModel.kickId = 4
 
-		this._alert.subscribe((message) => this.alertMessage = message);
-			debounceTime.call(this._alert, 5000).subscribe(() => this.alertMessage = null);
+		//this._alert.subscribe((message) => this.alertMessage = message);
+		//	debounceTime.call(this._alert, 5000).subscribe(() => this.alertMessage = null);
 	} 
 
     getData(sid) {

@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }   from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component/app.component';
 import { MenuBarComponent } from './menubar.component/menubar.component';
@@ -53,8 +52,7 @@ import { AppConfig }       from './app.config';
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
-		NgxDatatableModule,
+        HttpClientModule,
 		NgbModule.forRoot(),
         RouterModule.forRoot([
             {
