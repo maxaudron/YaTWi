@@ -103,4 +103,8 @@ $input-color:                           $gray-100;
 $input-border-color:                    $gray-400;
 $input-border-width:                    0;
 
+$input-group-addon-color:               $primary;
+$input-group-addon-bg:                  darken($gray-800, 5%);
+$input-group-addon-border-color:        $input-border-color;
+
 @import "bootstrap/scss/bootstrap";

@@ -14,6 +14,7 @@ import { ServerviewComponent } from './serverview.component/serverview.component
 import { ServerEditComponent } from './server_edit.component/serveredit.component';
 import { ServerSwitcherComponent } from './server_switcher.component/server_switcher.component'
 import { UserManagementComponent } from './usermanagement.component/usermanagement.component'
+import { ServerManagerComponent } from './servermanager.component/servermanager.component'
 
 import { FilterNamePipe } from './pipes/filterName.pipe'
 import { FilterUidPipe } from './pipes/filterUid.pipe'
@@ -42,6 +43,7 @@ import { AppConfig }       from './app.config';
         ServerviewComponent,
         ServerEditComponent,
         ServerSwitcherComponent,
+		ServerManagerComponent,
         UserManagementComponent,
 		SortableTableDirective, 
 		SortableColumnComponent,
@@ -70,6 +72,11 @@ import { AppConfig }       from './app.config';
                 component: UserManagementComponent,
                 canActivate: [AuthGuard]
             },
+			{
+				path: 'servermanager',
+				component: ServerManagerComponent,
+				canActivate: [AuthGuard]
+			},
             {
                 path: 'login',
                 component: LoginComponent,
