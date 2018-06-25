@@ -4,7 +4,7 @@
     </div>
     <div class="card-block" style="margin: 1rem">
       <div *ngFor="let channel of channels">
-        <div [ngClass]="!regtest(channel.channel_name) ? 'channel': 'spacer'">
+        <div [ngClass]="!regtest(channel.channel_name) ? 'text-orange-500': 'text-orange-200'">
           {{regstrip(channel.channel_name)}}
           <div *ngFor="let client of clients">
             <span *ngIf="client.cid == channel.cid" class="client"> {{client.client_nickname}}</span>

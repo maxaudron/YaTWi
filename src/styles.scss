@@ -1,25 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
-@import "bootstrap/scss/_functions";
-
-// Bootstrap overrides
+// Variables
 //
-// Copy variables from `_variables.scss` to this file to override default values
-// without modifying source files.
-
-// Start with assigning color names to specific hex values.
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+//
+// Color system
+//
 
 // stylelint-disable
-$white:    #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #868e96;
-$gray-700: #495057;
-$gray-800: #333333;
-$gray-900: #212529;
-$black:    #000 !default;
+$white:    #f5f5f5;
+$gray-100: #d2d2d2;
+$gray-200: #b6b6b6;
+$gray-300: #979797;
+$gray-400: #7d7d7d;
+$gray-500: #626262;
+$gray-600: #464646;
+$gray-700: #363636;
+$gray-800: #262626;
+$gray-900: #161616;
+$black:    #000;
 
 $grays: ();
 $grays: map-merge((
@@ -34,14 +32,114 @@ $grays: map-merge((
   "900": $gray-900
 ), $grays);
 
-$blue:    #007bff;
+$red-50: #FAE6E4;
+$red-100: #F2BFBB;
+$red-200: #EA958E;
+$red-300: #E26B61;
+$red-400: #DB4B3F;
+$red-500: #D52B1D;
+$red-600: #BC2218;
+$red-700: #A0140B;
+$red-800: #800D07;
+$red-900: #500502;
+
+$reds: ();
+$reds: map-merge((
+  "50": $red-50,
+  "100": $red-100,
+  "200": $red-200,
+  "300": $red-300,
+  "400": $red-400,
+  "500": $red-500,
+  "600": $red-600,
+  "700": $red-700,
+  "800": $red-800,
+  "900": $red-900
+), $reds);
+
+$orange-50: #fef3e8;
+$orange-100: #FBEADA;
+$orange-200: #F5CDA7;
+$orange-300: #EEA967;
+$orange-400: #EB9A4C;
+$orange-500: #E88A30;
+$orange-600: #DA7818;
+$orange-700: #B9671A;
+$orange-800: #824912;
+$orange-900: #59310C;
+
+$oranges: ();
+$oranges: map-merge((
+  "50": $orange-50,
+  "100": $orange-100,
+  "200": $orange-200,
+  "300": $orange-300,
+  "400": $orange-400,
+  "500": $orange-500,
+  "600": $orange-600,
+  "700": $orange-700,
+  "800": $orange-800,
+  "900": $orange-900
+), $oranges);
+
+$blue-50: #eff5fc;
+$blue-100: #dce9f9;
+$blue-200: #adcaf0;
+$blue-300: #71a3e5;
+$blue-400: #5793e0;
+$blue-500: #3d82db;
+$blue-600: #256ecb;
+$blue-700: #205ead;
+$blue-800: #1a4986;
+$blue-900: #13335d;
+
+$blues: ();
+$blues: map-merge((
+  "50": $blue-50,
+  "100": $blue-100,
+  "200": $blue-200,
+  "300": $blue-300,
+  "400": $blue-400,
+  "500": $blue-500,
+  "600": $blue-600,
+  "700": $blue-700,
+  "800": $blue-800,
+  "900": $blue-900
+), $blues);
+
+$green-50: #e3ffe3;
+$green-100: #c8eec8;
+$green-200: #9ee19c;
+$green-300: #67d066;
+$green-400: #50c94e;
+$green-500: #3cbf3a;
+$green-600: #32a030;
+$green-700: #217d20;
+$green-800: #1b5d1a;
+$green-900: #134112;
+
+$greens: ();
+$greens: map-merge((
+  "50": $green-50,
+  "100": $green-100,
+  "200": $green-200,
+  "300": $green-300,
+  "400": $green-400,
+  "500": $green-500,
+  "600": $green-600,
+  "700": $green-700,
+  "800": $green-800,
+  "900": $green-900
+), $greens);
+
+$blue:    $blue-500;
 $indigo:  #6610f2;
 $purple:  #6f42c1;
 $pink:    #e83e8c;
-$red:     #dc3545;
-$orange:  #ff9933;
+$red:     $red-500;
+$orange:  $orange-500;
 $yellow:  #ffc107;
-$green:   #28a745;
+$green:   $green-500;
 $teal:    #20c997;
 $cyan:    #17a2b8;
 
@@ -63,15 +161,16 @@ $colors: map-merge((
 ), $colors);
 
 $primary:       $orange;
-$secondary:     $gray-600;
+$secondary:     $gray-700;
 $success:       $green;
-$info:          $cyan;
-$warning:       $yellow;
+$info:          $blue;
+$warning:       $orange-400;
 $danger:        $red;
 $light:         $gray-100;
 $dark:          $gray-800;
 
-$theme-colors: (
+$theme-colors: ();
+$theme-colors: map-merge((
   "primary":    $primary,
   "secondary":  $secondary,
   "success":    $success,
@@ -80,31 +179,170 @@ $theme-colors: (
   "danger":     $danger,
   "light":      $light,
   "dark":       $dark
-);
+), $theme-colors);
 
-$body-bg:       darken($gray-800, 5%);
-$body-color:     $gray-100;
+@mixin color-attr-x($arr: $greens, $attr: 'background-color') {
+  @each $name, $hex in $arr {
+    &-#{$name} {
+      #{$attr}: $hex;
+    }
+  }
+}
 
-// Buttons
-$btn-border-radius:              0px;
-$btn-border-radius-lg:           0px;
-$btn-border-radius-sm:           0px;
+.bg-gray {
+	@include color-attr-x($grays, 'background-color');
+}
 
+.bg-white {
+	background-color: $white;
+}
+
+.bg-red {
+	@include color-attr-x($reds, 'background-color');
+}
+
+.bg-orange {
+	@include color-attr-x($oranges, 'background-color');
+}
+
+.bg-blue {
+	@include color-attr-x($blues, 'background-color');
+}
+
+.bg-green {
+	@include color-attr-x($greens, 'background-color');
+}
+
+.text-gray {
+	@include color-attr-x($grays, 'color');
+}
+
+.text-red {
+	@include color-attr-x($reds, 'color');
+}
+
+.text-orange {
+	@include color-attr-x($oranges, 'color');
+}
+
+.text-blue {
+	@include color-attr-x($blues, 'color');
+}
+
+.text-green {
+	@include color-attr-x($greens, 'color');
+}
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+
+
+$enable-caret:              true;
+$enable-rounded:            true;
+$enable-shadows:            false;
+$enable-gradients:          false;
+$enable-transitions:        true;
+$enable-hover-media-query:  false; // Deprecated, no longer affects any compiled CSS
+$enable-grid-classes:       true;
+$enable-print-styles:       true;
+
+//$border-width: 0;
+
+$border-radius:               .1rem;
+$border-radius-lg:            .1rem;
+$border-radius-sm:            .1rem;
+
+// stylelint-enable
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg:                   $gray-900;
+$body-color:                $white;
+
+// stylelint-disable
+
+// stylelint-enable
+// Components
+//
+// Define common padding and border radius sizes and more.
+$border-color:                $gray-600;
+
+$text-muted:                  $gray-400;
+
+$blockquote-small-color:      $gray-400;
+
+$hr-border-color:             rgba($white, .1);
+
+$btn-link-disabled-color:     $gray-400;
+
+// Jumbotron
+
+$jumbotron-padding:                 2rem;
+$jumbotron-bg:                      $gray-800;
+
+// Alerts
+
+$alert-bg-level:                    -2;
+$alert-border-level:                -2;
+$alert-color-level:                 12;
+
+// Forms
+$input-bg:                              $gray-700;
+$input-disabled-bg:                     $gray-800;
+
+$input-color:                           $white;
+$input-group-addon-bg:                  $gray-700;
+
+$input-border-width:                    0px;
+
+$input-placeholder-color:               $gray-400;
+
+$input-group-addon-color:               $orange-500;
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+$dropdown-bg:                       $gray-700;
+$dropdown-link-color:               $white;
+$dropdown-link-hover-color:         darken($dropdown-link-color, 5%);
+$dropdown-link-hover-bg:            $gray-600;
+
+
+// Navs
+$nav-tabs-link-active-color:        $gray-100; 
+$nav-tabs-link-active-bg:           $gray-800;
 
 // Cards
-$card-border-width:        0px;
-$card-cap-bg:              theme-color('primary');
-$card-bg:                  $gray-800;
+$card-cap-bg:                       $primary;
+$card-bg:                           $gray-800;
+$card-border-width:                 0;
 
-// Form Input
-$input-bg:                              darken($gray-800, 5%);
-$input-disabled-bg:                     $gray-200;
-$input-color:                           $gray-100;
-$input-border-color:                    $gray-400;
-$input-border-width:                    0;
+$card-img-overlay-padding:          0;
 
-$input-group-addon-color:               $primary;
-$input-group-addon-bg:                  darken($gray-800, 5%);
-$input-group-addon-border-color:        $input-border-color;
+// Tooltips
+$tooltip-bg:                        $gray-800;
 
-@import "bootstrap/scss/bootstrap";
+// List group
+$list-group-bg:                     $gray-800;
+$list-group-hover-bg:               $gray-700;
+
+$list-group-item-padding-y:         .75rem;
+$list-group-item-padding-x:         1.25rem;
+
+
+$list-group-disabled-color:         $gray-400;
+
+$list-group-action-color:           $white;
+
+$list-group-active-color:           $black;
+$list-group-action-active-color:    $body-color;
+$list-group-action-active-bg:       $gray-200;
+
+
+// Close
+$close-color:                       $white;
+
+@import '../node_modules/bootstrap/scss/bootstrap'
