@@ -45,7 +45,7 @@ import { AppConfig }       from './app.config';
         ServerSwitcherComponent,
 		ServerManagerComponent,
         UserManagementComponent,
-		SortableTableDirective, 
+		SortableTableDirective,
 		SortableColumnComponent,
 		FilterNamePipe,
 		FilterUidPipe,

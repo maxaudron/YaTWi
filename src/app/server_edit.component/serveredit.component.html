@@ -28,6 +28,29 @@
     </div>
     <div class="col-md-6">
       <div class="card">
+        <div class="card-header">Hostbanner</div>
+        <img class="card-img-top" src="{{data.virtualserver_hostbanner_gfx_url}}" width="100%" alt="Card image cap" />
+        <div class="card-block">
+            <div class="form-group">
+              <label for="hostbanner_link">Link:</label>
+              <input type="text" class="form-control" id="hostbanner_link" [(ngModel)]="data.virtualserver_hostbanner_url" name="hostbanner_link" #hostbanner_link="ngModel">
+            </div>
+            <div class="form-group">
+              <label for="hostbanner_source">Source:</label>
+              <input type="text" class="form-control" id="hostbanner_source" [(ngModel)]="data.virtualserver_hostbanner_gfx_url" name="hostbanner_source" #hostbanner_source="ngModel">
+            </div>
+            <div class="form-group">
+              <label for="hostbanner_interval">Refresh Interval:</label>
+              <input type="number" class="form-control" id="hostbanner_interval" [(ngModel)]="data.virtualserver_hostbanner_gfx_interval" name="hostbanner_interval" #hostbanner_interval="ngModel">
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-md-6">
+      <div class="card">
         <div class="card-header">
           Transfer
         </div>
@@ -65,33 +88,10 @@
         </div>
       </div>
     </div>
-  </div>
-
-<div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">Hostbanner</div>
-        <img class="card-img-top" src="{{data.virtualserver_hostbanner_gfx_url}}" width="100%" alt="Card image cap" />
-        <div class="card-block">
-            <div class="form-group">
-              <label for="hostbanner_link">Link:</label>
-              <input type="text" class="form-control" id="hostbanner_link" [(ngModel)]="data.virtualserver_hostbanner_url" name="hostbanner_link" #hostbanner_link="ngModel">
-            </div>
-            <div class="form-group">
-              <label for="hostbanner_source">Source:</label>
-              <input type="text" class="form-control" id="hostbanner_source" [(ngModel)]="data.virtualserver_hostbanner_gfx_url" name="hostbanner_source" #hostbanner_source="ngModel">
-            </div>
-            <div class="form-group">
-              <label for="hostbanner_interval">Refresh Interval:</label>
-              <input type="number" class="form-control" id="hostbanner_interval" [(ngModel)]="data.virtualserver_hostbanner_gfx_interval" name="hostbanner_interval" #hostbanner_interval="ngModel">
-            </div>
-        </div>
-      </div>
-    </div>
 		<div class="col-md-6">
    		<div class="card">
         <div class="card-header">Hostbutton</div>
-        <img class="card-img-top" src="{{data.virtualserver_hostbutton_gfx_url}}" width="100%" alt="Card image cap" />
+        <img class="card-img-top" src="{{data.virtualserver_hostbutton_gfx_url}}" width="100%" alt="No Hostbutton found" />
         <div class="card-block">
             <div class="form-group">
               <label for="hostbutton_link">Link:</label>
