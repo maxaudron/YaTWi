@@ -10,4 +10,5 @@ RUN npm run-script build --prod
 
 # STAGE 1 - NGINX
 FROM registry.gitlab.com/ejectedspace/tiny-webserver:latest
+VOLUME ["/assets"]
 COPY --from=0 /app/dist /
