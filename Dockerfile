@@ -9,5 +9,5 @@ RUN npm rebuild node-sass --force
 RUN npm run-script build --prod
 
 # STAGE 1 - NGINX
-FROM tiny
+FROM registry.gitlab.com/ejectedspace/tiny-webserver:latest
 COPY --from=0 /app/dist /
