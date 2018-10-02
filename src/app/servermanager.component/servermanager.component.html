@@ -6,7 +6,7 @@
 		</div>
 	</div>
 	<div class="card-block">
-		<table sortable-table (sorted)="onSorted($event)" class="table table-hover table-striped" style="margin-bottom: 0rem">
+		<table sortable-table class="table table-hover table-striped" style="margin-bottom: 0rem">
 			<thead class="bg-primary text-gray-900">
 				<tr>
 					<th></th>
@@ -53,7 +53,7 @@
 				<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
 					<i class="fas fa-times" aria-hidden="true"></i>
 				</button>
-			</div>				
+			</div>
 			<form (ngSubmit)="createServer(cserver)">
 			<div class="modal-body bg-dark">
 						<div class="form-group input-group">
@@ -61,7 +61,7 @@
 								<div class="input-group-text">Name</div>
 							</div>
 							<input type="text" class="form-control" placeholder="TeamSpeak Server" required name="name" [(ngModel)]="cserver.virtualserver_name">
-						</div> 
+						</div>
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<div class="input-group-text">Port</div>
@@ -71,7 +71,7 @@
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<div class="input-group-text">Max Clients</div>
-							</div>			
+							</div>
 							<input type="number" class="form-control" placeholder="Reason for ban" name="maxclients" [(ngModel)]="cserver.virtualserver_maxclients" min="1">
 						</div>
 						<div class="form-group input-group">
@@ -79,7 +79,7 @@
 								<div class="input-group-text">Autostart</div>
 							</div>
 							<input type="checkbox" class="form-control" placeholder="TeamSpeak Server" required name="autostart" [(ngModel)]="cserver.virtualserver_autostart">
-						</div> 
+						</div>
 			</div>
 			<div class="modal-footer bg-primary">
 				<button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancel</button>
