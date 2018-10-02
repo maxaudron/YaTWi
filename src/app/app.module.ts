@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }   from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component/app.component';
 import { MenuBarComponent } from './menubar.component/menubar.component';
@@ -15,6 +14,7 @@ import { ServerviewComponent } from './serverview.component/serverview.component
 import { ServerEditComponent } from './server_edit.component/serveredit.component';
 import { ServerSwitcherComponent } from './server_switcher.component/server_switcher.component'
 import { UserManagementComponent } from './usermanagement.component/usermanagement.component'
+import { ServerManagerComponent } from './servermanager.component/servermanager.component'
 
 import { FilterNamePipe } from './pipes/filterName.pipe'
 import { FilterUidPipe } from './pipes/filterUid.pipe'
@@ -43,8 +43,9 @@ import { AppConfig }       from './app.config';
         ServerviewComponent,
         ServerEditComponent,
         ServerSwitcherComponent,
+		ServerManagerComponent,
         UserManagementComponent,
-		SortableTableDirective, 
+		SortableTableDirective,
 		SortableColumnComponent,
 		FilterNamePipe,
 		FilterUidPipe,
@@ -53,8 +54,7 @@ import { AppConfig }       from './app.config';
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
-		NgxDatatableModule,
+        HttpClientModule,
 		NgbModule.forRoot(),
         RouterModule.forRoot([
             {
@@ -72,6 +72,11 @@ import { AppConfig }       from './app.config';
                 component: UserManagementComponent,
                 canActivate: [AuthGuard]
             },
+			{
+				path: 'servermanager',
+				component: ServerManagerComponent,
+				canActivate: [AuthGuard]
+			},
             {
                 path: 'login',
                 component: LoginComponent,

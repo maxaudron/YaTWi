@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router }      from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ApiService, Data } from '../services/api.service';
 import { ServerIdService } from '../services/sid.service';
 

@@ -1,0 +1,92 @@
+<div class="card">
+	<div class="card-header">
+		<div class="row">
+			<h3 class="col">Servers</h3>
+			<button class="btn btn-success col-2" (click)="btnModal(createServerModal)" >Create</button>
+		</div>
+	</div>
+	<div class="card-block">
+		<table sortable-table class="table table-hover table-striped" style="margin-bottom: 0rem">
+			<thead class="bg-primary text-gray-900">
+				<tr>
+					<th></th>
+					<th sortable-column="client_nickname">Name</th>
+					<th sortable-column="online">Status</th>
+					<th sortable-column="cldbid">ID</th>
+					<th sortable-column="client_created">Clients</th>
+					<th sortable-column="client_lastconnected">Port</th>
+					<th>Uptime</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let server of servers">
+					<td style="padding: 0.5rem 0 0 0.5rem;">
+						<button class="btn btn-outline-primary btn-sm" style="margin-right: 0.5rem" (click)="selectServer(server.virtualserver_id)">
+							Use
+						</button>
+						<span *ngIf="server.virtualserver_status == 'online'; else stop">
+							<button class="btn btn-outline-danger btn-sm" (click)="stopServer(server.virtualserver_id)">
+								Stop
+							</button>
+						</span>
+						<ng-template #stop>
+							<button class="btn btn-outline-success btn-sm" (click)="startServer(server.virtualserver_id)">
+								 Start
+							</button>
+						</ng-template>
+					</td>
+					<td>{{server.virtualserver_name}}</td>
+					<td><span *ngIf="server.virtualserver_status == 'online'; else offline" class="text-success">online</span><ng-template #offline><span class="text-danger">offline</span></ng-template></td>
+					<td>{{server.virtualserver_id}}</td>
+					<td>{{server.virtualserver_clientsonline}} / {{server.virtualserver_maxclients}} </td>
+					<td>{{server.virtualserver_port}}</td>
+					<td>{{server.virtualserver_uptime * 1000 | date:'dd:HH:mm' }}</td>
+					<td style="padding: 0.5rem 0 0 0.5rem;"><button class="btn btn-outline-danger btn-sm" (click)="deleteServer(server)"><i class="fas fa-trash"></i></button></td>
+					<!---<td>{{server.client_lastconnected * 1000 | date:'yyyy-MM-dd HH:mm'}}</td>--->
+				</tr>
+			</tbody>
+		</table>
+		<ng-template #createServerModal let-c="close" let-d="dismiss">
+			<div class="modal-header bg-primary text-dark">
+				<h4 class="modal-title">Create Server</h4>
+				<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+					<i class="fas fa-times" aria-hidden="true"></i>
+				</button>
+			</div>
+			<form (ngSubmit)="createServer(cserver)">
+			<div class="modal-body bg-dark">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">Name</div>
+							</div>
+							<input type="text" class="form-control" placeholder="TeamSpeak Server" required name="name" [(ngModel)]="cserver.virtualserver_name">
+						</div>
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">Port</div>
+							</div>
+							<input type="number" class="form-control" placeholder="9987" required name="port" [(ngModel)]="cserver.virtualserver_port" min="1">
+						</div>
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">Max Clients</div>
+							</div>
+							<input type="number" class="form-control" placeholder="Reason for ban" name="maxclients" [(ngModel)]="cserver.virtualserver_maxclients" min="1">
+						</div>
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">Autostart</div>
+							</div>
+							<input type="checkbox" class="form-control" placeholder="TeamSpeak Server" required name="autostart" [(ngModel)]="cserver.virtualserver_autostart">
+						</div>
+			</div>
+			<div class="modal-footer bg-primary">
+				<button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancel</button>
+				<button type="submit" class="btn btn-outline-success">Create</button>
+			</div>
+			</form>
+		</ng-template>
+	</div>
+</div>
+

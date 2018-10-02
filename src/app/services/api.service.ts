@@ -1,5 +1,7 @@
+
+import {throwError as observableThrowError} from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http'
 
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router'
@@ -9,6 +11,11 @@ import { AppConfig } from '../app.config';
 
 export class Data {
 
+}
+
+export class Error {
+	status: number
+	message: string
 }
 
 export interface ServerData {
@@ -40,40 +47,40 @@ export interface ServerData {
     virtualserver_log_filetransfer: number
 }
 
-// Import RxJs required methods
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
 @Injectable()
 export class ApiService {
-    constructor(private http: Http, private config: AppConfig, private auth: AuthService, private router: Router) { }
+    constructor(private http: HttpClient, private config: AppConfig, private auth: AuthService, private router: Router) { }
 
     private apiGet = this.config.getConfig('api_url') + '/api/get/';
     private apiPost = this.config.getConfig('api_url') + '/api/post/';
 
     get(action, sid): Observable<Data[]> {
         var token = JSON.parse(localStorage.getItem('id_token')).token
-        let headers = new Headers({ 'Content-Type': 'application/json', 'sid': sid, 'Authorization': 'Basic ' + btoa(token + ':') }); // ... Set content type to JSON
-        let options = new RequestOptions({ headers: headers }); // Create a request option
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'sid': sid,
+				'Authorization': 'Bearer ' + JSON.stringify(token)
+			})
+		}
 
         return this.http
-        .get(this.apiGet + action, options)
-        .map(this.extractData)
+        .get<Data[]>(this.apiGet + action, httpOptions)
         .catch(error => this.handleError(error));
     }
 
     post(action, sid, data): Observable<Data[]> {
         console.log('posting')
         var token = JSON.parse(localStorage.getItem('id_token')).token
-        let headers = new Headers({ 'Content-Type': 'application/json', 'sid': sid, 'Authorization': 'Basic ' + btoa(token + ':') }); // ... Set content type to JSON
-        let options = new RequestOptions({ headers: headers }); // Create a request option
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json',
+				'sid': sid,
+				'Authorization': 'Bearer ' + JSON.stringify(token)
+			})
+		}
 
         return this.http
-        .post(this.apiPost + action, JSON.stringify(data), options)
-        .map(this.extractData)
+        .post<Data[]>(this.apiPost + action, JSON.stringify(data), httpOptions)
         .catch(error => this.handleError(error))
     }
 
@@ -84,7 +91,7 @@ export class ApiService {
         return body || {};
     }
 
-    private handleError(this, error: Response | any) {
+    private handleError(this, error: Error ) {
         // In a real world app, you might use a remote logging infrastructure
         let errMsg: string;
         if (error.status === 401) {
@@ -92,12 +99,12 @@ export class ApiService {
 			this.router.navigate(['/login'])
 		} else if (error instanceof Response) {
             const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
+            const err = error || JSON.stringify(body);
             errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
         } else {
             errMsg = error.message ? error.message : error.toString();
         }
         //console.error(errMsg);
-        return Observable.throw(errMsg);
+        return observableThrowError(errMsg);
     }
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject }    from 'rxjs/BehaviorSubject';
+import { BehaviorSubject }    from 'rxjs';
 
-import { config } from '../../config';
+import { AppConfig } from '../app.config';
 
 @Injectable()
 export class ServerIdService {
   // Observable string sources
-  private ServerIdSource = new BehaviorSubject<string>(config.ts_sid);
+  constructor(private config: AppConfig) {}
+  private ServerIdSource = new BehaviorSubject<string>(this.config.getConfig('ts_sid'));
 
   // Observable string streams
   ServerId$ = this.ServerIdSource.asObservable();

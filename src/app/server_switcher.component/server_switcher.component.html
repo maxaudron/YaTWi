@@ -2,23 +2,19 @@
   <div *ngFor="let server of servers">
     <div class="row">
       <div class="col">
-        <div class="card" style="margin: 0.3rem">
-          <div class="card-block" style="background-color: #262626; padding: 1rem;">
+        <div class="card bg-secondary" style="margin: 0.3rem">
+          <div class="card-header bg-secondary">
+            {{server.virtualserver_name}}
+          </div>
+          <div class="card-body">
             <p style="margin-bottom: 0.3rem;">
-              <span class="highlight-text">Name: </span>{{server.virtualserver_name}}<br>
-              <span class="highlight-text">Status: </span>{{server.virtualserver_status}}<br>
-              <span class="highlight-text">Users: </span>{{server.virtualserver_clientsonline}} / {{server.virtualserver_maxclients}}<br>
+            <span class="highlight-text">Status: </span>{{server.virtualserver_status}}<br>
+            <span class="highlight-text">Users: </span>{{server.virtualserver_clientsonline}} / {{server.virtualserver_maxclients}}<br>
             </p>
-            <div class="row">
-              <div class="col">
-                <button class="btn btn-primary" (click)="selectServer(server.virtualserver_id)" >Select</button>
-              </div>
-              <div class="col">
-                <button class="btn btn-success" (click)="startServer(server.virtualserver_id)" >Start</button>
-              </div>
-              <div class="col">
-                <button class="btn btn-danger" (click)="stopServer(server.virtualserver_id)" >Stop</button>
-              </div>
+            <div class="row col">
+              <button class="btn btn-outline-primary col" style="margin-right: 5px;" (click)="selectServer(server.virtualserver_id)" >Select</button>
+              <button class="btn btn-outline-success col" style="margin-right: 5px;" (click)="startServer(server.virtualserver_id)" >Start</button>
+              <button class="btn btn-outline-danger col" (click)="stopServer(server.virtualserver_id)" >Stop</button>
             </div>
           </div>
         </div>
