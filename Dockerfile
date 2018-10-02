@@ -9,6 +9,7 @@ RUN npm rebuild node-sass --force
 RUN npm run-script build --prod
 
 # STAGE 1 - NGINX
-FROM registry.gitlab.com/ejectedspace/tiny-webserver:latest
+FROM nginx:latest
+COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY --from=0 /app/dist /usr/share/nginx/html
 VOLUME ["/assets"]
-COPY --from=0 /app/dist /
