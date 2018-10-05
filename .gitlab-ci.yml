@@ -27,7 +27,7 @@ build:
   artifacts:
     paths:
       - dist/
-  only:
+  except:
     - master
     - tags
 
