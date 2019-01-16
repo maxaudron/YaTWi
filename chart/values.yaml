@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: gitlab.example.com/group/project
+  repository: ejectedspace/yatwi
   tag: stable
   pullPolicy: Always
   secrets:
@@ -21,8 +21,8 @@ service:
   url: my.host.com
   additionalHosts:
   path: /
-  externalPort: 5000
-  internalPort: 5000
+  externalPort: 80
+  internalPort: 80
 postgresql:
   enabled: false
 resources:
