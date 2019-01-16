@@ -9,7 +9,6 @@ RUN npm rebuild node-sass --force
 RUN npm run-script build --prod
 
 # STAGE 1 - NGINX
-FROM nginx:1.15.5-alpine
-COPY config/nginx.conf /etc/nginx/nginx.conf
+FROM ejectedspace/saneginx
 COPY --from=0 /app/dist /usr/share/nginx/html
 VOLUME ["/assets"]
