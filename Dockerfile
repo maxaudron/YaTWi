@@ -9,6 +9,6 @@ RUN npm rebuild node-sass --force
 RUN npm run-script build --prod
 
 # STAGE 1 - NGINX
-FROM registry.gitlab.com/ejectedspace/docker/saneginx
+FROM nginx
 COPY --from=0 /app/dist /usr/share/nginx/html
 VOLUME ["/assets"]
